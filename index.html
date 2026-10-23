@@ -1,0 +1,1868 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Asia Khan | Frankincense Atlas · Boswellia sacra</title>
+
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+
+<style>
+  :root{
+    --bg-deep:#08090b; --bg-surface:#111318; --bg-glass:rgba(17,19,24,.78);
+    --gold:#d4af37; --gold-light:#f3e5ab; --gold-glow:#e6c666;
+    --emerald:#2ecc71; --amber:#f39c12; --rose:#e74c3c;
+    --cyan:#3498db; --violet:#9b59b6; --purple:#a855f7; --orange:#e67e22;
+    --text:#e2e8f0; --muted:#8b98ab;
+    --border:rgba(212,175,55,.22); --border-soft:rgba(255,255,255,.07);
+    --font-title:'Cinzel',serif; --font-body:'Plus Jakarta Sans',sans-serif;
+    --radius:16px;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    background:var(--bg-deep);color:var(--text);font-family:var(--font-body);
+    line-height:1.6;overflow-x:hidden;
+    background-image:
+      radial-gradient(circle at 12% 8%,rgba(212,175,55,.07) 0%,transparent 42%),
+      radial-gradient(circle at 88% 92%,rgba(46,204,113,.05) 0%,transparent 42%);
+    background-attachment:fixed;
+  }
+  body.modal-open{overflow:hidden}
+  body::before{
+    content:'';position:fixed;inset:0;pointer-events:none;z-index:0;opacity:.5;
+    background-image:
+      radial-gradient(1px 1px at 20% 30%,rgba(243,229,171,.5),transparent),
+      radial-gradient(1px 1px at 70% 60%,rgba(243,229,171,.3),transparent),
+      radial-gradient(1px 1px at 40% 80%,rgba(243,229,171,.35),transparent),
+      radial-gradient(1px 1px at 85% 20%,rgba(243,229,171,.4),transparent);
+    background-size:600px 600px;animation:drift 90s linear infinite;
+  }
+  @keyframes drift{to{background-position:600px 600px}}
+  .container{max-width:1320px;margin:0 auto;padding:0 24px;position:relative;z-index:1}
+
+  /* HEADER */
+  .proto-header{
+    background:linear-gradient(135deg,rgba(20,22,28,.96),rgba(8,9,11,.99));
+    border-bottom:1px solid var(--border);backdrop-filter:blur(14px);
+    padding:12px 24px;position:sticky;top:0;z-index:1000;
+    display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;
+  }
+  .badge{
+    background:rgba(212,175,55,.14);border:1px solid var(--gold);color:var(--gold);
+    font-family:var(--font-title);font-size:.7rem;letter-spacing:2.4px;
+    padding:4px 10px;border-radius:4px;font-weight:700;
+    animation:badgeGlow 3s ease-in-out infinite;
+  }
+  @keyframes badgeGlow{0%,100%{box-shadow:0 0 0 rgba(212,175,55,0)}50%{box-shadow:0 0 18px rgba(212,175,55,.35)}}
+  .head-left{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+  .head-left strong{font-family:var(--font-title);font-size:1rem;color:#fff}
+  .cred{font-size:.8rem;color:var(--muted);display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+  .cred strong{color:#fff}
+  .link{color:var(--gold);text-decoration:none;transition:color .3s}
+  .link:hover{color:var(--gold-light);text-decoration:underline}
+
+  /* HERO */
+  .hero-pad{padding:48px 0 28px;text-align:center}
+  .hero-pad h1{
+    font-family:var(--font-title);font-size:clamp(2rem,4.6vw,3.2rem);
+    margin-bottom:12px;letter-spacing:1px;line-height:1.15;
+    background:linear-gradient(120deg,#fff 0%,var(--gold) 40%,#fff 60%,var(--gold) 80%,#fff 100%);
+    background-size:220% auto;-webkit-background-clip:text;background-clip:text;
+    -webkit-text-fill-color:transparent;animation:titleShimmer 8s linear infinite;
+  }
+  @keyframes titleShimmer{to{background-position:220% center}}
+  .hero-pad .sub{
+    font-size:1rem;color:var(--muted);max-width:820px;margin:0 auto 28px;
+    font-weight:300;line-height:1.7;
+  }
+
+  /* WORKING TOP OPTIONS */
+  .section-options{
+    display:flex;flex-wrap:wrap;gap:10px;justify-content:center;
+    margin-top:6px;margin-bottom:8px;
+  }
+  .opt-btn{
+    display:flex;flex-direction:column;align-items:center;gap:4px;
+    padding:12px 18px;min-width:110px;
+    background:linear-gradient(135deg,rgba(212,175,55,.08),rgba(0,0,0,.4));
+    border:1px solid var(--border);border-radius:12px;
+    cursor:pointer;font-family:var(--font-body);color:var(--text);
+    transition:all .25s;
+  }
+  .opt-btn:hover,.opt-btn:focus-visible{
+    border-color:var(--gold);transform:translateY(-3px);
+    box-shadow:0 10px 26px rgba(212,175,55,.28);
+    background:linear-gradient(135deg,rgba(212,175,55,.18),rgba(0,0,0,.4));
+    outline:none;
+  }
+  .opt-btn .oe{font-size:1.4rem;filter:drop-shadow(0 0 10px rgba(212,175,55,.4))}
+  .opt-btn .ol{
+    font-family:var(--font-title);font-size:.74rem;color:var(--gold-light);
+    letter-spacing:.04em;font-weight:600;
+  }
+
+  /* FIRST SECTION — MAP */
+  .map-panel{
+    background:var(--bg-glass);border:1px solid var(--border);border-radius:var(--radius);
+    padding:20px;backdrop-filter:blur(12px);
+    box-shadow:0 16px 44px rgba(0,0,0,.55),inset 0 1px 0 rgba(243,229,171,.05);
+    position:relative;overflow:hidden;margin-bottom:32px;
+  }
+  .map-panel::before{
+    content:'';position:absolute;top:0;left:0;right:0;height:1px;
+    background:linear-gradient(90deg,transparent,rgba(212,175,55,.6),transparent);
+  }
+  .map-panel-title{
+    display:flex;align-items:center;justify-content:space-between;gap:10px;
+    margin-bottom:14px;flex-wrap:wrap;
+  }
+  .map-panel-title h2{
+    font-family:var(--font-title);font-size:1.2rem;color:var(--gold-light);
+    display:flex;align-items:center;gap:10px;
+  }
+  .map-panel-title .tag{
+    font-family:var(--font-body);font-size:.62rem;font-weight:700;
+    letter-spacing:.1em;text-transform:uppercase;
+    background:rgba(168,85,247,.14);border:1px solid var(--purple);
+    padding:3px 10px;border-radius:999px;color:#e9d5ff;
+    box-shadow:0 0 12px rgba(168,85,247,.3);
+  }
+
+  /* 3D MAP STYLING */
+  #map{
+    height:560px;border-radius:12px;border:1px solid var(--border);
+    overflow:hidden;position:relative;z-index:0;
+    background:#000;
+  }
+  .leaflet-control-zoom a {
+    background-color: rgba(17,19,24,0.9) !important;
+    color: var(--purple) !important;
+    border: 1px solid var(--border) !important;
+    text-shadow: 0 0 8px rgba(168,85,247,0.5);
+    transition: all .2s;
+  }
+  .leaflet-control-zoom a:hover {
+    background-color: var(--purple) !important;
+    color: #fff !important;
+    border-color: var(--purple) !important;
+  }
+  .leaflet-control-attribution {
+    background: rgba(8,9,11,0.85) !important;
+    color: var(--muted) !important;
+    border-top-left-radius: 6px;
+    backdrop-filter: blur(4px);
+  }
+  .leaflet-control-attribution a { color: var(--purple) !important; }
+
+  .named-star { display: flex; align-items: center; gap: 4px; white-space: nowrap; }
+  .star-svg { width: 20px; height: 20px; filter: drop-shadow(0 0 4px currentColor) drop-shadow(0 0 8px currentColor); }
+  .star-label {
+    font-family: var(--font-body); font-size: .68rem; font-weight: 700;
+    color: #fff; background: rgba(8,9,11,0.85); padding: 2px 6px;
+    border-radius: 4px; border: 1px solid rgba(255,255,255,0.15);
+    backdrop-filter: blur(4px); letter-spacing: 0.02em;
+    text-shadow: 0 1px 2px #000;
+  }
+
+  .map-legend{
+    display:flex;flex-wrap:wrap;gap:12px 20px;margin-top:16px;
+    font-size:.78rem;color:var(--muted);
+  }
+  .map-legend span{
+    display:inline-flex;align-items:center;gap:6px;
+    cursor: pointer; transition: color .2s;
+  }
+  .map-legend span:hover { color: #fff; }
+  .lg-line { display:inline-block; width:24px; height:0; border-top:3px dashed #9b59b6; box-shadow: 0 0 6px #9b59b6; margin-right: 2px;}
+
+  /* MODAL OVERLAY */
+  .modal{
+    position:fixed;inset:0;z-index:2000;
+    background:rgba(4,5,7,.88);backdrop-filter:blur(10px);
+    display:none;overflow-y:auto;padding:30px 16px;
+  }
+  .modal.show{display:block}
+  .modal-card{
+    background:linear-gradient(135deg,#14161b,#0a0b0d);
+    border:1px solid var(--border);border-radius:16px;
+    max-width:1100px;margin:0 auto;
+    box-shadow:0 40px 100px rgba(0,0,0,.9),0 0 0 1px rgba(212,175,55,.15);
+    animation:popIn .35s cubic-bezier(.2,.9,.3,1.2);
+  }
+  @keyframes popIn{from{opacity:0;transform:scale(.96) translateY(20px)}to{opacity:1;transform:none}}
+  .modal-head{
+    padding:20px 26px;border-bottom:1px solid var(--border);
+    display:flex;align-items:center;justify-content:space-between;gap:16px;
+    position:sticky;top:0;
+    background:linear-gradient(135deg,#1a1d24,#0e0f12);z-index:10;
+    border-radius:16px 16px 0 0;
+  }
+  .modal-head-left{display:flex;align-items:center;gap:12px}
+  .modal-head .me{font-size:1.7rem;filter:drop-shadow(0 0 14px var(--pop-color,var(--gold)))}
+  .modal-head h3{
+    font-family:var(--font-title);font-size:1.25rem;color:var(--pop-color,var(--gold-light));
+    margin:0;
+  }
+  .modal-head .kick{
+    font-size:.64rem;letter-spacing:.15em;text-transform:uppercase;
+    color:var(--muted);margin-top:2px;
+  }
+  .modal-close{
+    background:rgba(255,255,255,.06);border:1px solid var(--border-soft);color:var(--text);
+    width:36px;height:36px;border-radius:50%;cursor:pointer;font-size:1rem;
+    transition:all .2s;flex-shrink:0;
+  }
+  .modal-close:hover{background:var(--rose);border-color:var(--rose);color:#fff;transform:rotate(90deg)}
+  .modal-body{padding:26px}
+
+  /* 5W STRIP */
+  .fivew{
+    display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-bottom:24px;
+  }
+  @media(max-width:900px){.fivew{grid-template-columns:repeat(2,1fr)}}
+  .w{
+    background:linear-gradient(135deg,rgba(255,255,255,.03),rgba(0,0,0,.3));
+    border:1px solid var(--border-soft);border-radius:10px;
+    padding:11px 13px;position:relative;overflow:hidden;
+  }
+  .w::before{
+    content:'';position:absolute;top:0;left:0;right:0;height:2px;
+    background:var(--pop-color,var(--gold));opacity:.85;
+  }
+  .wk{
+    font-family:var(--font-title);font-size:.58rem;letter-spacing:.14em;
+    text-transform:uppercase;color:var(--pop-color,var(--gold));margin-bottom:4px;
+  }
+  .wv{font-size:.8rem;color:var(--text);line-height:1.45}
+
+  /* CONTENT BLOCKS */
+  .grid-2{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+  .grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+  @media(max-width:900px){.grid-2,.grid-3{grid-template-columns:1fr}}
+  .info{
+    background:rgba(255,255,255,.02);border:1px solid var(--border-soft);
+    border-radius:12px;padding:18px;position:relative;overflow:hidden;
+    transition:all .3s;
+  }
+  .info::before{
+    content:'';position:absolute;top:0;left:0;width:3px;height:100%;
+    background:linear-gradient(180deg,var(--pop-color,var(--gold)),transparent);opacity:.6;
+  }
+  .info:hover{background:rgba(212,175,55,.05);transform:translateY(-2px)}
+  .info h4{
+    font-family:var(--font-title);color:var(--pop-color,var(--gold-light));
+    margin-bottom:8px;font-size:1rem;
+  }
+  .info p{color:var(--muted);font-size:.88rem;line-height:1.6}
+  .info ul{padding-left:16px;color:var(--muted);font-size:.86rem;margin-top:6px}
+  .info li{margin-bottom:5px}
+  .info strong{color:#fff}
+  .cite{font-size:.68rem;vertical-align:super;color:var(--gold);text-decoration:none;margin-left:2px}
+  .cite:hover{color:var(--gold-light);text-decoration:underline}
+
+  /* 3D */
+  .resin-stage{
+    height:420px;border-radius:12px;
+    background:radial-gradient(circle at center,rgba(30,35,45,.9) 0%,rgba(8,9,11,1) 100%);
+    border:1px solid var(--border);position:relative;overflow:hidden;cursor:grab;
+    width:100%;
+  }
+  .resin-stage:active{cursor:grabbing}
+  .resin-stage canvas{display:block;width:100%!important;height:100%!important}
+  .resin-hint{
+    position:absolute;bottom:12px;left:50%;transform:translateX(-50%);
+    font-size:.68rem;color:var(--gold-light);background:rgba(8,9,11,.78);
+    border:1px solid var(--border);padding:4px 12px;border-radius:999px;
+    pointer-events:none;backdrop-filter:blur(6px);white-space:nowrap;
+  }
+  .grade-row{
+    display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:12px;
+  }
+  @media(max-width:600px){.grade-row{grid-template-columns:repeat(2,1fr)}}
+  .grade-btn{
+    background:rgba(255,255,255,.03);border:1px solid var(--border-soft);
+    border-radius:99px;padding:10px 6px;cursor:pointer;
+    font-family:var(--font-body);font-size:.72rem;font-weight:600;
+    color:var(--text);transition:all .22s;text-align:center;
+    position:relative;overflow:hidden;
+  }
+  .grade-btn::before{
+    content:'';position:absolute;top:0;left:0;right:0;height:2px;
+    background:var(--gc,var(--gold));
+  }
+  .grade-btn:hover,.grade-btn.active{
+    background:color-mix(in srgb,var(--gc,var(--gold)) 14%,transparent);
+    border-color:var(--gc,var(--gold));color:#fff;
+  }
+  .grade-btn .gn{
+    display:block;font-family:var(--font-title);font-size:.85rem;
+    color:var(--gc,var(--gold));margin-bottom:2px;
+  }
+
+  /* TERROIR & MICROCLIMATE STYLING */
+  #terroirMap{
+    height:380px;border-radius:12px;border:1px solid var(--border);
+    overflow:hidden;position:relative;margin-top:10px;background:#05070a;
+  }
+  .terroir-grid{
+    display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin-top:14px;
+  }
+  .climate-card{
+    background:rgba(255,255,255,.02);border:1px solid var(--border-soft);
+    border-radius:10px;padding:14px;position:relative;
+  }
+  .climate-card h5{
+    font-family:var(--font-title);font-size:.82rem;color:var(--gold-light);
+    margin-bottom:6px;display:flex;align-items:center;gap:6px;
+  }
+  .climate-card p{font-size:.78rem;color:var(--muted);line-height:1.45}
+  .zone-pill{
+    display:inline-block;font-size:.65rem;font-weight:700;padding:2px 8px;
+    border-radius:999px;margin-bottom:6px;text-transform:uppercase;letter-spacing:.05em;
+  }
+
+  /* GRADE CARDS */
+  .grade-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:14px;margin-top:14px}
+  .grade-card{
+    background:linear-gradient(135deg,rgba(255,255,255,.03),rgba(0,0,0,.3));
+    border:1px solid var(--border-soft);border-radius:12px;padding:16px;
+    cursor:pointer;transition:all .25s;position:relative;overflow:hidden;
+  }
+  .grade-card::before{
+    content:'';position:absolute;top:0;left:0;right:0;height:3px;
+    background:var(--rc,var(--gold));
+  }
+  .grade-card:hover{border-color:var(--rc,var(--gold));transform:translateY(-3px);box-shadow:0 12px 30px rgba(0,0,0,.5)}
+  .grade-card h4{
+    font-family:var(--font-title);color:#fff;font-size:1rem;margin-bottom:3px;
+    display:flex;align-items:center;justify-content:space-between;gap:8px;
+  }
+  .grade-card .rt{
+    font-family:var(--font-body);font-size:.6rem;font-weight:700;
+    letter-spacing:.08em;text-transform:uppercase;
+    background:color-mix(in srgb,var(--rc,var(--gold)) 18%,transparent);
+    color:var(--rc,var(--gold));padding:2px 8px;border-radius:999px;
+  }
+  .grade-card p{font-size:.78rem;color:var(--muted);line-height:1.45;margin-top:6px}
+  .grade-card .open-hint{font-size:.66rem;color:var(--rc,var(--gold));margin-top:8px;font-weight:600}
+
+  /* CHART */
+  .chart-wrap{position:relative;height:340px}
+
+  /* TIMELINE */
+  .tl-strip{
+    display:flex;gap:10px;overflow-x:auto;padding:10px 4px 16px;
+    scrollbar-width:thin;scrollbar-color:var(--gold) transparent;
+  }
+  .tl-strip::-webkit-scrollbar{height:6px}
+  .tl-strip::-webkit-scrollbar-thumb{background:linear-gradient(90deg,var(--gold),var(--amber));border-radius:3px}
+  .tl-chip{
+    flex:0 0 auto;
+    background:linear-gradient(135deg,color-mix(in srgb,var(--era) 10%,transparent),rgba(255,255,255,.02));
+    border:1px solid color-mix(in srgb,var(--era) 30%,transparent);
+    border-radius:14px;padding:14px 16px;cursor:pointer;transition:all .25s;
+    text-align:left;font-family:inherit;color:inherit;min-width:140px;
+    position:relative;overflow:hidden;
+  }
+  .tl-chip::before{
+    content:'';position:absolute;top:0;left:0;right:0;height:3px;
+    background:var(--era);box-shadow:0 0 12px var(--era);
+  }
+  .tl-chip:hover{
+    border-color:var(--era);transform:translateY(-3px);
+    box-shadow:0 8px 24px color-mix(in srgb,var(--era) 30%,transparent);
+  }
+  .tl-chip.active{
+    border-color:var(--era);
+    background:linear-gradient(135deg,color-mix(in srgb,var(--era) 22%,transparent),rgba(0,0,0,.3));
+    box-shadow:0 0 24px color-mix(in srgb,var(--era) 50%,transparent),inset 0 0 20px color-mix(in srgb,var(--era) 15%,transparent);
+    transform:translateY(-2px) scale(1.03);
+  }
+  .tl-chip .te{font-size:1.5rem;display:block;margin-bottom:4px;filter:drop-shadow(0 0 8px var(--era))}
+  .tl-chip .yr{display:block;font-family:var(--font-title);font-size:.85rem;font-weight:700;color:var(--era);letter-spacing:.04em}
+  .tl-chip .sh{display:block;font-size:.68rem;color:var(--muted);margin-top:2px}
+  .tl-detail{
+    background:linear-gradient(135deg,color-mix(in srgb,var(--era) 6%,rgba(255,255,255,.02)),rgba(0,0,0,.3));
+    border:1px solid color-mix(in srgb,var(--era) 40%,transparent);
+    border-radius:14px;padding:22px;margin-top:8px;animation:fadeUp .35s ease both;
+    box-shadow:0 0 30px color-mix(in srgb,var(--era) 15%,transparent);
+  }
+  @keyframes fadeUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+  .tl-detail .when{
+    font-family:var(--font-title);font-size:1.15rem;margin-bottom:6px;
+    color:var(--era);display:flex;align-items:center;gap:10px;
+  }
+  .tl-detail .when .de{font-size:1.5rem;filter:drop-shadow(0 0 12px var(--era))}
+  .tl-detail .who{font-size:.84rem;color:var(--gold-glow);margin-bottom:14px;font-weight:500}
+  .tl-5w{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:10px;margin-bottom:12px}
+  .tl-5w .w{background:rgba(0,0,0,.35);border-radius:8px;padding:10px 12px;border-left:2px solid var(--era)}
+  .tl-5w .wk{font-family:var(--font-title);font-size:.58rem;letter-spacing:.14em;text-transform:uppercase;color:var(--era);margin-bottom:3px}
+  .tl-5w .wv{font-size:.8rem;color:var(--text);line-height:1.45}
+
+  /* STATS */
+  .stats-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px}
+  .stat{
+    background:linear-gradient(135deg,rgba(212,175,55,.06),rgba(0,0,0,.3));
+    border:1px solid var(--border);border-radius:12px;padding:16px 14px;text-align:center;
+    transition:all .25s;
+  }
+  .stat:hover{transform:translateY(-2px);border-color:var(--gold-glow)}
+  .stat .num{
+    font-family:var(--font-title);font-size:1.7rem;font-weight:700;
+    background:linear-gradient(135deg,#fff,var(--gold));
+    -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;
+    line-height:1;margin-bottom:4px;
+  }
+  .stat .lbl{font-size:.68rem;color:var(--muted);text-transform:uppercase;letter-spacing:.1em}
+  .stat .src{font-size:.62rem;color:rgba(139,152,171,.7);margin-top:5px;font-style:italic}
+
+  /* HEALTH CARDS */
+  .health-grid{
+    display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:16px;
+  }
+  .health-card{
+    background:linear-gradient(135deg,rgba(255,255,255,.03),rgba(0,0,0,.4));
+    border:1px solid var(--border-soft);border-radius:14px;
+    padding:0;overflow:hidden;position:relative;transition:all .3s;
+  }
+  .health-card::before{
+    content:'';position:absolute;top:0;left:0;right:0;height:3px;
+    background:var(--hc,var(--gold));box-shadow:0 0 14px var(--hc,var(--gold));
+  }
+  .health-card:hover{
+    border-color:var(--hc,var(--gold));transform:translateY(-3px);
+    box-shadow:0 14px 36px rgba(0,0,0,.6);
+  }
+  .health-header{
+    padding:18px 20px 14px;display:flex;align-items:center;gap:12px;
+    border-bottom:1px solid var(--border-soft);
+  }
+  .health-icon{
+    flex:0 0 auto;width:48px;height:48px;border-radius:12px;
+    background:color-mix(in srgb,var(--hc,var(--gold)) 15%,transparent);
+    border:1px solid color-mix(in srgb,var(--hc,var(--gold)) 40%,transparent);
+    display:grid;place-items:center;font-size:1.5rem;
+    filter:drop-shadow(0 0 10px color-mix(in srgb,var(--hc,var(--gold)) 40%,transparent));
+  }
+  .health-header h4{
+    font-family:var(--font-title);font-size:1.05rem;
+    color:var(--hc,var(--gold-light));margin:0;line-height:1.3;
+  }
+  .health-header .sub{
+    font-size:.7rem;color:var(--muted);margin-top:2px;letter-spacing:.04em;
+  }
+  .health-body{padding:16px 20px 20px}
+  .health-row{margin-bottom:14px}
+  .health-row:last-child{margin-bottom:0}
+  .health-label{
+    font-family:var(--font-title);font-size:.58rem;letter-spacing:.14em;
+    text-transform:uppercase;margin-bottom:5px;
+    display:flex;align-items:center;gap:6px;
+  }
+  .health-label.trad{color:#d9a44c}
+  .health-label.mod{color:#5ac8e8}
+  .health-row p{
+    font-size:.84rem;color:var(--text);line-height:1.55;
+    padding-left:10px;border-left:2px solid var(--border-soft);
+  }
+  .health-label.trad + p{border-left-color:rgba(217,164,76,.5)}
+  .health-label.mod + p{border-left-color:rgba(90,200,232,.5)}
+  .health-row p strong{color:var(--gold-light)}
+  .health-row p em{color:#a9bacb;font-style:normal;font-weight:500}
+  .health-src{
+    font-size:.68rem;color:rgba(139,152,171,.75);font-style:italic;
+    margin-top:10px;padding-top:10px;border-top:1px dashed var(--border-soft);
+  }
+  .health-src a{color:var(--gold);text-decoration:none}
+  .health-src a:hover{text-decoration:underline}
+
+  .evidence-badge{
+    display:inline-block;font-family:var(--font-body);font-size:.6rem;
+    font-weight:700;letter-spacing:.06em;text-transform:uppercase;
+    padding:2px 8px;border-radius:999px;margin-top:8px;
+  }
+  .evidence-badge.strong{background:rgba(46,204,113,.15);color:#2ecc71;border:1px solid rgba(46,204,113,.4)}
+  .evidence-badge.moderate{background:rgba(243,156,18,.15);color:#f39c12;border:1px solid rgba(243,156,18,.4)}
+  .evidence-badge.emerging{background:rgba(155,89,182,.15);color:#b07ad0;border:1px solid rgba(155,89,182,.4)}
+  .evidence-badge.preliminary{background:rgba(231,76,60,.15);color:#e74c3c;border:1px solid rgba(231,76,60,.4)}
+
+  .caution{
+    background:linear-gradient(135deg,rgba(231,76,60,.08),rgba(0,0,0,.3));
+    border-left:3px solid var(--rose);border-radius:0 10px 10px 0;
+    padding:14px 18px;font-size:.86rem;color:var(--muted);margin-top:20px;
+  }
+  .caution strong{color:var(--rose)}
+
+  /* GALLERY */
+  .gallery{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px}
+  .gal-card{
+    background:rgba(0,0,0,.4);border:1px solid var(--border);border-radius:12px;
+    overflow:hidden;transition:all .3s;
+  }
+  .gal-card:hover{transform:translateY(-4px);box-shadow:0 16px 40px rgba(0,0,0,.6);border-color:var(--gold)}
+  .gal-card .frame{position:relative;aspect-ratio:4/3;background:#0a0a0a;overflow:hidden}
+  .gal-card svg{width:100%;height:100%;display:block;transition:transform .6s}
+  .gal-card:hover svg{transform:scale(1.05)}
+  .gal-card .badge-i{
+    position:absolute;top:10px;left:10px;font-size:.6rem;font-weight:700;
+    letter-spacing:.1em;text-transform:uppercase;background:rgba(8,9,11,.9);
+    border:1px solid var(--border);color:var(--gold-light);padding:3px 9px;
+    border-radius:999px;z-index:2;backdrop-filter:blur(4px);
+  }
+  .gal-card .info-body{padding:12px 14px}
+  .gal-card h5{font-family:var(--font-title);color:var(--gold-light);font-size:.95rem;margin-bottom:4px}
+  .gal-card p{font-size:.8rem;color:var(--muted);line-height:1.5}
+  .gal-card .actions{margin-top:8px;display:flex;flex-wrap:wrap;gap:5px}
+  .gal-card .actions a{
+    font-size:.68rem;font-weight:600;padding:3px 9px;border-radius:999px;
+    background:rgba(212,175,55,.08);border:1px solid var(--border);
+    color:var(--gold);text-decoration:none;transition:all .18s;
+  }
+  .gal-card .actions a:hover{background:var(--gold);color:#0a0a0a;border-color:var(--gold)}
+
+  /* REFS */
+  .refs{padding-left:22px;color:var(--muted);font-size:.86rem}
+  .refs li{margin-bottom:10px;line-height:1.6;padding-left:4px}
+  .refs li::marker{color:var(--gold);font-weight:700}
+
+  /* FOOTER */
+  footer{
+    text-align:center;padding:36px 20px;border-top:1px solid var(--border);
+    color:var(--muted);font-size:.8rem;margin-top:40px;
+    background:linear-gradient(to bottom,transparent,rgba(212,175,55,.03));
+  }
+  footer strong{color:var(--gold-light);font-family:var(--font-title);letter-spacing:.5px}
+  footer .links{margin-top:8px;display:flex;flex-wrap:wrap;gap:14px;justify-content:center}
+
+  @media(max-width:700px){
+    .modal-body{padding:18px}
+    .modal-head{padding:16px 18px}
+    .modal-head h3{font-size:1.05rem}
+    #map{height:400px}
+    .resin-stage{height:320px}
+    #terroirMap{height:300px}
+  }
+</style>
+</head>
+<body>
+
+<header class="proto-header">
+  <div class="head-left">
+    <span class="badge">◈ PROTOTYPE</span>
+    <strong>Frankincense Atlas</strong>
+  </div>
+  <div class="cred">
+    <span>Author: <strong>Asia Khan</strong> · Behavioural UX Researcher &amp; 3D Spatial Architect</span>
+    <span>Hon. BA, McMaster University</span>
+    <span>✉ <a href="mailto:asiaaamirkhan@outlook.com" class="link">asiaaamirkhan@outlook.com</a></span>
+  </div>
+</header>
+
+<div class="container">
+  <section class="hero-pad">
+    <h1>The Sacred Resin: Boswellia Sacra &amp; Spatial Matrix</h1>
+    <p class="sub">An interactive exploration of <em>Boswellia sacra</em> — historical trade routes, scriptural traditions, 3D resin grade analysis, contemporary health research, and botanical chemistry — focused on Salalah &amp; Dhofar, Oman. Every option below opens its own full-window atlas page.</p>
+  </section>
+
+  <div class="section-options" id="sectionOptions">
+    <button class="opt-btn" data-open="resin"><span class="oe">🔶</span><span class="ol">Resin 3D</span></button>
+    <button class="opt-btn" data-open="smell"><span class="oe">👃</span><span class="ol">Smell Index</span></button>
+    <button class="opt-btn" data-open="scriptural"><span class="oe">📖</span><span class="ol">Sacred</span></button>
+    <button class="opt-btn" data-open="etymology"><span class="oe">💎</span><span class="ol">Etymology</span></button>
+    <button class="opt-btn" data-open="timeline"><span class="oe">⏳</span><span class="ol">Timeline</span></button>
+    <button class="opt-btn" data-open="history"><span class="oe">📜</span><span class="ol">History</span></button>
+    <button class="opt-btn" data-open="trade"><span class="oe">🚢</span><span class="ol">Trade Today</span></button>
+    <button class="opt-btn" data-open="uses"><span class="oe">🧪</span><span class="ol">Health</span></button>
+    <button class="opt-btn" data-open="botanical"><span class="oe">🌿</span><span class="ol">Botanical</span></button>
+    <button class="opt-btn" data-open="refs"><span class="oe">📚</span><span class="ol">References</span></button>
+  </div>
+
+  <section class="map-panel">
+    <div class="map-panel-title">
+      <h2><span>🛰️</span> Where Frankincense Grows Today · 3D Aerial Satellite</h2>
+      <span class="tag">Esri World Imagery · Tilted</span>
+    </div>
+    <div id="map"></div>
+    <div class="map-legend">
+      <span data-fly="dhofar"><span style="color:#2ecc71">★</span> Source / harvest</span>
+      <span data-fly="petra"><span style="color:#9b59b6">★</span> Historical caravan</span>
+      <span data-fly="saudi"><span style="color:#3498db">★</span> Modern export</span>
+      <span data-fly="dhofar"><span class="lg-line" style="border-color:#9b59b6; box-shadow:0 0 6px #9b59b6;"></span> Historical Incense Road</span>
+      <span data-fly="dhofar"><span class="lg-line" style="border-top-style:solid; border-color:#3498db; box-shadow:0 0 6px #3498db;"></span> Modern maritime flow</span>
+    </div>
+  </section>
+</div>
+
+<footer>
+  <strong>Frankincense Atlas</strong> · Prototype Sample<br>
+  Asia Khan, Hon. BA (McMaster University) · Behavioural UX Researcher &amp; 3D Spatial Architect
+  <div class="links">
+    <span>✉ <a href="mailto:asiaaamirkhan@outlook.com" class="link">asiaaamirkhan@outlook.com</a></span>
+  </div>
+</footer>
+
+<!-- ══════════════════════════════════════════════
+     MODAL · RESIN 3D
+     ══════════════════════════════════════════════ -->
+<div class="modal" id="m-resin" aria-hidden="true">
+  <div class="modal-card" role="dialog" aria-modal="true">
+    <div class="modal-head" style="--pop-color:#2ecc71">
+      <div class="modal-head-left">
+        <span class="me">🔶</span>
+        <div><h3>3D Resin Grade Viewer &amp; Microclimate Terroir Matrix</h3><div class="kick">Drag to rotate · click a grade or geographical zone</div></div>
+      </div>
+      <button class="modal-close" data-close>✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="fivew">
+        <div class="w"><div class="wk">Who</div><div class="wv">Dhofari harvesters · Salalah traders</div></div>
+        <div class="w"><div class="wk">What</div><div class="wv">Four commercial grades: Hojari, Najdi, Shathari, Shaabi</div></div>
+        <div class="w"><div class="wk">Where</div><div class="wv">Jebel Samhan · Nejd Plateau · NW Dhofar · Escarpment</div></div>
+        <div class="w"><div class="wk">When</div><div class="wv">Codified 20th c. · analysed 2012–2026</div></div>
+        <div class="w"><div class="wk">Why</div><div class="wv">Microclimate, rainfall &amp; elevation drive chemical synthesis</div></div>
+      </div>
+
+      <!-- EXPLANATORY CARD WITH TERROIR DEFINITION -->
+      <div class="info" style="margin-bottom: 20px; --pop-color: #2ecc71;">
+        <h4>🌳 Are there different species of trees?</h4>
+        <p>No. All four resin grades originate from the <strong>exact same species of tree</strong> (<em>Boswellia sacra</em>). The trees are genetically identical across Dhofar. The variation in resin grade is driven entirely by <strong>ecological terroir</strong>: <em>it depends on the specific microclimate, altitude, and rainfall of where that individual tree grows in the Dhofar region, which alters the resin's chemistry, colour, and aroma.</em></p>
+      </div>
+
+      <div class="resin-stage" id="resin-3d">
+        <div class="resin-hint">Drag · Scroll · Click a grade below</div>
+      </div>
+      <div class="grade-row" id="gradeRow">
+        <button class="grade-btn active" data-grade="hojari" style="--gc:#2ecc71"><span class="gn">Hojari</span>Royal Green</button>
+        <button class="grade-btn" data-grade="najdi" style="--gc:#f39c12"><span class="gn">Najdi</span>Amber</button>
+        <button class="grade-btn" data-grade="shathari" style="--gc:#d4af37"><span class="gn">Shathari</span>Golden</button>
+        <button class="grade-btn" data-grade="shaabi" style="--gc:#8b98ab"><span class="gn">Shaabi</span>Dark</button>
+      </div>
+
+      <!-- DHOFAR TERROIR & MICROCLIMATE MAP MAP SECTION -->
+      <div style="margin-top:28px;">
+        <h3 style="font-family:var(--font-title);color:var(--gold-light);font-size:1.1rem;margin-bottom:6px">🗺️ Dhofar Terroir &amp; Microclimate Geographic Map</h3>
+        <p style="font-size:.82rem;color:var(--muted);margin-bottom:12px">Explore the microclimate, elevation contour, and rainfall barriers across the Dhofar region that directly dictate resin grade formation.</p>
+
+        <div id="terroirMap"></div>
+
+        <div class="terroir-grid">
+          <div class="climate-card" style="border-left: 3px solid #2ecc71;">
+            <span class="zone-pill" style="background:rgba(46,204,113,.15);color:#2ecc71;">Hojari Zone</span>
+            <h5>⛰️ Jebel Samhan &amp; High Valleys</h5>
+            <p><strong>Altitude:</strong> 800m – 1,500m<br>
+            <strong>Rainfall:</strong> &lt; 50 mm/yr (Behind fog belt)<br>
+            <strong>Microclimate:</strong> Dry, arid, desert monsoon rain shadow. High diurnal temperature swings.<br>
+            <strong>Terroir Impact:</strong> Stress causes low fluid yield, translucent green hue, high <em>α-pinene</em> concentration.</p>
+          </div>
+
+          <div class="climate-card" style="border-left: 3px solid #f39c12;">
+            <span class="zone-pill" style="background:rgba(243,156,18,.15);color:#f39c12;">Najdi Zone</span>
+            <h5>🏜️ Nejd Desert Plateau</h5>
+            <p><strong>Altitude:</strong> 500m – 900m<br>
+            <strong>Rainfall:</strong> 30 – 80 mm/yr<br>
+            <strong>Microclimate:</strong> Extreme desert heat, zero monsoon fog reach, dry northerly winds.<br>
+            <strong>Terroir Impact:</strong> High heat drives high <em>myrcene</em> monoterpenes; amber-pale yellow colouration.</p>
+          </div>
+
+          <div class="climate-card" style="border-left: 3px solid #d4af37;">
+            <span class="zone-pill" style="background:rgba(212,175,55,.15);color:#d4af37;">Shathari Zone</span>
+            <h5>🌾 North-West Dry Wadis</h5>
+            <p><strong>Altitude:</strong> 300m – 600m<br>
+            <strong>Rainfall:</strong> 50 – 100 mm/yr<br>
+            <strong>Microclimate:</strong> Moderate desert transitional zone, warm limestone gravel plains.<br>
+            <strong>Terroir Impact:</strong> Higher <em>limonene</em> levels yield bright citrus notes and warm golden tears.</p>
+          </div>
+
+          <div class="climate-card" style="border-left: 3px solid #8b98ab;">
+            <span class="zone-pill" style="background:rgba(139,152,171,.15);color:#8b98ab;">Shaabi Zone</span>
+            <h5>🌫️ Coastal Escarpment / Khareef Belt</h5>
+            <p><strong>Altitude:</strong> 50m – 400m<br>
+            <strong>Rainfall:</strong> 150 – 300 mm/yr (Monsoon moisture)<br>
+            <strong>Microclimate:</strong> Dense summer fog (Khareef), high ambient humidity, mild temperature.<br>
+            <strong>Terroir Impact:</strong> High moisture yields high fluid volume, darker amber colour, deeper woody base notes.</p>
+          </div>
+        </div>
+      </div>
+
+      <h3 style="font-family:var(--font-title);color:var(--gold-light);font-size:1.05rem;margin-top:28px;margin-bottom:6px">Click any grade for its full profile</h3>
+      <div class="grade-grid">
+        <div class="grade-card" data-info="hojari" style="--rc:#2ecc71">
+          <h4>Hojari <span class="rt">Grade 1</span></h4>
+          <p>Pale translucent · Samhan mountains · reference grade</p>
+          <div class="open-hint">→ Full profile</div>
+        </div>
+        <div class="grade-card" data-info="najdi" style="--rc:#f39c12">
+          <h4>Najdi <span class="rt">Grade 2</span></h4>
+          <p>Pale yellow · plateau behind Dhofar · high myrcene</p>
+          <div class="open-hint">→ Full profile</div>
+        </div>
+        <div class="grade-card" data-info="shathari" style="--rc:#d4af37">
+          <h4>Shathari <span class="rt">Grade 3</span></h4>
+          <p>Golden yellow · north-west Dhofar · high limonene</p>
+          <div class="open-hint">→ Full profile</div>
+        </div>
+        <div class="grade-card" data-info="shaabi" style="--rc:#8b98ab">
+          <h4>Shaabi <span class="rt">Grade 4</span></h4>
+          <p>Darker amber · everyday / local · deeper woody</p>
+          <div class="open-hint">→ Full profile</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════
+     MODAL · SMELL
+     ══════════════════════════════════════════════ -->
+<div class="modal" id="m-smell" aria-hidden="true">
+  <div class="modal-card" role="dialog" aria-modal="true">
+    <div class="modal-head" style="--pop-color:#e6c666">
+      <div class="modal-head-left">
+        <span class="me">👃</span>
+        <div><h3>Smell Index · Radar Comparison</h3><div class="kick">GC-olfactometry + expert panels</div></div>
+      </div>
+      <button class="modal-close" data-close>✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="fivew">
+        <div class="w"><div class="wk">Who</div><div class="wv">Aroma researchers · Dhofari traders</div></div>
+        <div class="w"><div class="wk">What</div><div class="wv">Six odour dimensions across four grades</div></div>
+        <div class="w"><div class="wk">Where</div><div class="wv">Samhan · Nejd · north-west Dhofar</div></div>
+        <div class="w"><div class="wk">When</div><div class="wv">Analysed 2012–2025</div></div>
+        <div class="w"><div class="wk">Why</div><div class="wv">Chemistry explains aroma; aroma drives grade</div></div>
+      </div>
+      <div class="chart-wrap"><canvas id="smellChart"></canvas></div>
+      <div class="info" style="margin-top:22px">
+        <h4>Comparison Table</h4>
+        <table style="width:100%;border-collapse:collapse;font-size:.82rem;margin-top:10px">
+          <thead>
+            <tr style="text-align:left;color:var(--gold);border-bottom:1px solid var(--border)">
+              <th style="padding:8px 6px">Attribute</th>
+              <th style="padding:8px 6px">Hojari</th>
+              <th style="padding:8px 6px">Najdi</th>
+              <th style="padding:8px 6px">Shathari</th>
+              <th style="padding:8px 6px">Shaabi</th>
+            </tr>
+          </thead>
+          <tbody style="color:var(--muted)">
+            <tr><td style="padding:6px">Resinous / incense</td><td>9</td><td>8</td><td>7</td><td>8</td></tr>
+            <tr><td style="padding:6px">Citrus (lemon/orange)</td><td>6</td><td>8</td><td>8</td><td>4</td></tr>
+            <tr><td style="padding:6px">Minty-turpentine</td><td>7</td><td>5</td><td>4</td><td>3</td></tr>
+            <tr><td style="padding:6px">Woody</td><td>4</td><td>5</td><td>6</td><td>7</td></tr>
+            <tr><td style="padding:6px">Sweet / balsamic</td><td>5</td><td>6</td><td>6</td><td>5</td></tr>
+            <tr><td style="padding:6px">Spicy / herb-like</td><td>3</td><td>4</td><td>4</td><td>4</td></tr>
+          </tbody>
+        </table>
+        <p style="font-size:.76rem;color:var(--muted);font-style:italic;margin-top:10px">Attributes adapted from GC-olfactometry and expert-panel odour profiles. (Al-Harrasi et al., 2019)</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════
+     MODAL · SCRIPTURAL
+     ══════════════════════════════════════════════ -->
+<div class="modal" id="m-scriptural" aria-hidden="true">
+  <div class="modal-card" role="dialog" aria-modal="true">
+    <div class="modal-head" style="--pop-color:#9b59b6">
+      <div class="modal-head-left">
+        <span class="me">📖</span>
+        <div><h3>Scriptural &amp; Prophetic Matrix</h3><div class="kick">Torah · Bible · Islamic tradition</div></div>
+      </div>
+      <button class="modal-close" data-close>✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="fivew">
+        <div class="w"><div class="wk">Who</div><div class="wv">Moses · Solomon &amp; Sheba · the Magi · the Prophet Muhammad ﷺ</div></div>
+        <div class="w"><div class="wk">What</div><div class="wv">Scriptural, liturgical, royal and medicinal use</div></div>
+        <div class="w"><div class="wk">Where</div><div class="wv">Sinai · Jerusalem · Southern Arabia · Bethlehem</div></div>
+        <div class="w"><div class="wk">When</div><div class="wv">c. 1440 BCE → 7th c. CE → present</div></div>
+        <div class="w"><div class="wk">Why</div><div class="wv">Worship, kingship, purification</div></div>
+      </div>
+      <div class="grid-3">
+        <div class="info">
+          <h4>🕎 In the Torah</h4>
+          <p>Hebrew <strong>Levonah</strong>. Exodus 30:34–38: God commands Prophet Musa (Moses) to formulate the sacred <em>Ketoret</em> incense containing pure frankincense, stacte, onycha and galbanum — reserved for the Tabernacle. Also placed on grain offerings (Leviticus 2:1–2). <a href="#" class="cite">[1]</a></p>
+        </div>
+        <div class="info">
+          <h4>✝️ In the New Testament</h4>
+          <p>Matthew 2:11: the Magi bring <strong>gold, frankincense and myrrh</strong> to the infant Prophet ‘Isa (Jesus). Gold for kingship, frankincense for divine priesthood, myrrh for mortality. <a href="#" class="cite">[1]</a></p>
+        </div>
+        <div class="info">
+          <h4>☪️ In Islamic Tradition</h4>
+          <p>Not named in the Quran, but woven through tradition — the Queen of Sheba’s gifts to Prophet Sulaiman, the sanctuary use of Prophet Musa, the Magi’s gifts to Prophet ‘Isa, and Companions’ use of <em>bakhoor</em>. <a href="#" class="cite">[2]</a></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════
+     MODAL · ETYMOLOGY
+     ══════════════════════════════════════════════ -->
+<div class="modal" id="m-etymology" aria-hidden="true">
+  <div class="modal-card" role="dialog" aria-modal="true">
+    <div class="modal-head" style="--pop-color:#f39c12">
+      <div class="modal-head-left">
+        <span class="me">💎</span>
+        <div><h3>Etymology &amp; “Worth More Than Gold”</h3><div class="kick">Naming origins &amp; Roman economics</div></div>
+      </div>
+      <button class="modal-close" data-close>✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="fivew">
+        <div class="w"><div class="wk">Who</div><div class="wv">Old French &amp; Latin speakers · Semitic traders</div></div>
+        <div class="w"><div class="wk">What</div><div class="wv">Name from franc + incens; L-B-N root for “milky white”</div></div>
+        <div class="w"><div class="wk">Where</div><div class="wv">Europe · Arabia · Levant</div></div>
+        <div class="w"><div class="wk">When</div><div class="wv">1st c. BCE → modern English</div></div>
+        <div class="w"><div class="wk">Why</div><div class="wv">Name the rank &amp; colour; price above gold in Rome</div></div>
+      </div>
+      <div class="grid-2">
+        <div class="info">
+          <h4>📝 Origin of the Name</h4>
+          <p><strong>Frankincense</strong> — Old French <em>franc encens</em>, meaning “noble incense” or “pure incense.”</p>
+          <p><strong>Luban (Arabic) / Levonah (Hebrew)</strong> — from the ancient Semitic root <strong>L-B-N</strong>, meaning “milky white,” referring to the fresh milky sap oozing from bark cuts.</p>
+        </div>
+        <div class="info">
+          <h4>💰 Why Worth More Than Gold?</h4>
+          <ul>
+            <li><strong>Regional monopoly</strong> — grown almost exclusively in Dhofar and Southern Arabia.</li>
+            <li><strong>Mandatory sacred demand</strong> — burned daily in Roman, Egyptian, Greek and Jewish temples.</li>
+            <li><strong>62-day caravan tax burden</strong> — transit fees at every kingdom along the Incense Road.</li>
+            <li><strong>Imperial funerals</strong> — Nero burned a year’s harvest for Poppaea.</li>
+          </ul>
+          <p style="margin-top:8px"><em>(Pliny, Natural History 12.30–32; Groom, 1981)</em></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════
+     MODAL · TIMELINE
+     ══════════════════════════════════════════════ -->
+<div class="modal" id="m-timeline" aria-hidden="true">
+  <div class="modal-card" role="dialog" aria-modal="true">
+    <div class="modal-head" style="--pop-color:#27ae60">
+      <div class="modal-head-left">
+        <span class="me">⏳</span>
+        <div><h3>Interactive Chronology</h3><div class="kick">6000 BCE → 2026 · click any era</div></div>
+      </div>
+      <button class="modal-close" data-close>✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="fivew">
+        <div class="w"><div class="wk">Who</div><div class="wv">Nomads · priests · kings · merchants · scientists</div></div>
+        <div class="w"><div class="wk">What</div><div class="wv">Thirteen eras from c. 6000 BCE to 2026</div></div>
+        <div class="w"><div class="wk">Where</div><div class="wv">Dhofar → Mesopotamia → Rome → today’s export hubs</div></div>
+        <div class="w"><div class="wk">When</div><div class="wv">c. 6000 BCE → 2026</div></div>
+        <div class="w"><div class="wk">Why</div><div class="wv">Every era has its own 5W summary below</div></div>
+      </div>
+      <div class="tl-strip" id="tlStrip" role="tablist"></div>
+      <div class="tl-detail" id="tlDetail" aria-live="polite"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════
+     MODAL · HISTORY
+     ══════════════════════════════════════════════ -->
+<div class="modal" id="m-history" aria-hidden="true">
+  <div class="modal-card" role="dialog" aria-modal="true">
+    <div class="modal-head" style="--pop-color:#d4af37">
+      <div class="modal-head-left">
+        <span class="me">📜</span>
+        <div><h3>Historical Trade Route</h3><div class="kick">Dhofar → Petra → Gaza</div></div>
+      </div>
+      <button class="modal-close" data-close>✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="fivew">
+        <div class="w"><div class="wk">Who</div><div class="wv">Nomads · southern Arabic states · Hadramis · Nabataeans</div></div>
+        <div class="w"><div class="wk">What</div><div class="wv">Overland caravan route from Dhofar to the Mediterranean</div></div>
+        <div class="w"><div class="wk">Where</div><div class="wv">Dhofar → Shisr → Shabwa → Marib → Petra → Gaza</div></div>
+        <div class="w"><div class="wk">When</div><div class="wv">c. 6000 BCE – 2nd c. CE</div></div>
+        <div class="w"><div class="wk">Why</div><div class="wv">Frankincense equated with gold; reserved for divine worship</div></div>
+      </div>
+      <div class="grid-2">
+        <div class="info">
+          <h4>👥 Who was involved?</h4>
+          <p>The identity of the earliest traders is not fully known, but distinctive flint types link the trade to Dhofar. Later, the Hadrami state of Shabwa (Khor Rori/Sumhuram), indigenous Dhofari communities, Omani Arabs moving north-east from Yemen, and Parthian Persians all participated.</p>
+          <h4 style="margin-top:12px">📦 What moved?</h4>
+          <p>Frankincense and myrrh moved north; spices, textiles and silk arrived by ship from India and China. The lost city of Ubar, roughly 75 km north of Salalah, was likely a key caravan hub.</p>
+        </div>
+        <div class="info">
+          <h4>⭐ Why it mattered</h4>
+          <p>Frankincense was reserved for divine worship in earliest times and was equated in value with gold. The Egyptian <em>Book of the Dead</em> called it the “sweat of the gods.”</p>
+          <p>By 3200 BCE, with the introduction of writing, trade volume from Dhofar toward southern Mesopotamia increased sharply.</p>
+          <h4 style="margin-top:12px">📍 Where it landed</h4>
+          <p>Caravans reached Shabwa, Marib, Petra and Gaza, with Alexandria as a maritime outlet.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════
+     MODAL · TRADE TODAY
+     ══════════════════════════════════════════════ -->
+<div class="modal" id="m-trade" aria-hidden="true">
+  <div class="modal-card" role="dialog" aria-modal="true">
+    <div class="modal-head" style="--pop-color:#3498db">
+      <div class="modal-head-left">
+        <span class="me">🚢</span>
+        <div><h3>Present-Day Trade Matrix · 2025–2026</h3><div class="kick">RO 471,400 in Oman exports</div></div>
+      </div>
+      <button class="modal-close" data-close>✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="fivew">
+        <div class="w"><div class="wk">Who</div><div class="wv">Omani exporters · Saudi, Somali, UAE importers</div></div>
+        <div class="w"><div class="wk">What</div><div class="wv">RO 471,400 in frankincense exports (2025)</div></div>
+        <div class="w"><div class="wk">Where</div><div class="wv">Oman → Saudi Arabia · Somalia · UAE</div></div>
+        <div class="w"><div class="wk">When</div><div class="wv">2025 – 2026</div></div>
+        <div class="w"><div class="wk">Why</div><div class="wv">Regional perfume, ritual and wellness demand</div></div>
+      </div>
+      <div class="stats-grid">
+        <div class="stat"><div class="num">RO 471.4k</div><div class="lbl">Total Oman exports · 2025</div><div class="src">Oman Observer, 2026</div></div>
+        <div class="stat"><div class="num">RO 150.9k</div><div class="lbl">Saudi Arabia · #1</div><div class="src">Oman Observer, 2026</div></div>
+        <div class="stat"><div class="num">RO 99.2k</div><div class="lbl">Somalia · #2</div><div class="src">Oman Observer, 2026</div></div>
+        <div class="stat"><div class="num">RO 78.6k</div><div class="lbl">UAE · #3</div><div class="src">Oman Observer, 2026</div></div>
+      </div>
+      <div class="info" style="margin-top:18px">
+        <h4>🌍 Global supply realities</h4>
+        <p>Somalia, Ethiopia, and Oman dominate global supply. Somaliland exports lower grades of <em>B. sacra</em> (“beyo”) to Djibouti, Ethiopia and the Middle East, while higher grades (“meydi”, <em>B. frereana</em>) move to Saudi Arabia, the UAE and Yemen. Production remains labour-intensive and is threatened by overharvesting; several <em>Boswellia</em> species have been upgraded to Endangered on the IUCN Red List.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════
+     MODAL · USES & HEALTH
+     ══════════════════════════════════════════════ -->
+<div class="modal" id="m-uses" aria-hidden="true">
+  <div class="modal-card" role="dialog" aria-modal="true">
+    <div class="modal-head" style="--pop-color:#e74c3c">
+      <div class="modal-head-left">
+        <span class="me">🧪</span>
+        <div><h3>Uses &amp; Health Profiles · Traditional → Contemporary</h3><div class="kick">Each tradition paired with modern clinical evidence</div></div>
+      </div>
+      <button class="modal-close" data-close>✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="fivew">
+        <div class="w"><div class="wk">Who</div><div class="wv">Traditional healers · clinical researchers</div></div>
+        <div class="w"><div class="wk">What</div><div class="wv">Boswellic acids (AKBA, KBA) · essential oils</div></div>
+        <div class="w"><div class="wk">Where</div><div class="wv">Oman · Somalia · global laboratories</div></div>
+        <div class="w"><div class="wk">When</div><div class="wv">Antiquity → 2025 trials</div></div>
+        <div class="w"><div class="wk">Why</div><div class="wv">Anti-inflammatory, antimicrobial, cytotoxic potential</div></div>
+      </div>
+
+      <p style="color:var(--muted);font-size:.9rem;margin-bottom:20px;line-height:1.7">
+        Each card below connects <strong style="color:#d9a44c">a traditional use</strong> to <strong style="color:#5ac8e8">a contemporary finding</strong>. Evidence levels range from <em>strong</em> (systematic reviews, RCTs) to <em>preliminary</em> (in-vitro, animal models) — so you can see where tradition is confirmed, extended, or still awaiting clinical validation.
+      </p>
+
+      <div class="health-grid">
+
+        <!-- RESPIRATORY -->
+        <div class="health-card" style="--hc:#2ecc71">
+          <div class="health-header">
+            <div class="health-icon">🫁</div>
+            <div>
+              <h4>Respiratory &amp; Airways</h4>
+              <div class="sub">Asthma · bronchitis · airway inflammation</div>
+            </div>
+          </div>
+          <div class="health-body">
+            <div class="health-row">
+              <div class="health-label trad">🏺 Traditional use</div>
+              <p>Frankincense resin burned or inhaled for <strong>bronchial asthma</strong>, cough, and bronchial congestion. Used in Unani and Ayurvedic practice as a lung tonic.</p>
+            </div>
+            <div class="health-row">
+              <div class="health-label mod">🔬 Contemporary outlook</div>
+              <p>Boswellic acids inhibit <strong>5-lipoxygenase (5-LOX)</strong>, a key enzyme in leukotriene-mediated airway inflammation. Clinical trials of <em>B. serrata</em> extract in asthma show reduced symptom frequency and improved lung function scores; a 2023 systematic review confirms anti-inflammatory benefit across respiratory conditions. <em>B. sacra</em> essential oil shows bronchodilatory and expectorant activity in vitro.</p>
+            </div>
+            <div class="health-src">Sources: Moussaieff &amp; Mechoulam (2009); Al-Harrasi et al. (2019); Safayhi et al. (1992)</div>
+            <span class="evidence-badge moderate">Evidence: Moderate</span>
+          </div>
+        </div>
+
+        <!-- ORAL -->
+        <div class="health-card" style="--hc:#3498db">
+          <div class="health-header">
+            <div class="health-icon">🦷</div>
+            <div>
+              <h4>Oral &amp; Dental Health</h4>
+              <div class="sub">Gingivitis · dental infection · oral hygiene</div>
+            </div>
+          </div>
+          <div class="health-body">
+            <div class="health-row">
+              <div class="health-label trad">🏺 Traditional use</div>
+              <p>Resin chewed or rinsed as a <strong>mouthwash</strong> for gingivitis, dental infections, and oral inflammation. Chewing gum of mastic-like resins has been used across the Arabian Peninsula for centuries.</p>
+            </div>
+            <div class="health-row">
+              <div class="health-label mod">🔬 Contemporary outlook</div>
+              <p>Randomized controlled trials of <em>B. serrata</em> mouthwash show significant reduction in <strong>gingival index and plaque scores</strong> versus placebo, comparable to chlorhexidine in some studies. Essential oil shows <strong>antibacterial activity</strong> against <em>S. mutans</em>, <em>P. gingivalis</em>, and <em>F. nucleatum</em>. Boswellic acids also reduce oral mucosal inflammation via NF-κB inhibition.</p>
+            </div>
+            <div class="health-src">Sources: Al-Harrasi et al. (2019); Moussaieff &amp; Mechoulam (2009)</div>
+            <span class="evidence-badge strong">Evidence: Strong (RCTs)</span>
+          </div>
+        </div>
+
+        <!-- INFLAMMATORY / ARTHRITIS -->
+        <div class="health-card" style="--hc:#f39c12">
+          <div class="health-header">
+            <div class="health-icon">🦴</div>
+            <div>
+              <h4>Inflammatory &amp; Joint Conditions</h4>
+              <div class="sub">Arthritis · IBD · chronic inflammation</div>
+            </div>
+          </div>
+          <div class="health-body">
+            <div class="health-row">
+              <div class="health-label trad">🏺 Traditional use</div>
+              <p>Used for <strong>degenerative and inflammatory arthritis</strong>, rheumatic pain, and inflammatory bowel conditions. Mentioned in classical Unani and Ayurvedic texts for joint stiffness.</p>
+            </div>
+            <div class="health-row">
+              <div class="health-label mod">🔬 Contemporary outlook</div>
+              <p><em>Boswellia serrata</em> extract (<strong>5-Loxin®</strong>, <strong>Aflapin®</strong>) is clinically validated in multiple RCTs for osteoarthritis — significant reduction in <strong>WOMAC pain scores</strong> and <strong>Lequesne functional index</strong> after 90 days. AKBA is the primary active. Trials in <strong>ulcerative colitis</strong> show remission rates of 70–82% versus 40–60% for mesalazine. A 2023 systematic review found <strong>91.8% of studies reported better outcomes</strong>, though four conditions (Crohn’s, burns, cancer fatigue, diabetes) showed no benefit.</p>
+            </div>
+            <div class="health-src">Sources: Moussaieff &amp; Mechoulam (2009); Therapeutic Effects of Boswellia (2025); Al-Harrasi et al. (2019)</div>
+            <span class="evidence-badge strong">Evidence: Strong (RCTs)</span>
+          </div>
+        </div>
+
+        <!-- ONCOLOGY -->
+        <div class="health-card" style="--hc:#9b59b6">
+          <div class="health-header">
+            <div class="health-icon">🎗️</div>
+            <div>
+              <h4>Oncology &amp; Cytotoxic Activity</h4>
+              <div class="sub">Gliomas · carcinomas · bladder · brain tumors</div>
+            </div>
+          </div>
+          <div class="health-body">
+            <div class="health-row">
+              <div class="health-label trad">🏺 Traditional use</div>
+              <p>Incense smoke used in some traditional contexts as a protective and purifying agent; not systematically used as an anticancer remedy but associated with spiritual healing.</p>
+            </div>
+            <div class="health-row">
+              <div class="health-label mod">🔬 Contemporary outlook</div>
+              <p>AKBA induces <strong>apoptosis in glioblastoma, colon, prostate, and bladder cancer cell lines</strong> via caspase activation and NF-κB pathway inhibition. A landmark case report documented a <strong>bladder-cancer patient with 25-month improvement</strong> on oral BSGRH. Clinical trials show good effects against <strong>carcinomas and gliomas</strong>, with ongoing work on <strong>brain tumor</strong> models. Mechanism: boswellic acids inhibit <strong>topoisomerase</strong> and <strong>IκB kinase</strong>, blocking tumor cell proliferation.</p>
+            </div>
+            <div class="health-src">Sources: Moussaieff &amp; Mechoulam (2009); Al-Harrasi et al. (2019)</div>
+            <span class="evidence-badge emerging">Evidence: Emerging (case reports + in-vitro)</span>
+          </div>
+        </div>
+
+        <!-- ANTIMICROBIAL -->
+        <div class="health-card" style="--hc:#e74c3c">
+          <div class="health-header">
+            <div class="health-icon">🧬</div>
+            <div>
+              <h4>Antimicrobial &amp; Antiseptic</h4>
+              <div class="sub">Bacterial · fungal · wound care</div>
+            </div>
+          </div>
+          <div class="health-body">
+            <div class="health-row">
+              <div class="health-label trad">🏺 Traditional use</div>
+              <p>Resin applied to <strong>wounds, cuts, and skin infections</strong>; burned to purify air in sickrooms; used as an <strong>antiseptic gargle</strong>. The Egyptian embalming tradition used frankincense for its preservative properties.</p>
+            </div>
+            <div class="health-row">
+              <div class="health-label mod">🔬 Contemporary outlook</div>
+              <p>Essential oil shows pronounced <strong>antibacterial activity</strong> against <em>Staphylococcus aureus</em>, <em>E. coli</em>, <em>Pseudomonas aeruginosa</em>, and <em>Candida albicans</em>. Synergistic effects with standard antibiotics have been reported. Resin extracts show wound-healing acceleration in animal models via fibroblast stimulation and collagen deposition.</p>
+            </div>
+            <div class="health-src">Sources: Al-Harrasi et al. (2019); Groom (1981)</div>
+            <span class="evidence-badge moderate">Evidence: Moderate (in-vitro + animal)</span>
+          </div>
+        </div>
+
+        <!-- COGNITIVE / MEMORY -->
+        <div class="health-card" style="--hc:#5ac8e8">
+          <div class="health-header">
+            <div class="health-icon">🧠</div>
+            <div>
+              <h4>Cognitive &amp; Memory</h4>
+              <div class="sub">Memory · neuroprotection · anxiety</div>
+            </div>
+          </div>
+          <div class="health-body">
+            <div class="health-row">
+              <div class="health-label trad">🏺 Traditional use</div>
+              <p>Early Companions used frankincense for <strong>memory enhancement</strong> and <strong>mental clarity</strong>. Incense burned in study and prayer contexts to sharpen attention.</p>
+            </div>
+            <div class="health-row">
+              <div class="health-label mod">🔬 Contemporary outlook</div>
+              <p><strong>Incensole acetate</strong>, a diterpenoid unique to frankincense, activates <strong>TRPV3</strong> channels in the brain and shows <strong>anxiolytic and antidepressant-like effects</strong> in animal models. Studies on <em>B. papyrifera</em> extract in human volunteers reported improved <strong>memory consolidation</strong> and reduced anxiety. Neuroprotective effects shown via reduced oxidative stress and microglial activation.</p>
+            </div>
+            <div class="health-src">Sources: Moussaieff &amp; Mechoulam (2009); Ibn al-Qayyim (1998)</div>
+            <span class="evidence-badge preliminary">Evidence: Preliminary (animal + early human)</span>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="caution">
+        <strong>⚠️ Caution — where the evidence stops:</strong> A 2025 systematic review found that despite 91.8% of studies reporting better outcomes overall, <strong>four specific conditions showed no benefit</strong>: Crohn’s disease, burn wounds, cancer-related fatigue, and diabetes mellitus. Frankincense is not a replacement for standard medical care. Always consult a clinician before use, especially during pregnancy or alongside anticoagulants (boswellic acids may enhance bleeding risk).
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════
+     MODAL · BOTANICAL
+     ══════════════════════════════════════════════ -->
+<div class="modal" id="m-botanical" aria-hidden="true">
+  <div class="modal-card" role="dialog" aria-modal="true">
+    <div class="modal-head" style="--pop-color:#27ae60">
+      <div class="modal-head-left">
+        <span class="me">🌿</span>
+        <div><h3>Botanical Plates &amp; Resin Specimens</h3><div class="kick">Vector plates of Boswellia sacra</div></div>
+      </div>
+      <button class="modal-close" data-close>✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="fivew">
+        <div class="w"><div class="wk">Who</div><div class="wv">Miller &amp; Morris · Dhofari harvesters</div></div>
+        <div class="w"><div class="wk">What</div><div class="wv">Tree habit · bark exudate · four grade specimens</div></div>
+        <div class="w"><div class="wk">Where</div><div class="wv">Dhofar plateau and escarpment</div></div>
+        <div class="w"><div class="wk">When</div><div class="wv">Documented 1988 · ongoing observation</div></div>
+        <div class="w"><div class="wk">Why</div><div class="wv">Visual identification underpins grading and conservation</div></div>
+      </div>
+      <div class="gallery">
+        <div class="gal-card">
+          <div class="frame">
+            <span class="badge-i">Plate I · Habit</span>
+            <svg viewBox="0 0 600 500" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <linearGradient id="tSky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f8e6c6"/><stop offset=".55" stop-color="#f0d2a6"/><stop offset="1" stop-color="#e1b98a"/></linearGradient>
+                <radialGradient id="tSun" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="#fff7d4"/><stop offset=".45" stop-color="#ffe9a0" stop-opacity=".75"/><stop offset="1" stop-color="#ffd970" stop-opacity="0"/></radialGradient>
+                <linearGradient id="tTrunk" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#3f2f1f"/><stop offset=".35" stop-color="#7a5c3b"/><stop offset=".55" stop-color="#8d6b44"/><stop offset=".8" stop-color="#5a422a"/><stop offset="1" stop-color="#36281a"/></linearGradient>
+                <linearGradient id="tGround" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#cdae7d"/><stop offset="1" stop-color="#9a7a50"/></linearGradient>
+                <linearGradient id="tLeaf" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#9eae7e"/><stop offset="1" stop-color="#5d6f44"/></linearGradient>
+              </defs>
+              <rect width="600" height="500" fill="url(#tSky)"/>
+              <circle cx="455" cy="150" r="120" fill="url(#tSun)"/>
+              <circle cx="455" cy="150" r="36" fill="#fff6cf"/>
+              <path d="M0 375 Q120 358 260 378 T480 372 T600 380 L600 500 L0 500 Z" fill="url(#tGround)"/>
+              <ellipse cx="110" cy="450" rx="42" ry="12" fill="#6f5b40" opacity=".85"/>
+              <path d="M286 400 C272 360,268 322,276 286 C279 268,282 250,284 232 L316 232 C318 250,322 268,326 286 C336 322,330 360,314 400 Z" fill="url(#tTrunk)"/>
+              <path d="M292 240 C262 210,232 182,205 162" stroke="#6a4f30" stroke-width="15" stroke-linecap="round" fill="none"/>
+              <path d="M308 240 C340 208,372 178,400 158" stroke="#6a4f30" stroke-width="15" stroke-linecap="round" fill="none"/>
+              <path d="M296 226 C288 190,280 160,278 138" stroke="#6a4f30" stroke-width="10" stroke-linecap="round" fill="none"/>
+              <path d="M306 224 C322 190,338 162,352 140" stroke="#6a4f30" stroke-width="10" stroke-linecap="round" fill="none"/>
+              <ellipse cx="190" cy="150" rx="58" ry="34" fill="url(#tLeaf)"/>
+              <ellipse cx="425" cy="150" rx="58" ry="34" fill="url(#tLeaf)"/>
+              <ellipse cx="300" cy="108" rx="78" ry="38" fill="url(#tLeaf)"/>
+              <circle cx="288" cy="298" r="4.5" fill="#e9b95d"/>
+              <circle cx="292" cy="316" r="5.2" fill="#e9b95d"/>
+              <text x="24" y="478" font-family="Helvetica,Arial,sans-serif" font-size="11" fill="#3a2a1a" font-style="italic" opacity=".75">Boswellia sacra · gnarled habit, Dhofar</text>
+            </svg>
+          </div>
+          <div class="info-body">
+            <h5>The Tree</h5>
+            <p>Small, gnarled, multi-stemmed tree 2–5 m tall, from Hasik (Dhofar) to Habban (Yemen).</p>
+            <div class="actions">
+              <a href="https://commons.wikimedia.org/wiki/Category:Boswellia_sacra" target="_blank" rel="noopener">Commons HD</a>
+              <a href="https://www.inaturalist.org/taxa/189825-Boswellia-sacra" target="_blank" rel="noopener">iNaturalist</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="gal-card">
+          <div class="frame">
+            <span class="badge-i">Plate II · Exudate</span>
+            <svg viewBox="0 0 600 500" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <linearGradient id="bBg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#d9c19c"/><stop offset="1" stop-color="#b99a71"/></linearGradient>
+                <linearGradient id="bBark" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#4a3624"/><stop offset=".5" stop-color="#8a6a46"/><stop offset="1" stop-color="#3f2d1c"/></linearGradient>
+                <linearGradient id="bResin" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f7d977"/><stop offset=".5" stop-color="#e6ad4c"/><stop offset="1" stop-color="#b4762a"/></linearGradient>
+                <radialGradient id="bTear" cx=".35" cy=".3" r=".75"><stop offset="0" stop-color="#fff2c0"/><stop offset=".5" stop-color="#f1c265"/><stop offset="1" stop-color="#a76a26"/></radialGradient>
+              </defs>
+              <rect width="600" height="500" fill="url(#bBg)"/>
+              <rect x="60" y="20" width="480" height="460" rx="28" fill="url(#bBark)"/>
+              <g stroke="#2f2114" stroke-width="1.6" fill="none" opacity=".55">
+                <path d="M120 30 C130 140,118 260,132 380"/>
+                <path d="M225 22 C232 140,222 260,236 380"/>
+                <path d="M335 22 C342 130,332 250,346 360"/>
+                <path d="M445 26 C452 130,444 250,456 360"/>
+              </g>
+              <path d="M175 160 Q240 175 305 168" stroke="#3a2716" stroke-width="6" fill="none" stroke-linecap="round"/>
+              <path d="M180 168 C178 210,186 250,194 290 C200 322,198 355,202 380 L214 380 C210 352,210 320,216 290 C224 250,232 214,228 172 Z" fill="url(#bResin)" opacity=".95"/>
+              <path d="M243 172 C242 210,250 250,256 288 C262 320,258 355,262 384 L272 384 C268 352,270 320,278 288 C286 250,292 214,288 176 Z" fill="url(#bResin)" opacity=".9"/>
+              <ellipse cx="208" cy="404" rx="16" ry="22" fill="url(#bTear)"/>
+              <ellipse cx="267" cy="412" rx="20" ry="26" fill="url(#bTear)"/>
+              <text x="24" y="478" font-family="Helvetica,Arial,sans-serif" font-size="11" fill="#3a2a1a" font-style="italic" opacity=".85">Boswellia sacra · bark exudate</text>
+            </svg>
+          </div>
+          <div class="info-body">
+            <h5>Bark Exudate</h5>
+            <p>Shallow incisions release milky sap that hardens into “tears” after 2–3 weeks.</p>
+            <div class="actions">
+              <a href="https://commons.wikimedia.org/w/index.php?search=frankincense+resin" target="_blank" rel="noopener">Commons HD</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="gal-card">
+          <div class="frame">
+            <span class="badge-i">Plate III · Grades</span>
+            <svg viewBox="0 0 600 500" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <linearGradient id="cloth" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#efe3c9"/><stop offset="1" stop-color="#d9c7a4"/></linearGradient>
+                <radialGradient id="gh" cx=".35" cy=".3" r=".8"><stop offset="0" stop-color="#f4faea"/><stop offset=".55" stop-color="#d7e8c6"/><stop offset="1" stop-color="#a9c095"/></radialGradient>
+                <radialGradient id="gn" cx=".35" cy=".3" r=".8"><stop offset="0" stop-color="#fff6cf"/><stop offset=".55" stop-color="#efdf9f"/><stop offset="1" stop-color="#c5b069"/></radialGradient>
+                <radialGradient id="gs" cx=".35" cy=".3" r=".8"><stop offset="0" stop-color="#f6c874"/><stop offset=".55" stop-color="#d49a3e"/><stop offset="1" stop-color="#9c6a20"/></radialGradient>
+                <radialGradient id="gb" cx=".35" cy=".3" r=".8"><stop offset="0" stop-color="#b07a48"/><stop offset=".55" stop-color="#7c4f27"/><stop offset="1" stop-color="#4a2d13"/></radialGradient>
+              </defs>
+              <rect width="600" height="500" fill="url(#cloth)"/>
+              <g transform="translate(150,160)">
+                <ellipse cx="0" cy="80" rx="70" ry="10" fill="#7a6a4a" opacity=".18"/>
+                <path d="M-55 -22 C-62 -55,-30 -68,-8 -55 C8 -75,42 -62,46 -38 C68 -30,62 -3,48 6 C60 24,42 42,16 40 C2 58,-28 54,-38 38 C-62 35,-66 8,-55 -22 Z" fill="url(#gh)" stroke="#8fae7a" stroke-width="1.2"/>
+              </g>
+              <g transform="translate(450,160)">
+                <ellipse cx="0" cy="80" rx="70" ry="10" fill="#7a6a4a" opacity=".18"/>
+                <path d="M-55 -22 C-62 -55,-30 -68,-8 -55 C8 -75,42 -62,46 -38 C68 -30,62 -3,48 6 C60 24,42 42,16 40 C2 58,-28 54,-38 38 C-62 35,-66 8,-55 -22 Z" fill="url(#gn)" stroke="#c9b36c" stroke-width="1.2"/>
+              </g>
+              <g transform="translate(150,340)">
+                <ellipse cx="0" cy="80" rx="70" ry="10" fill="#7a6a4a" opacity=".18"/>
+                <path d="M-55 -22 C-62 -55,-30 -68,-8 -55 C8 -75,42 -62,46 -38 C68 -30,62 -3,48 6 C60 24,42 42,16 40 C2 58,-28 54,-38 38 C-62 35,-66 8,-55 -22 Z" fill="url(#gb)" stroke="#8b5e1c" stroke-width="1.2"/>
+              </g>
+              <g transform="translate(450,340)">
+                <ellipse cx="0" cy="80" rx="70" ry="10" fill="#7a6a4a" opacity=".18"/>
+                <path d="M-55 -22 C-62 -55,-30 -68,-8 -55 C8 -75,42 -62,46 -38 C68 -30,62 -3,48 6 C60 24,42 42,16 40 C2 58,-28 54,-38 38 C-62 35,-66 8,-55 -22 Z" fill="url(#gb)" stroke="#2f1b0c" stroke-width="1.2"/>
+              </g>
+              <g font-family="Helvetica,Arial,sans-serif" fill="#2a1e12" text-anchor="middle" font-size="14" font-weight="700">
+                <text x="150" y="262">Hojari</text>
+                <text x="450" y="262">Najdi</text>
+                <text x="150" y="442">Shathari</text>
+                <text x="450" y="442">Shaabi</text>
+              </g>
+            </svg>
+          </div>
+          <div class="info-body">
+            <h5>Four Commercial Grades</h5>
+            <p>Hojari · Najdi · Shathari · Shaabi. Colour, clump size, texture drive price.</p>
+            <div class="actions">
+              <a href="https://commons.wikimedia.org/w/index.php?search=frankincense+Oman+grades" target="_blank" rel="noopener">Commons HD</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════
+     MODAL · REFERENCES
+     ══════════════════════════════════════════════ -->
+<div class="modal" id="m-refs" aria-hidden="true">
+  <div class="modal-card" role="dialog" aria-modal="true">
+    <div class="modal-head" style="--pop-color:#8b98ab">
+      <div class="modal-head-left">
+        <span class="me">📚</span>
+        <div><h3>APA 7th Sources</h3><div class="kick">Every claim sourced</div></div>
+      </div>
+      <button class="modal-close" data-close>✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="fivew">
+        <div class="w"><div class="wk">Who</div><div class="wv">Primary texts · peer-reviewed papers · UNESCO</div></div>
+        <div class="w"><div class="wk">What</div><div class="wv">7 references across all sections</div></div>
+        <div class="w"><div class="wk">Where</div><div class="wv">Global academic · heritage institutions</div></div>
+        <div class="w"><div class="wk">When</div><div class="wv">1981 – 2026</div></div>
+        <div class="w"><div class="wk">Why</div><div class="wv">Verify every factual claim on the atlas</div></div>
+      </div>
+      <ol class="refs">
+        <li id="ref-1"><em>The Holy Bible</em> (New International Version). (2011). Zondervan. (Exodus 30:34–38; Leviticus 2:1–2; 1 Kings 10:1–10; Matthew 2:11.)</li>
+        <li id="ref-2">Ibn al-Qayyim al-Jawziyya. (1998). <em>Healing with the Medicine of the Prophet (Tibb al-Nabawi)</em> (A. A. al-Razi, Trans.). Dar al-Ghad al-Arabi.</li>
+        <li id="ref-3">Groom, N. (1981). <em>Frankincense and Myrrh: A Study of the Arabian Incense Trade</em>. Longman.</li>
+        <li id="ref-4">Al-Harrasi, A., Al-Rawahi, A., &amp; Khan, A. L. (2019). <em>Biology of Genus Boswellia</em>. Springer Nature.</li>
+        <li id="ref-5">UNESCO World Heritage Centre. (2000). <em>Land of Frankincense (Wadi Dawkah, Shisr, Khor Rori, Al-Baleed)</em>. UNESCO Cultural Heritage List No. 1010.</li>
+        <li id="ref-6">Moussaieff, A., &amp; Mechoulam, R. (2009). Boswellia resin: From religious ceremonies to medical uses; a review of in-vitro and in-vivo studies. <em>Journal of Pharmacy and Pharmacology, 61</em>(10), 1281–1293.</li>
+        <li id="ref-7">Oman Observer. (2026, April 27). <em>Oman’s frankincense exports reach RO 471,400 in 2025</em>. https://www.omanobserver.om/article/1188620/</li>
+      </ol>
+    </div>
+  </div>
+</div>
+
+<!-- GRADE INFO (secondary popup) -->
+<div class="modal" id="m-grade-info" aria-hidden="true" style="z-index:2100">
+  <div class="modal-card" role="dialog" aria-modal="true" style="max-width:680px">
+    <div class="modal-head" id="gradeInfoHead">
+      <div class="modal-head-left">
+        <span class="me" id="gradeInfoEmoji">🔶</span>
+        <div><h3 id="gradeInfoTitle">Grade</h3><div class="kick">Full profile</div></div>
+      </div>
+      <button class="modal-close" data-close>✕</button>
+    </div>
+    <div class="modal-body" id="gradeInfoBody"></div>
+  </div>
+</div>
+
+<script>
+/* ============================================================
+   1 · AERIAL MAP (Esri World Imagery — 3D Tilted)
+   ============================================================ */
+let map;
+let mapMarkers = {};
+
+(function initMap(){
+  const el = document.getElementById('map');
+  if(!el) return;
+
+  map = L.map(el, { 
+    scrollWheelZoom: true, 
+    zoomControl: true,
+    pitch: 45,
+    maxPitch: 85
+  }).setView([20, 48], 4);
+
+  L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
+    attribution:'Tiles &copy; Esri — Source: Esri, Maxar, Earthstar Geographics',
+    maxZoom:18
+  }).addTo(map);
+
+  function getStarSVG(color) {
+    return `<svg class="star-svg" style="color:${color}" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+      <path d="M12 2 L14.6 9.2 L22 9.2 L16 13.7 L18.2 21 L12 16.8 L5.8 21 L8 13.7 L2 9.2 L9.4 9.2 Z" fill="${color}" stroke="#fff" stroke-width="1.5"/>
+    </svg>`;
+  }
+
+  function makeMarkerHTML(color, label) {
+    return `<div class="named-star">
+      ${getStarSVG(color)}
+      <span class="star-label">${label}</span>
+    </div>`;
+  }
+
+  function namedIcon(color, label) {
+    return L.divIcon({
+      className: '',
+      html: makeMarkerHTML(color, label),
+      iconSize: [20, 20],
+      iconAnchor: [10, 10],
+      popupAnchor: [0, -10]
+    });
+  }
+
+  mapMarkers.salalah = L.marker([17.015,54.092],{icon:namedIcon('#2ecc71', 'Salalah · Dhofar')}).addTo(map).bindPopup('<b>⭐ Salalah · Dhofar (Oman)</b><br>Primary habitat · Royal Hojari.');
+  mapMarkers.wadiDawkah = L.marker([17.50,54.00],{icon:namedIcon('#2ecc71', 'Wadi Dawkah')}).addTo(map).bindPopup('<b>⭐ Wadi Dawkah / Nejd</b><br>Core frankincense park.');
+  mapMarkers.khorRori = L.marker([17.03,54.43],{icon:namedIcon('#2ecc71', 'Khor Rori')}).addTo(map).bindPopup('<b>⭐ Khor Rori (Sumhuram)</b><br>Ancient port.');
+  mapMarkers.hasik = L.marker([17.75,55.25],{icon:namedIcon('#2ecc71', 'Hasik')}).addTo(map).bindPopup('<b>⭐ Hasik</b><br>Citrusy aroma.');
+  mapMarkers.yemen = L.marker([14.5,47.5],{icon:namedIcon('#2ecc71', 'Hadramaut')}).addTo(map).bindPopup('<b>⭐ Hadramaut / Mahra</b><br>Yemen range.');
+  mapMarkers.somalia = L.marker([10.4,45.0],{icon:namedIcon('#2ecc71', 'Somalia')}).addTo(map).bindPopup('<b>⭐ Northern Somalia</b><br>Major source.');
+
+  mapMarkers.shisr = L.marker([18.25,53.65],{icon:namedIcon('#9b59b6', 'Shisr (Ubar)')}).addTo(map).bindPopup('<b>🌟 Shisr (Ubar)</b><br>Legendary caravan city.');
+  mapMarkers.shabwa = L.marker([14.53,46.83],{icon:namedIcon('#9b59b6', 'Shabwa')}).addTo(map).bindPopup('<b>🌟 Shabwa</b><br>Hadrami state capital.');
+  mapMarkers.marib = L.marker([15.46,45.33],{icon:namedIcon('#9b59b6', 'Marib')}).addTo(map).bindPopup('<b>🌟 Marib</b><br>Caravan node to Petra.');
+  mapMarkers.petra = L.marker([30.33,35.44],{icon:namedIcon('#9b59b6', 'Petra')}).addTo(map).bindPopup('<b>🌟 Petra</b><br>Nabataean terminus.');
+  mapMarkers.gaza = L.marker([31.50,34.47],{icon:namedIcon('#9b59b6', 'Gaza')}).addTo(map).bindPopup('<b>🌟 Gaza</b><br>Mediterranean outlet.');
+  mapMarkers.rome = L.marker([41.90,12.50],{icon:namedIcon('#9b59b6', 'Rome')}).addTo(map).bindPopup('<b>🌟 Rome</b><br>Major historical consumer.');
+
+  mapMarkers.saudi = L.marker([24.71,46.68],{icon:namedIcon('#3498db', 'Saudi Arabia')}).addTo(map).bindPopup('<b>🔷 Saudi Arabia</b><br>RO 150.9k in 2025.');
+  mapMarkers.uae = L.marker([24.45,54.38],{icon:namedIcon('#3498db', 'UAE')}).addTo(map).bindPopup('<b>🔷 UAE</b><br>RO 78.6k in 2025.');
+  
+  L.polyline([[17.03,54.43],[18.25,53.65],[15.46,45.33],[14.53,46.83],[30.33,35.44],[31.50,34.47]],
+    {color:'#9b59b6',weight:3,dashArray:'10 8',opacity:.9}).addTo(map).bindPopup('Historical Incense Road (Purple).');
+  
+  L.polyline([[17.015,54.092],[12.8,45.0],[28.0,34.0],[31.2,32.3],[41.90,12.50]],
+    {color:'#3498db',weight:2.5,opacity:.8}).addTo(map).bindPopup('Modern maritime export.');
+
+  document.querySelectorAll('.map-legend span[data-fly]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const target = btn.dataset.fly;
+      if (target === 'dhofar') {
+        map.flyTo([17.015,54.092], 8, { duration: 2 });
+        mapMarkers.salalah.openPopup();
+      } else if (target === 'petra') {
+        map.flyTo([30.33,35.44], 7, { duration: 2 });
+        mapMarkers.petra.openPopup();
+      } else if (target === 'saudi') {
+        map.flyTo([24.71,46.68], 6, { duration: 2 });
+        mapMarkers.saudi.openPopup();
+      }
+    });
+  });
+
+  setTimeout(() => map.invalidateSize(), 250);
+})();
+
+/* ============================================================
+   1.1 · DHOFAR TERROIR & MICROCLIMATE MAP
+   ============================================================ */
+let terroirMap = null;
+function initTerroirMap() {
+  if (terroirMap) {
+    terroirMap.invalidateSize();
+    return;
+  }
+  const el = document.getElementById('terroirMap');
+  if(!el) return;
+
+  terroirMap = L.map(el, {
+    scrollWheelZoom: false,
+    zoomControl: true
+  }).setView([17.3, 54.1], 8);
+
+  L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}', {
+    attribution: 'Esri, USGS, NOAA'
+  }).addTo(terroirMap);
+
+  function zoneIcon(color, label) {
+    return L.divIcon({
+      className: '',
+      html: `<div style="background:${color};color:#000;font-weight:700;font-size:10px;padding:3px 8px;border-radius:12px;border:1px solid #fff;box-shadow:0 0 8px ${color}">${label}</div>`,
+      iconSize: [80, 20]
+    });
+  }
+
+  // Zone 1: Hojari (Jebel Samhan & High Inland Ridges)
+  L.circle([17.18, 54.65], { color: '#2ecc71', fillColor: '#2ecc71', fillOpacity: 0.35, radius: 22000 }).addTo(terroirMap)
+    .bindPopup('<b>🟢 Hojari Terroir Zone</b><br>Jebel Samhan (800m-1500m)<br>Arid fog shadow, extreme stress.<br>High α-pinene → Royal Green.');
+
+  // Zone 2: Najdi (Nejd Plateau)
+  L.circle([17.55, 54.05], { color: '#f39c12', fillColor: '#f39c12', fillOpacity: 0.35, radius: 25000 }).addTo(terroirMap)
+    .bindPopup('<b>🟠 Najdi Terroir Zone</b><br>Nejd Desert Plateau (500m-900m)<br>Extreme desert heat & low humidity.<br>High myrcene → Amber/pale yellow.');
+
+  // Zone 3: Shathari (North-West Dry Valleys)
+  L.circle([17.40, 53.40], { color: '#d4af37', fillColor: '#d4af37', fillOpacity: 0.35, radius: 24000 }).addTo(terroirMap)
+    .bindPopup('<b>🟡 Shathari Terroir Zone</b><br>NW Dry Wadis (300m-600m)<br>Transitional limestone gravel.<br>High limonene → Golden yellow.');
+
+  // Zone 4: Shaabi (Monsoon Fog Belt Escarpment)
+  L.circle([17.02, 54.10], { color: '#8b98ab', fillColor: '#8b98ab', fillOpacity: 0.35, radius: 20000 }).addTo(terroirMap)
+    .bindPopup('<b>⚫ Shaabi Terroir Zone</b><br>Coastal Fog Belt (50m-400m)<br>Heavy monsoon fog (Khareef), high moisture.<br>Large yield → Darker amber.');
+
+  L.marker([17.18, 54.65], { icon: zoneIcon('#2ecc71', 'Hojari Zone') }).addTo(terroirMap);
+  L.marker([17.55, 54.05], { icon: zoneIcon('#f39c12', 'Najdi Zone') }).addTo(terroirMap);
+  L.marker([17.40, 53.40], { icon: zoneIcon('#d4af37', 'Shathari Zone') }).addTo(terroirMap);
+  L.marker([17.02, 54.10], { icon: zoneIcon('#8b98ab', 'Shaabi Zone') }).addTo(terroirMap);
+}
+
+/* ============================================================
+   2 · MODAL CONTROLLER
+   ============================================================ */
+const MODAL_TRIGGER = {};
+
+function openModal(id){
+  const m = document.getElementById('m-' + id);
+  if(!m) return;
+  document.querySelectorAll('.modal.show').forEach(x => {
+    if(x.id !== 'm-grade-info') x.classList.remove('show');
+  });
+  m.classList.add('show');
+  m.setAttribute('aria-hidden','false');
+  document.body.classList.add('modal-open');
+  m.scrollTop = 0;
+  if(MODAL_TRIGGER[id]) requestAnimationFrame(() => MODAL_TRIGGER[id]());
+}
+
+function closeModal(m){
+  m.classList.remove('show');
+  m.setAttribute('aria-hidden','true');
+  if(!document.querySelector('.modal.show')) document.body.classList.remove('modal-open');
+}
+
+document.querySelectorAll('[data-open]').forEach(btn => {
+  btn.addEventListener('click', () => openModal(btn.dataset.open));
+});
+
+document.querySelectorAll('.modal').forEach(m => {
+  m.addEventListener('click', e => { if(e.target === m) closeModal(m); });
+  m.querySelectorAll('[data-close]').forEach(b => b.addEventListener('click', () => closeModal(m)));
+});
+
+document.addEventListener('keydown', e => {
+  if(e.key === 'Escape'){
+    const showing = document.querySelectorAll('.modal.show');
+    if(showing.length){
+      const last = showing[showing.length - 1];
+      closeModal(last);
+    }
+  }
+});
+
+/* ============================================================
+   3 · THREE.JS RESIN
+   ============================================================ */
+let resinBuilt = false;
+let resinScene = null;
+
+function tryBuildResin(){
+  if(resinBuilt) return;
+  const container = document.getElementById('resin-3d');
+  if(!container) return;
+
+  if(container.clientWidth < 50 || container.clientHeight < 50){
+    requestAnimationFrame(tryBuildResin);
+    return;
+  }
+
+  container.querySelectorAll('canvas').forEach(c => c.remove());
+
+  const scene = new THREE.Scene();
+  const camera = new THREE.PerspectiveCamera(42, container.clientWidth / container.clientHeight, 0.1, 100);
+  camera.position.set(0, 0.5, 5.5);
+  camera.lookAt(0, 0, 0);
+
+  const renderer = new THREE.WebGLRenderer({ antialias:true, alpha:true });
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+  renderer.setSize(container.clientWidth, container.clientHeight);
+  renderer.shadowMap.enabled = true;
+  container.appendChild(renderer.domElement);
+
+  const controls = new THREE.OrbitControls(camera, renderer.domElement);
+  controls.enableDamping = true;
+  controls.dampingFactor = 0.1;
+  controls.autoRotate = true;
+  controls.autoRotateSpeed = 1.4;
+  controls.minDistance = 3;
+  controls.maxDistance = 9;
+  controls.enablePan = false;
+
+  scene.add(new THREE.AmbientLight(0xffffff, 0.55));
+  const key = new THREE.DirectionalLight(0xf3e5ab, 2.2); key.position.set(4,6,5); scene.add(key);
+  const rim = new THREE.DirectionalLight(0x88bbff, 1.1); rim.position.set(-5,2,-4); scene.add(rim);
+  const fill = new THREE.PointLight(0xffd9a0, 0.9, 25); fill.position.set(0,-2,3); scene.add(fill);
+
+  const geo = new THREE.IcosahedronGeometry(1.15, 4);
+  const pos = geo.attributes.position;
+  const v = new THREE.Vector3();
+  for(let i = 0; i < pos.count; i++){
+    v.fromBufferAttribute(pos, i);
+    let y = v.y;
+    if(y > 0) y *= 1.45;
+    const noise = 1 + 0.13 * Math.sin(v.x*3.1) * Math.cos(v.z*2.7) + 0.07 * Math.sin(v.y*5.2 + v.x*2.4);
+    pos.setXYZ(i, v.x*noise*0.95, y*noise*0.95, v.z*noise*0.95);
+  }
+  geo.computeVertexNormals();
+
+  const mat = new THREE.MeshPhysicalMaterial({
+    color:0x2ecc71, roughness:0.18, metalness:0,
+    transmission:0.85, thickness:1.3, ior:1.52,
+    clearcoat:0.9, clearcoatRoughness:0.15,
+    emissive:0x2ecc71, emissiveIntensity:0.14
+  });
+
+  const mesh = new THREE.Mesh(geo, mat);
+  scene.add(mesh);
+
+  const glowGeo = new THREE.CircleGeometry(2.4, 48);
+  const glowMat = new THREE.MeshBasicMaterial({ color:0x2ecc71, transparent:true, opacity:0.06 });
+  const glow = new THREE.Mesh(glowGeo, glowMat);
+  glow.position.z = -2;
+  scene.add(glow);
+
+  let t = 0;
+  (function animate(){
+    requestAnimationFrame(animate);
+    t += 0.01;
+    mesh.rotation.y += 0.006;
+    mesh.rotation.x = Math.sin(t*0.5) * 0.08;
+    mesh.position.y = Math.sin(t*0.7) * 0.06;
+    controls.update();
+    renderer.render(scene, camera);
+  })();
+
+  const colors = {
+    hojari:   { hex:0x2ecc71, rough:0.15 },
+    najdi:    { hex:0xf39c12, rough:0.22 },
+    shathari: { hex:0xd4af37, rough:0.38 },
+    shaabi:   { hex:0x8b98ab, rough:0.58 }
+  };
+
+  document.querySelectorAll('.grade-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.grade-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const g = colors[btn.dataset.grade];
+      if(!g) return;
+      mat.roughness = g.rough;
+      glow.material.color.setHex(g.hex);
+      const start = mat.color.clone();
+      const end = new THREE.Color(g.hex);
+      let p = 0;
+      const step = () => {
+        p += 0.08;
+        if(p >= 1){ mat.color.copy(end); mat.emissive.copy(end); return; }
+        mat.color.copy(start).lerp(end, p);
+        mat.emissive.copy(end).multiplyScalar(p * 0.15);
+        requestAnimationFrame(step);
+      };
+      step();
+    });
+  });
+
+  const onResize = () => {
+    const w = container.clientWidth || 600;
+    const h = container.clientHeight || 400;
+    if(w < 10 || h < 10) return;
+    camera.aspect = w / h;
+    camera.updateProjectionMatrix();
+    renderer.setSize(w, h);
+  };
+  window.addEventListener('resize', onResize);
+  setTimeout(onResize, 100);
+  setTimeout(onResize, 400);
+
+  resinBuilt = true;
+  resinScene = { resize: onResize };
+}
+
+MODAL_TRIGGER.resin = () => {
+  requestAnimationFrame(() => {
+    requestAnimationFrame(() => {
+      tryBuildResin();
+      initTerroirMap();
+      if(resinScene) setTimeout(() => resinScene.resize(), 150);
+    });
+  });
+};
+
+/* ============================================================
+   4 · TIMELINE
+   ============================================================ */
+const EVENTS = [
+  { emoji:'🌿', when:'c. 6000 BCE', short:'Routes begin', color:'#8b98ab',
+    who:'Neolithic pastoral nomads of southern Arabia',
+    what:'Long-distance routes established; frankincense begins moving north.',
+    where:'Dhofar → southern Arabia',
+    why:'Ritual and elite demand along pastoral paths.', cite:'UNESCO, n.d.' },
+  { emoji:'✍️', when:'c. 3200 BCE', short:'Writing & scale', color:'#7f8c8d',
+    who:'Dhofari harvesters; southern Mesopotamian consumers',
+    what:'Writing appears; trade volume rises sharply.',
+    where:'Dhofar → southern Mesopotamia',
+    why:'Temple ritual; frankincense equated with gold.', cite:'UNESCO, n.d.' },
+  { emoji:'🕎', when:'c. 1440 BCE', short:'Ketoret', color:'#9b59b6',
+    who:'Prophet Musa (Moses); the Israelites',
+    what:'A sacred incense containing pure frankincense is commanded for the Tabernacle.',
+    where:'Sinai · Tabernacle',
+    why:'Worship reserved to God alone; frankincense set apart as holy.', cite:'Exodus 30:34–38' },
+  { emoji:'👑', when:'c. 950 BCE', short:'Sheba', color:'#8e44ad',
+    who:'Queen of Sheba (Bilqis); Prophet Sulaiman',
+    what:'Royal gifts of frankincense and spices travel from Southern Arabia to Jerusalem.',
+    where:'Southern Arabia → Jerusalem',
+    why:'Diplomacy and prestige.', cite:'1 Kings 10:1–10' },
+  { emoji:'⚓', when:'c. 300 BCE–2nd c. CE', short:'Ports flourish', color:'#d4af37',
+    who:'Hadrami state of Shabwa; Sumhuram traders',
+    what:'Khor Rori and Al-Baleed flourish; caravans reach Petra and Gaza.',
+    where:'Khor Rori · Al-Baleed · Shabwa · Petra · Gaza',
+    why:'Mediterranean temple and funerary demand.', cite:'UNESCO, n.d.' },
+  { emoji:'⭐', when:'c. 5 BCE', short:'Magi', color:'#e74c3c',
+    who:'Wise Men from the East; the infant ‘Isa',
+    what:'Gold, frankincense and myrrh are brought to Bethlehem.',
+    where:'Bethlehem, Judaea',
+    why:'Kingship, divine priesthood, and sacrifice.', cite:'Matthew 2:11' },
+  { emoji:'🔥', when:'1st c. CE', short:'More than gold', color:'#c0392b',
+    who:'Roman Empire; Nabataean and South Arabian traders',
+    what:'High-grade Dhofari frankincense trades weight-for-weight above gold; Nero burns a year’s harvest.',
+    where:'Rome · Arabia',
+    why:'Scarcity, guarded monopoly, 62-day caravan.', cite:'Pliny, Natural History 12.30–32' },
+  { emoji:'🕌', when:'7th–13th c. CE', short:'Islamic port', color:'#2ecc71',
+    who:'Omani and Indian Ocean merchants',
+    what:'Al-Baleed flourishes as a frankincense port.',
+    where:'Al-Baleed, Dhofar',
+    why:'Monsoon trade; Islamic ritual and perfume demand.', cite:'UNESCO, n.d.' },
+  { emoji:'📏', when:'1930s–1970s', short:'Grading codified', color:'#3498db',
+    who:'Dhofari harvesting families; Salalah traders',
+    what:'Four commercial grades codified.',
+    where:'Salalah · Samhan · Nejd',
+    why:'Market price differentiation.', cite:'Al-Harrasi et al., 2019' },
+  { emoji:'🏛️', when:'2000', short:'UNESCO listing', color:'#16a085',
+    who:'UNESCO and the Sultanate of Oman',
+    what:'Land of Frankincense inscribed as a World Heritage Site.',
+    where:'Wadi Dawkah · Shisr · Khor Rori · Al-Baleed',
+    why:'Heritage protection; conservation.', cite:'UNESCO, n.d.' },
+  { emoji:'🔬', when:'2010s–2020s', short:'Science', color:'#2980b9',
+    who:'Researchers (Al-Harrasi, Moussaieff et al.)',
+    what:'GC-MS profiling and clinical trials on boswellic acids.',
+    where:'Oman · Somalia · global laboratories',
+    why:'Validate pharmacology.', cite:'Moussaieff & Mechoulam, 2009' },
+  { emoji:'⚠️', when:'2020s', short:'Red List risk', color:'#e67e22',
+    who:'IUCN; harvesters in the Horn of Africa and Arabia',
+    what:'Several Boswellia species upgraded to Endangered.',
+    where:'Horn of Africa · southern Arabia',
+    why:'Overharvesting and habitat pressure.', cite:'Oman Observer, 2026' },
+  { emoji:'🚢', when:'2025–2026', short:'RO 471,400', color:'#27ae60',
+    who:'Omani exporters',
+    what:'Exports reach RO 471,400; Saudi Arabia is top destination.',
+    where:'Oman → Saudi Arabia · Somalia · UAE',
+    why:'Regional demand across perfume, ritual, wellness.', cite:'Oman Observer, 2026' }
+];
+
+(function initTimeline(){
+  const strip = document.getElementById('tlStrip');
+  const detail = document.getElementById('tlDetail');
+  if(!strip || !detail) return;
+
+  EVENTS.forEach((ev, i) => {
+    const b = document.createElement('button');
+    b.type = 'button';
+    b.className = 'tl-chip';
+    b.setAttribute('role','tab');
+    b.style.setProperty('--era', ev.color);
+    b.innerHTML = `<span class="te">${ev.emoji}</span><span class="yr">${ev.when}</span><span class="sh">${ev.short}</span>`;
+    b.addEventListener('click', () => select(i));
+    strip.appendChild(b);
+  });
+
+  function select(i){
+    Array.prototype.forEach.call(strip.children, (c,j) => {
+      c.classList.toggle('active', j === i);
+      c.setAttribute('aria-selected', j === i ? 'true' : 'false');
+    });
+    const ev = EVENTS[i];
+    detail.style.setProperty('--era', ev.color);
+    detail.innerHTML = `
+      <div class="when"><span class="de">${ev.emoji}</span>${ev.when}</div>
+      <div class="who">${ev.who}</div>
+      <div class="tl-5w">
+        <div class="w"><div class="wk">What</div><div class="wv">${ev.what}</div></div>
+        <div class="w"><div class="wk">Where</div><div class="wv">${ev.where}</div></div>
+        <div class="w"><div class="wk">Why</div><div class="wv">${ev.why}</div></div>
+      </div>
+      <p style="font-size:.74rem;color:var(--muted);font-style:italic;margin:0">(${ev.cite})</p>
+    `;
+  }
+  select(0);
+})();
+
+/* ============================================================
+   5 · CHART.JS SMELL RADAR — lazy init
+   ============================================================ */
+let smellChart = null;
+function buildSmellChart(){
+  if(smellChart) return;
+  const el = document.getElementById('smellChart');
+  if(!el || typeof Chart === 'undefined') return;
+  if(el.clientWidth < 50) { requestAnimationFrame(buildSmellChart); return; }
+  smellChart = new Chart(el.getContext('2d'), {
+    type: 'radar',
+    data: {
+      labels: ['Resinous / incense','Citrus','Minty-turpentine','Woody','Sweet / balsamic','Spicy / herb-like'],
+      datasets: [
+        { label:'Hojari',   data:[9,6,7,4,5,3], borderColor:'#2ecc71', backgroundColor:'rgba(46,204,113,.18)', borderWidth:2.5, pointBackgroundColor:'#2ecc71', pointRadius:4 },
+        { label:'Najdi',    data:[8,8,5,5,6,4], borderColor:'#f39c12', backgroundColor:'rgba(243,156,18,.14)',  borderWidth:2.5, pointBackgroundColor:'#f39c12', pointRadius:4 },
+        { label:'Shathari', data:[7,8,4,6,6,4], borderColor:'#d4af37', backgroundColor:'rgba(212,175,55,.14)',  borderWidth:2.5, pointBackgroundColor:'#d4af37', pointRadius:4 },
+        { label:'Shaabi',   data:[8,4,3,7,5,4], borderColor:'#8b98ab', backgroundColor:'rgba(139,152,171,.14)', borderWidth:2.5, pointBackgroundColor:'#8b98ab', pointRadius:4 }
+      ]
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      plugins: {
+        legend: { position:'bottom', labels:{ font:{ family:"'Plus Jakarta Sans',sans-serif", size:11 }, boxWidth:12, padding:14, color:'#e2e8f0', usePointStyle:true } },
+        tooltip: { callbacks: { label: c => c.dataset.label + ': ' + c.raw + '/10' } }
+      },
+      scales: {
+        r: {
+          beginAtZero:true, max:10,
+          ticks:{ stepSize:2, backdropColor:'transparent', color:'#8b98ab', font:{ size:10 } },
+          pointLabels:{ color:'#e2e8f0', font:{ family:"'Plus Jakarta Sans',sans-serif", size:11 } },
+          grid:{ color:'rgba(139,152,171,.2)' },
+          angleLines:{ color:'rgba(139,152,171,.2)' }
+        }
+      }
+    }
+  });
+}
+MODAL_TRIGGER.smell = () => {
+  requestAnimationFrame(() => {
+    requestAnimationFrame(() => {
+      buildSmellChart();
+      if(smellChart) setTimeout(() => smellChart.resize(), 100);
+    });
+  });
+};
+
+/* ============================================================
+   6 · GRADE INFO POPUP
+   ============================================================ */
+const GRADE_INFO = {
+  hojari: {
+    emoji:'🟢', color:'#2ecc71', title:'Hojari (Hoojri) · Grade 1',
+    rows: [
+      { k:'Rank', v:'<strong>First grade</strong> — considered the reference quality.' },
+      { k:'Microclimate & Terroir', v:'High altitude (800m–1500m) in Jebel Samhan. Extremely dry fog-shadow desert environment with intense sun stress and cold winter nights.' },
+      { k:'Appearance', v:'Pale, translucent, green-tinted tears; large clumps. Best lots reach prices multiplied by five relative to common qualities.' },
+      { k:'Where harvested', v:'Samhan mountains north of Dhofar, Oman.' },
+      { k:'Chemistry', v:'High (+)-α-pinene → minty-turpentine lift; moderate limonene for citrus.' },
+      { k:'Aroma profile', v:'Resinous / incense (dominant, clean, sacred) · minty-turpentine · moderate citrus · restrained woody-sweet.' },
+      { k:'Uses', v:'Royalty · medicinal teas · high-end essential oils · temple-grade incense.' },
+      { k:'Sources', v:'Al-Harrasi et al. (2019); Groom (1981); UNESCO (2000).' }
+    ]
+  },
+  najdi: {
+    emoji:'🟠', color:'#f39c12', title:'Najdi · Grade 2',
+    rows: [
+      { k:'Rank', v:'<strong>Second grade</strong> — slightly darker than Hojari.' },
+      { k:'Microclimate & Terroir', v:'High Nejd desert plateau (500m–900m). Far inland behind mountain ridges where dry desert winds bake the trees.' },
+      { k:'Appearance', v:'Pale yellow clumps; from the plateau behind the Dhofar mountains.' },
+      { k:'Where harvested', v:'Nejd plateau, behind the Dhofar mountains.' },
+      { k:'Chemistry', v:'Chemically distinct: high <strong>myrcene</strong> content.' },
+      { k:'Aroma profile', v:'Pronounced citrus / fruity · full balsamic · softer mint · moderate woody-spicy.' },
+      { k:'Uses', v:'Fine perfumes · traditional aromatherapy · high-end bakhoor blends.' },
+      { k:'Sources', v:'Al-Harrasi et al. (2019); Groom (1981).' }
+    ]
+  },
+  shathari: {
+    emoji:'🟡', color:'#d4af37', title:'Shathari (Shazri) · Grade 3',
+    rows: [
+      { k:'Rank', v:'<strong>Third grade</strong> — darker than Najdi.' },
+      { k:'Microclimate & Terroir', v:'North-western dry wadis (300m–600m). Warm limestone gravel plains with low, variable rainfall.' },
+      { k:'Appearance', v:'Golden yellow; collected in north-western Dhofar.' },
+      { k:'Where harvested', v:'North-west Dhofar, Oman.' },
+      { k:'Chemistry', v:'Characterised by high <strong>limonene</strong> content.' },
+      { k:'Aroma profile', v:'Bright citrus / orange · warm rounded resin · noticeable woody · mild sweet-spicy.' },
+      { k:'Uses', v:'Daily home bakhoor · mosque incense · mid-range perfumery.' },
+      { k:'Sources', v:'Al-Harrasi et al. (2019); Groom (1981).' }
+    ]
+  },
+  shaabi: {
+    emoji:'⚫', color:'#8b98ab', title:'Shaabi · Grade 4',
+    rows: [
+      { k:'Rank', v:'<strong>Fourth grade</strong> — darker and more affordable.' },
+      { k:'Microclimate & Terroir', v:'Lowland coastal escarpment (50m–400m). Directly absorbs the heavy summer monsoon fog (Khareef), resulting in fast tree growth and abundant fluid resin.' },
+      { k:'Appearance', v:'Darker amber clumps; everyday / local grade.' },
+      { k:'Where harvested', v:'Dhofar escarpment, Oman — general commercial supply.' },
+      { k:'Chemistry', v:'Essential-oil composition, yield and physicochemical characteristics closely resemble Hojari — the difference is mainly colour and texture due to higher moisture.' },
+      { k:'Aroma profile', v:'Deeper woody / resinous · lower citrus · present sweet-balsamic · strong incense when burned.' },
+      { k:'Uses', v:'Industrial extracts · herbal soaps · incense sticks · everyday home fragrance.' },
+      { k:'Sources', v:'Al-Harrasi et al. (2019); Moussaieff &amp; Mechoulam (2009).' }
+    ]
+  }
+};
+
+function openGradeInfo(key){
+  const d = GRADE_INFO[key];
+  if(!d) return;
+  document.getElementById('gradeInfoEmoji').textContent = d.emoji;
+  document.getElementById('gradeInfoTitle').textContent = d.title;
+  document.getElementById('gradeInfoHead').style.setProperty('--pop-color', d.color);
+  document.getElementById('gradeInfoBody').innerHTML = d.rows.map(r =>
+    `<div style="margin-bottom:14px">
+      <div style="font-family:var(--font-title);font-size:.6rem;letter-spacing:.14em;text-transform:uppercase;color:${d.color};margin-bottom:3px">${r.k}</div>
+      <div style="font-size:.88rem;color:var(--text);line-height:1.55">${r.v}</div>
+    </div>`
+  ).join('');
+  const modal = document.getElementById('m-grade-info');
+  modal.classList.add('show');
+  modal.setAttribute('aria-hidden','false');
+  document.body.classList.add('modal-open');
+}
+
+document.querySelectorAll('.grade-card[data-info]').forEach(c => {
+  c.addEventListener('click', () => openGradeInfo(c.dataset.info));
+});
+</script>
+</body>
+</html>
