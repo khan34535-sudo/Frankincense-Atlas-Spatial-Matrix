@@ -3,9 +3,18 @@
 > **An interactive, multi-sensory 3D research dashboard mapping the geography, microclimatic terroir, scriptural history, commercial grades, and pharmacological profiles of Omani *Boswellia sacra*.**
 
 ![Copyright](https://img.shields.io/badge/Copyright-All_Rights_Reserved-gold.svg)
+![Status: Research Prototype](https://img.shields.io/badge/Status-Under_Review-ff9900.svg)
 ![Build: Zero--Dependency](https://img.shields.io/badge/Architecture-Zero--Backend-00f0ff.svg)
 ![WebGL: Three.js](https://img.shields.io/badge/3D_Engine-Three.js_r128-2ecc71.svg)
 ![GIS: Leaflet](https://img.shields.io/badge/GIS-Leaflet_v1.9-9b59b6.svg)
+
+---
+
+## ⚠️ Research Disclaimer & Tool Status
+
+> **Notice:** This application is an interactive research prototype currently **under ongoing academic and expert review**. While data points—including GC-MS chemical profiles, microclimate maps, historical trade corridors, and pharmacological clinical trials—have been synthesized from peer-reviewed literature and primary sources, information may not be 100% accurate or fully comprehensive. 
+> 
+> The primary objective of this prototype is to demonstrate a **multi-sensory 3D spatial visualization tool and interactive user experience methodology** for complex ethnobotanical research. This tool should not be relied upon as a definitive clinical, pharmacological, or commercial guide without independent verification against primary academic sources.
 
 ---
 
