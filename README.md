@@ -1,4 +1,9 @@
- 🌿 Frankincense Atlas & Spatial Matrix (*Boswellia sacra*)
+# 🌿 Frankincense Atlas & Spatial Matrix (*Boswellia sacra*)
+
+[![License: MIT](https://img.shields.io/badge/License-MIT-gold.svg)](https://opensource.org/licenses/MIT)
+[![Technology](https://img.shields.io/badge/WebGL-Three.js-blue.svg)](https://threejs.org/)
+[![GIS](https://img.shields.io/badge/GIS-Leaflet.js-green.svg)](https://leafletjs.com/)
+[![Status](https://img.shields.io/badge/Status-Prototype-orange.svg)](#-research-disclaimer--tool-status)
 
 An enterprise-grade, interactive 3D research dashboard and digital twin mapping the geography, microclimatic terroir, analytical chemistry, paleoclimate proxies, archaeological heritage, scriptural traditions, and pharmacological profiles of Omani *Boswellia sacra*.
 
@@ -6,7 +11,7 @@ An enterprise-grade, interactive 3D research dashboard and digital twin mapping 
 
 ## ⚠️ Research Disclaimer & Tool Status
 
-**Notice:** This application is an interactive research prototype under ongoing academic and expert review. Data points—including GC-MS chemical profiles, microclimate GIS maps, paleoclimate isotope ratios ($\delta^{13}\text{C}$ and $\delta^{18}\text{O}$), evolutionary genomics assemblies, historical trade corridors, and pharmacological clinical trials—have been synthesized from peer-reviewed literature and primary sources.
+> **Notice:** This application is an interactive research prototype under ongoing academic and expert review. Data points—including GC-MS chemical profiles, microclimate GIS maps, paleoclimate isotope ratios ($\delta^{13}\text{C}$ and $\delta^{18}\text{O}$), evolutionary genomics assemblies, historical trade corridors, and pharmacological clinical trials—have been synthesized from peer-reviewed literature and primary sources.
 
 The primary objective of this prototype is to demonstrate a multi-sensory 3D spatial visualization tool and interactive user experience methodology for complex ethnobotanical research. This tool should not be relied upon as a definitive clinical, pharmacological, or commercial guide without independent verification against primary academic sources.
 
@@ -14,7 +19,7 @@ The primary objective of this prototype is to demonstrate a multi-sensory 3D spa
 
 ## 📌 Executive Summary
 
-The **Frankincense Atlas & Spatial Matrix** bridges paleoethnobotany, phytochemistry, paleoclimatology, spatial GIS mapping, evolutionary genomics, and 3D WebGL visualization into a unified, client-side digital twin. Developed by **Asia Khan**, this application explores how microclimate variations across Oman's Dhofar region directly dictate resin chemistry, color, market grade, and pharmacological efficacy of *Boswellia sacra*.
+The **Frankincense Atlas & Spatial Matrix** bridges paleoethnobotany, phytochemistry, paleoclimatology, spatial GIS mapping, evolutionary genomics, and 3D WebGL visualization into a unified, client-side digital twin. Developed by **Asia Khan**, this application explores how microclimate variations across Oman's Dhofar region directly dictate the resin chemistry, color, market grade, and pharmacological efficacy of *Boswellia sacra*.
 
 ---
 
@@ -25,10 +30,10 @@ The **Frankincense Atlas & Spatial Matrix** bridges paleoethnobotany, phytochemi
   * **Embedded GIS Microclimate Map (Leaflet.js):** Details elevation contours, rainfall gradients, and ecological harvesting zones across the Dhofar Governorate.
 
 * **🛰️ Tilted 3D Satellite GIS Map:**
-  * **Esri World Imagery Overlay:** Custom map view mapping ancient caravan routes (the Incense Road through *Sumhuram/Khor Rori, Shisr/Ubar, Shabwa, Marib, Petra,* and *Gaza*) alongside modern maritime export flows to Saudi Arabia, Somalia, and the UAE.
+  * **Esri World Imagery Overlay:** Custom map view charting ancient caravan routes (the Incense Road through *Sumhuram/Khor Rori, Shisr/Ubar, Shabwa, Marib, Petra,* and *Gaza*) alongside modern maritime export flows to Saudi Arabia, Somalia, and the UAE.
 
 * **🏛️ Archaeological & Maritime Port Heritage:**
-  * **Al-Baleed Archaeological Park Vector Plates:** Detailed structural visualizations for the *Grand Mosque (144 octagonal columns), Multi-Story Citadel Fort, Defensive Walls & Moat,* and *Khor Al-Baleed Natural Harbor Lagoon*.
+  * **Al-Baleed Archaeological Park Visualizations:** Detailed structural cards for the *Grand Mosque (144 octagonal columns), Multi-Story Citadel Fort, Defensive Walls & Moat,* and *Khor Al-Baleed Natural Harbor Lagoon*.
   * **Museum of the Frankincense Land Integration:** Historical coverage of ancient dhow shipbuilding (*Sohar, Baghla, Ghanja, Sambuk*) and celestial navigation (*Kamal*).
 
 * **🧪 Analytical Biomarkers & Paleoclimate Matrix:**
@@ -39,16 +44,16 @@ The **Frankincense Atlas & Spatial Matrix** bridges paleoethnobotany, phytochemi
   * Organic residue extraction pathways documenting ancient Egyptian mummification balms, Graeco-Roman altars, and *unguentaria*.
 
 * **🧬 Evolutionary Genomics & Phylogenetics:**
-  * **$667.8\text{ Mb}$ Assembly Analysis:** Details on the $18,564$ protein-encoding genes, ancient hexaploidy, and *Gypsy* retroelement expansions over the past 2 million years.
+  * **667.8 Mb Assembly Analysis:** Details on 18,564 protein-encoding genes, ancient hexaploidy, and *Gypsy* retroelement expansions over the past 2 million years.
   * **Interspecies Cladogram:** Comparative genomic mapping between *B. sacra, B. frereana, B. serrata,* and *B. papyrifera*.
 
 * **👃 Olfactory Chemistry & Radar Comparison:**
-  * Interactive Chart.js radar engine evaluating six odour dimensions (*resinous, citrus, minty-turpentine, woody, sweet/balsamic, spicy*) derived from GC-olfactometry datasets.
+  * Interactive Chart.js radar engine evaluating six odor dimensions (*resinous, citrus, minty-turpentine, woody, sweet/balsamic, spicy*) derived from GC-olfactometry datasets.
 
 * **⛺ Ethnographic Matrix & Living Heritage:**
   * Indigenous Modern South Arabian language studies (*Shahri/Jibbali* and *Mahri*), seasonal harvesting calendars (*Al-Khafif, Al-Sarb, Al-Jaz*), and folk domestic rituals.
 
-* **🌡️ Anthropogenic Climate Threat & Conservation:**
+* **🌡️ Anthropogenic Climate Threats & Conservation:**
   * IUCN Red List analysis tracking Indian Ocean Monsoon (IOM) disruptions, longhorn beetle (*Idactus spinipennis*) infestations, camel overgrazing, and local sanctuary propagation.
 
 * **⚕️ Traditional-to-Clinical Health Matrix:**
@@ -62,7 +67,7 @@ The **Frankincense Atlas & Spatial Matrix** bridges paleoethnobotany, phytochemi
 
 ## 🛠️ Tech Stack & Architecture
 
-This project is built using a **Zero-API, Single-File Client-Side Architecture** that requires no backend compilation, database servers, or node modules:
+This project is built using a **Zero-API, Single-File Client-Side Architecture** that requires no backend compilation, database servers, or Node modules:
 
 * **Core Engine:** HTML5, CSS3 (CSS Variables, Flexbox/Grid, Glassmorphism), Vanilla JavaScript (ES6+)
 * **3D WebGL Graphics:** Three.js (r128) + OrbitControls
@@ -70,6 +75,7 @@ This project is built using a **Zero-API, Single-File Client-Side Architecture**
 * **Data Visualization:** Chart.js (v4.4.1)
 * **Typography:** Google Fonts (*Cinzel, Plus Jakarta Sans, Orbitron*)
 
+---
 
 ## 🔒 Copyright & Intellectual Property
 
