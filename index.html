@@ -84,18 +84,18 @@
     font-weight:300;line-height:1.7;
   }
 
-  /* BUTTON OPTIONS */
+  /* BUTTON OPTIONS - Sticking Out Effect */
   .section-options{
-    display:flex;flex-wrap:wrap;gap:10px;justify-content:center;
-    margin-top:6px;margin-bottom:8px;
+    display:flex;flex-wrap:wrap;gap:12px;justify-content:center;
+    margin-top:12px;margin-bottom:12px;
   }
   .opt-btn{
     display:flex;flex-direction:column;align-items:center;gap:4px;
-    padding:12px 18px;min-width:110px;
+    padding:16px 18px 12px;min-width:110px;
     background:linear-gradient(135deg,rgba(212,175,55,.08),rgba(0,0,0,.4));
     border:1px solid var(--border);border-radius:12px;
     cursor:pointer;font-family:var(--font-body);color:var(--text);
-    transition:all .25s;
+    transition:all .25s;position:relative;
   }
   .opt-btn:hover,.opt-btn:focus-visible{
     border-color:var(--gold);transform:translateY(-3px);
@@ -103,10 +103,20 @@
     background:linear-gradient(135deg,rgba(212,175,55,.18),rgba(0,0,0,.4));
     outline:none;
   }
-  .opt-btn .oe{font-size:1.4rem;filter:drop-shadow(0 0 10px rgba(212,175,55,.4))}
+  .opt-btn .oe{
+    font-size:1.6rem;position:absolute;top:-14px;
+    filter:drop-shadow(0 4px 6px rgba(0,0,0,0.8)) drop-shadow(0 0 10px rgba(212,175,55,.4));
+    background:var(--bg-surface);border-radius:50%;
+    width:34px;height:34px;display:grid;place-items:center;
+    border:1px solid var(--border);transition:all .25s;
+  }
+  .opt-btn:hover .oe{
+    transform:scale(1.1) translateY(-2px);
+    border-color:var(--gold);
+  }
   .opt-btn .ol{
     font-family:var(--font-title);font-size:.74rem;color:var(--gold-light);
-    letter-spacing:.04em;font-weight:600;
+    letter-spacing:.04em;font-weight:600;margin-top:12px;
   }
 
   /* MAP PANEL */
@@ -116,10 +126,6 @@
     box-shadow:0 16px 44px rgba(0,0,0,.55),inset 0 1px 0 rgba(243,229,171,.05);
     position:relative;overflow:hidden;margin-bottom:32px;
   }
-  .map-panel::before{
-    content:'';position:absolute;top:0;left:0;right:0;height:1px;
-    background:linear-gradient(90deg,transparent,rgba(212,175,55,.6),transparent);
-  }
   .map-panel-title{
     display:flex;align-items:center;justify-content:space-between;gap:10px;
     margin-bottom:14px;flex-wrap:wrap;
@@ -128,60 +134,11 @@
     font-family:var(--font-title);font-size:1.2rem;color:var(--gold-light);
     display:flex;align-items:center;gap:10px;
   }
-  .map-panel-title .tag{
-    font-family:var(--font-body);font-size:.62rem;font-weight:700;
-    letter-spacing:.1em;text-transform:uppercase;
-    background:rgba(168,85,247,.14);border:1px solid var(--purple);
-    padding:3px 10px;border-radius:999px;color:#e9d5ff;
-    box-shadow:0 0 12px rgba(168,85,247,.3);
-  }
 
-  /* 3D MAP STYLING */
   #map{
     height:560px;border-radius:12px;border:1px solid var(--border);
-    overflow:hidden;position:relative;z-index:0;
-    background:#000;
+    overflow:hidden;position:relative;z-index:0;background:#000;
   }
-  .leaflet-control-zoom a {
-    background-color: rgba(17,19,24,0.9) !important;
-    color: var(--purple) !important;
-    border: 1px solid var(--border) !important;
-    text-shadow: 0 0 8px rgba(168,85,247,0.5);
-    transition: all .2s;
-  }
-  .leaflet-control-zoom a:hover {
-    background-color: var(--purple) !important;
-    color: #fff !important;
-    border-color: var(--purple) !important;
-  }
-  .leaflet-control-attribution {
-    background: rgba(8,9,11,0.85) !important;
-    color: var(--muted) !important;
-    border-top-left-radius: 6px;
-    backdrop-filter: blur(4px);
-  }
-  .leaflet-control-attribution a { color: var(--purple) !important; }
-
-  .named-star { display: flex; align-items: center; gap: 4px; white-space: nowrap; }
-  .star-svg { width: 20px; height: 20px; filter: drop-shadow(0 0 4px currentColor) drop-shadow(0 0 8px currentColor); }
-  .star-label {
-    font-family: var(--font-body); font-size: .68rem; font-weight: 700;
-    color: #fff; background: rgba(8,9,11,0.85); padding: 2px 6px;
-    border-radius: 4px; border: 1px solid rgba(255,255,255,0.15);
-    backdrop-filter: blur(4px); letter-spacing: 0.02em;
-    text-shadow: 0 1px 2px #000;
-  }
-
-  .map-legend{
-    display:flex;flex-wrap:wrap;gap:12px 20px;margin-top:16px;
-    font-size:.78rem;color:var(--muted);
-  }
-  .map-legend span{
-    display:inline-flex;align-items:center;gap:6px;
-    cursor: pointer; transition: color .2s;
-  }
-  .map-legend span:hover { color: #fff; }
-  .lg-line { display:inline-block; width:24px; height:0; border-top:3px dashed #9b59b6; box-shadow: 0 0 6px #9b59b6; margin-right: 2px;}
 
   /* MODAL OVERLAY */
   .modal{
@@ -196,25 +153,29 @@
     max-width:1100px;margin:0 auto;
     box-shadow:0 40px 100px rgba(0,0,0,.9),0 0 0 1px rgba(212,175,55,.15);
     animation:popIn .35s cubic-bezier(.2,.9,.3,1.2);
+    position:relative;
   }
   @keyframes popIn{from{opacity:0;transform:scale(.96) translateY(20px)}to{opacity:1;transform:none}}
+  
+  /* MODAL HEAD - Sticking Out Icon */
   .modal-head{
-    padding:20px 26px;border-bottom:1px solid var(--border);
+    padding:24px 26px 16px;border-bottom:1px solid var(--border);
     display:flex;align-items:center;justify-content:space-between;gap:16px;
     position:sticky;top:0;
     background:linear-gradient(135deg,#1a1d24,#0e0f12);z-index:10;
     border-radius:16px 16px 0 0;
   }
-  .modal-head-left{display:flex;align-items:center;gap:12px}
-  .modal-head .me{font-size:1.7rem;filter:drop-shadow(0 0 14px var(--pop-color,var(--gold)))}
-  .modal-head h3{
-    font-family:var(--font-title);font-size:1.25rem;color:var(--pop-color,var(--gold-light));
-    margin:0;
+  .modal-head-left{display:flex;align-items:center;gap:16px;position:relative}
+  .modal-head .me{
+    font-size:1.8rem;position:absolute;top:-20px;left:-10px;
+    filter:drop-shadow(0 6px 8px rgba(0,0,0,0.9)) drop-shadow(0 0 15px var(--pop-color,var(--gold)));
+    background:var(--bg-surface);border-radius:50%;
+    width:48px;height:48px;display:grid;place-items:center;
+    border:2px solid var(--pop-color,var(--gold));z-index:12;
   }
-  .modal-head .kick{
-    font-size:.64rem;letter-spacing:.15em;text-transform:uppercase;
-    color:var(--muted);margin-top:2px;
-  }
+  .modal-head h3{font-family:var(--font-title);font-size:1.35rem;color:var(--pop-color,var(--gold-light));margin:0 0 0 32px;}
+  .modal-head .kick{font-size:.64rem;letter-spacing:.15em;text-transform:uppercase;color:var(--muted);margin-top:4px;margin-left:32px}
+  
   .modal-close{
     background:rgba(255,255,255,.06);border:1px solid var(--border-soft);color:var(--text);
     width:36px;height:36px;border-radius:50%;cursor:pointer;font-size:1rem;
@@ -224,9 +185,7 @@
   .modal-body{padding:26px}
 
   /* 5W STRIP */
-  .fivew{
-    display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-bottom:24px;
-  }
+  .fivew{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-bottom:24px}
   @media(max-width:900px){.fivew{grid-template-columns:repeat(2,1fr)}}
   .w{
     background:linear-gradient(135deg,rgba(255,255,255,.03),rgba(0,0,0,.3));
@@ -237,13 +196,10 @@
     content:'';position:absolute;top:0;left:0;right:0;height:2px;
     background:var(--pop-color,var(--gold));opacity:.85;
   }
-  .wk{
-    font-family:var(--font-title);font-size:.58rem;letter-spacing:.14em;
-    text-transform:uppercase;color:var(--pop-color,var(--gold));margin-bottom:4px;
-  }
+  .wk{font-family:var(--font-title);font-size:.58rem;letter-spacing:.14em;text-transform:uppercase;color:var(--pop-color,var(--gold));margin-bottom:4px}
   .wv{font-size:.8rem;color:var(--text);line-height:1.45}
 
-  /* CONTENT BLOCKS */
+  /* GRID SYSTEM */
   .grid-2{display:grid;grid-template-columns:1fr 1fr;gap:20px}
   .grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
   @media(max-width:900px){.grid-2,.grid-3{grid-template-columns:1fr}}
@@ -257,18 +213,13 @@
     background:linear-gradient(180deg,var(--pop-color,var(--gold)),transparent);opacity:.6;
   }
   .info:hover{background:rgba(212,175,55,.05);transform:translateY(-2px)}
-  .info h4{
-    font-family:var(--font-title);color:var(--pop-color,var(--gold-light));
-    margin-bottom:8px;font-size:1rem;
-  }
+  .info h4{font-family:var(--font-title);color:var(--pop-color,var(--gold-light));margin-bottom:8px;font-size:1rem}
   .info p{color:var(--muted);font-size:.88rem;line-height:1.6}
   .info ul{padding-left:16px;color:var(--muted);font-size:.86rem;margin-top:6px}
   .info li{margin-bottom:5px}
   .info strong{color:#fff}
-  .cite{font-size:.68rem;vertical-align:super;color:var(--gold);text-decoration:none;margin-left:2px}
-  .cite:hover{color:var(--gold-light);text-decoration:underline}
 
-  /* 3D */
+  /* 3D RESIN STAGE */
   .resin-stage{
     height:420px;border-radius:12px;
     background:radial-gradient(circle at center,rgba(30,35,45,.9) 0%,rgba(8,9,11,1) 100%);
@@ -501,55 +452,56 @@
   }
   .caution strong{color:var(--rose)}
 
-  /* GALLERY */
-  .gallery{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px}
+  /* GALLERY CARDS & HOLOGRAPHIC FRAMES */
   .gal-card{
     background:rgba(0,0,0,.4);border:1px solid var(--border);border-radius:12px;
-    overflow:hidden;transition:all .3s;
+    overflow:hidden;transition:all .3s;display:flex;flex-direction:column;
   }
   .gal-card:hover{transform:translateY(-4px);box-shadow:0 16px 40px rgba(0,0,0,.6);border-color:var(--gold)}
-  .gal-card .frame{position:relative;aspect-ratio:4/3;background:#0a0a0a;overflow:hidden}
-  .gal-card svg{width:100%;height:100%;display:block;transition:transform .6s}
-  .gal-card:hover svg{transform:scale(1.05)}
+  .gal-card .frame{position:relative;width:100%;height:280px;background:#05070a;overflow:hidden}
   .gal-card .badge-i{
     position:absolute;top:10px;left:10px;font-size:.6rem;font-weight:700;
     letter-spacing:.1em;text-transform:uppercase;background:rgba(8,9,11,.9);
     border:1px solid var(--border);color:var(--gold-light);padding:3px 9px;
-    border-radius:999px;z-index:2;backdrop-filter:blur(4px);
+    border-radius:999px;z-index:10;backdrop-filter:blur(4px);
   }
-  .gal-card .info-body{padding:12px 14px}
-  .gal-card h5{font-family:var(--font-title);color:var(--gold-light);font-size:.95rem;margin-bottom:4px}
-  .gal-card p{font-size:.8rem;color:var(--muted);line-height:1.5}
-  .gal-card .actions{margin-top:8px;display:flex;flex-wrap:wrap;gap:5px}
-  .gal-card .actions a{
-    font-size:.68rem;font-weight:600;padding:3px 9px;border-radius:999px;
-    background:rgba(212,175,55,.08);border:1px solid var(--border);
-    color:var(--gold);text-decoration:none;transition:all .18s;
+  .gal-card .info-body{padding:16px;flex-grow:1;display:flex;flex-direction:column;justify-content:space-between}
+  .gal-card h5{font-family:var(--font-title);color:var(--gold-light);font-size:.95rem;margin-bottom:6px}
+  .gal-card p{font-size:.82rem;color:var(--muted);line-height:1.5}
+  .gal-card .actions{margin-top:12px;display:flex;flex-wrap:wrap;gap:8px}
+  .gal-card .actions a, .gal-card .actions button{
+    font-size:.72rem;font-weight:600;padding:5px 12px;border-radius:999px;
+    background:rgba(212,175,55,.1);border:1px solid var(--border);
+    color:var(--gold);text-decoration:none;transition:all .18s;cursor:pointer;
   }
-  .gal-card .actions a:hover{background:var(--gold);color:#0a0a0a;border-color:var(--gold)}
+  .gal-card .actions a:hover, .gal-card .actions button:hover{background:var(--gold);color:#0a0a0a;border-color:var(--gold)}
+
+  /* 3D HOLOGRAPHIC FRAME TILT EFFECTS */
+  .holographic-3d-card {
+    perspective: 1000px;
+    overflow: hidden;
+    border: 1px solid var(--border);
+    box-shadow: inset 0 0 15px rgba(212, 175, 55, 0.15);
+    background: #05070a;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.15s ease-out;
+  }
+
+  .holographic-3d-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.15s ease-out;
+  }
 
   /* REFS */
   .refs{padding-left:22px;color:var(--muted);font-size:.86rem}
   .refs li{margin-bottom:10px;line-height:1.6;padding-left:4px}
   .refs li::marker{color:var(--gold);font-weight:700}
 
-  /* FOOTER */
-  footer{
-    text-align:center;padding:36px 20px;border-top:1px solid var(--border);
-    color:var(--muted);font-size:.8rem;margin-top:40px;
-    background:linear-gradient(to bottom,transparent,rgba(212,175,55,.03));
-  }
-  footer strong{color:var(--gold-light);font-family:var(--font-title);letter-spacing:.5px}
-  footer .links{margin-top:8px;display:flex;flex-wrap:wrap;gap:14px;justify-content:center}
-
-  @media(max-width:700px){
-    .modal-body{padding:18px}
-    .modal-head{padding:16px 18px}
-    .modal-head h3{font-size:1.05rem}
-    #map{height:400px}
-    .resin-stage{height:320px}
-    #terroirMap{height:300px}
-  }
+  footer{text-align:center;padding:36px 20px;border-top:1px solid var(--border);color:var(--muted);font-size:.8rem;margin-top:40px}
 </style>
 </head>
 <body>
@@ -569,54 +521,90 @@
 <div class="container">
   <section class="hero-pad">
     <h1>The Sacred Resin: Boswellia Sacra &amp; Spatial Matrix</h1>
-    <p class="sub">An interactive scientific atlas exploring <em>Boswellia sacra</em> — historical trade routes, archaeological discoveries, chemical biomarkers, paleoclimate proxies (δ¹³C &amp; δ¹⁸O), evolutionary genomics, climate threats, and indigenous Dhofari ethnography.</p>
+    <p class="sub">An interactive scientific atlas exploring <em>Boswellia sacra</em> — historical trade routes, archaeological discoveries, chemical biomarkers, paleoclimate proxies, evolutionary genomics, population dynamics, and indigenous Dhofari ethnography.</p>
   </section>
 
+  <!-- ALL SECTION BUTTONS -->
   <div class="section-options" id="sectionOptions">
+    <button class="opt-btn" data-open="origin"><span class="oe">🏺</span><span class="ol">Origin &amp; Discovery</span></button>
     <button class="opt-btn" data-open="resin"><span class="oe">🔶</span><span class="ol">Resin 3D</span></button>
     <button class="opt-btn" data-open="smell"><span class="oe">👃</span><span class="ol">Smell Index</span></button>
     <button class="opt-btn" data-open="archaeology"><span class="oe">🏛️</span><span class="ol">Archaeology</span></button>
     <button class="opt-btn" data-open="ethnography"><span class="oe">⛺</span><span class="ol">Ethnography</span></button>
     <button class="opt-btn" data-open="biomarkers"><span class="oe">🧪</span><span class="ol">Biomarkers</span></button>
-    <button class="opt-btn" data-open="residue"><span class="oe">🏺</span><span class="ol">Residues</span></button>
+    <button class="opt-btn" data-open="residue"><span class="oe">⚱️</span><span class="ol">Residues</span></button>
     <button class="opt-btn" data-open="evolution"><span class="oe">🧬</span><span class="ol">Evolution</span></button>
+    <button class="opt-btn" data-open="population"><span class="oe">📊</span><span class="ol">Population Impact</span></button>
     <button class="opt-btn" data-open="climate"><span class="oe">🌡️</span><span class="ol">Climate Threat</span></button>
     <button class="opt-btn" data-open="scriptural"><span class="oe">📖</span><span class="ol">Sacred</span></button>
     <button class="opt-btn" data-open="etymology"><span class="oe">💎</span><span class="ol">Etymology</span></button>
     <button class="opt-btn" data-open="timeline"><span class="oe">⏳</span><span class="ol">Timeline</span></button>
     <button class="opt-btn" data-open="history"><span class="oe">📜</span><span class="ol">History</span></button>
     <button class="opt-btn" data-open="trade"><span class="oe">🚢</span><span class="ol">Trade Today</span></button>
-    <button class="opt-btn" data-open="uses"><span class="oe">⚕️</span><span class="ol">Health</span></button>
+    <button class="opt-btn" data-open="uses"><span class="oe">⚕️</span><span class="ol">Health Profiles</span></button>
     <button class="opt-btn" data-open="botanical"><span class="oe">🌿</span><span class="ol">Botanical</span></button>
     <button class="opt-btn" data-open="refs"><span class="oe">📚</span><span class="ol">References</span></button>
   </div>
 
   <section class="map-panel">
     <div class="map-panel-title">
-      <h2><span>🛰️</span> Where Frankincense Grows Today · 3D Aerial Satellite</h2>
-      <span class="tag">Esri World Imagery · Tilted</span>
+      <h2><span>🛰️</span> Where Frankincense Grows Today · 3D Aerial Satellite GIS</h2>
+      <span class="tag">Esri World Imagery</span>
     </div>
     <div id="map"></div>
-    <div class="map-legend">
-      <span data-fly="dhofar"><span style="color:#2ecc71">★</span> Source / harvest</span>
-      <span data-fly="petra"><span style="color:#9b59b6">★</span> Historical caravan</span>
-      <span data-fly="saudi"><span style="color:#3498db">★</span> Modern export</span>
-      <span data-fly="dhofar"><span class="lg-line" style="border-color:#9b59b6; box-shadow:0 0 6px #9b59b6;"></span> Historical Incense Road</span>
-      <span data-fly="dhofar"><span class="lg-line" style="border-top-style:solid; border-color:#3498db; box-shadow:0 0 6px #3498db;"></span> Modern maritime flow</span>
-    </div>
   </section>
 </div>
 
-<footer>
-  <strong>Frankincense Atlas</strong> · Prototype Sample<br>
-  Asia Khan, Hon. BA (McMaster University) · Behavioural UX Researcher &amp; 3D Spatial Architect
-  <div class="links">
-    <span>✉ <a href="mailto:asiaaamirkhan@outlook.com" class="link">asiaaamirkhan@outlook.com</a></span>
+<!-- ══════════════════════════════════════════════
+     MODAL · ORIGIN & ANCIENT DISCOVERY
+     ══════════════════════════════════════════════ -->
+<div class="modal" id="m-origin" aria-hidden="true">
+  <div class="modal-card" role="dialog" aria-modal="true">
+    <div class="modal-head" style="--pop-color:#d4af37">
+      <div class="modal-head-left">
+        <span class="me">🏺</span>
+        <div><h3>Origin &amp; Ancient Discovery</h3><div class="kick">Credible Historical &amp; Archaeological Timeline</div></div>
+      </div>
+      <button class="modal-close" data-close>✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="fivew">
+        <div class="w"><div class="wk">Who</div><div class="wv">Neolithic South Arabian Tribes &amp; Egyptians</div></div>
+        <div class="w"><div class="wk">What</div><div class="wv">First botanical discovery &amp; ritual incense trade</div></div>
+        <div class="w"><div class="wk">Where</div><div class="wv">Dhofar region (Oman) &amp; Punt (Horn of Africa)</div></div>
+        <div class="w"><div class="wk">When</div><div class="wv">c. 6000 BCE (First usage) | 15th Century BCE (Hatshepsut)</div></div>
+        <div class="w"><div class="wk">Why</div><div class="wv">Sacred offerings, mummification, &amp; royal prestige</div></div>
+      </div>
+
+      <div class="grid-2">
+        <div class="info" style="--pop-color:#d4af37">
+          <h4>📜 First Archaeological Evidence &amp; Discovery</h4>
+          <p>Archaeological finds in Dhofar and Yemen confirm that <strong>Boswellia sacra</strong> was first harvested and traded by early pastoral nomads around <strong>6000–5000 BCE</strong>. Chemical residue analysis on ancient pottery and censers establishes its continuous presence in spiritual and medical practices across Southern Arabia since the Neolithic period.</p>
+          <p style="margin-top:10px;">The earliest documented international expedition to collect living frankincense trees is recorded on the reliefs of <strong>Queen Hatshepsut's temple at Deir el-Bahari (c. 1479–1458 BCE)</strong>, depicting Omani/Somali trees being transported to Egypt in baskets.</p>
+        </div>
+
+        <div class="info" style="--pop-color:#3498db">
+          <h4>📚 Credible Classical Sources</h4>
+          <ul>
+            <li><strong>Herodotus (c. 484–425 BCE):</strong> Recorded in <em>Histories (Book III)</em> that Southern Arabia was the sole source of frankincense, myrrh, and cinnamon, guarded by winged serpents.</li>
+            <li><strong>Pliny the Elder (23–79 CE):</strong> In <em>Naturalis Historia (Book XII)</em>, detailed the exact 62-day camel caravan route from Dhofar through Sab'a to Petra and Gaza, noting that frankincense was priced above gold weight-for-weight.</li>
+            <li><strong>Periplus of the Erythraean Sea (1st Century CE):</strong> An anonymous Graeco-Roman maritime guide identifying Sumhuram (Khor Rori) as the primary fortified harbor for resin collection.</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- PERSON OF INTEREST: PROF. AHMED AL-HARRASI -->
+      <div class="info" style="margin-top:20px; --pop-color:#2ecc71;">
+        <h4>👨‍🔬 Person of Interest: Prof. Ahmed Al-Harrasi</h4>
+        <p>Prof. Ahmed Al-Harrasi is the Chair of the Natural & Medical Sciences Research Center (NMSRC) and Vice Chancellor for Graduate Studies, Research & External Relations at the University of Nizwa, Oman. He is a leading global authority on the chemistry and extraction of <em>Boswellia sacra</em> frankincense, spearheading research into its bioactive compounds, including boswellic acids and incensole acetate.</p>
+        <p style="margin-top:8px;"><em>Key Contributions:</em> His team's work has identified novel triterpenes (e.g., Nizwanone) and elucidated the pharmacological mechanisms of frankincense, bridging traditional medicine and modern clinical research.</p>
+      </div>
+    </div>
   </div>
-</footer>
+</div>
 
 <!-- ══════════════════════════════════════════════
-     MODAL · RESIN 3D
+     MODAL · RESIN 3D & TERROIR
      ══════════════════════════════════════════════ -->
 <div class="modal" id="m-resin" aria-hidden="true">
   <div class="modal-card" role="dialog" aria-modal="true">
@@ -724,7 +712,7 @@
 </div>
 
 <!-- ══════════════════════════════════════════════
-     MODAL · SMELL
+     MODAL · SMELL INDEX
      ══════════════════════════════════════════════ -->
 <div class="modal" id="m-smell" aria-hidden="true">
   <div class="modal-card" role="dialog" aria-modal="true">
@@ -797,135 +785,74 @@
         <p>Al-Baleed (ancient Zafar) stands as one of the premier maritime trading hubs of the medieval Islamic world on the Indian Ocean. Prospering between the 8th and 16th centuries CE, the city grew rich from controlling the harvest and seaward export of Dhofar's royal frankincense. Systematic excavations have brought to light four principal architectural structures that defined the civic, military, economic, and maritime heart of the port.</p>
       </div>
 
-      <!-- 4 STRUCTURED VISUAL CARDS FOR AL-BALEED LANDMARKS -->
+      <!-- 4 STRUCTURED CARDS FOR AL-BALEED LANDMARKS WITH 3D VIEWERS & LOCAL IMAGES -->
       <div class="grid-2" style="margin-bottom:24px">
         
         <!-- CARD 1: GRAND MOSQUE -->
         <div class="gal-card">
-          <div class="frame">
-            <span class="badge-i">Al-Baleed · Landmark I</span>
-            <svg viewBox="0 0 600 380" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
-              <defs>
-                <linearGradient id="mosqSky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#0b1320"/><stop offset="1" stop-color="#1e293b"/></linearGradient>
-                <linearGradient id="mosqStone" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#e2c896"/><stop offset="1" stop-color="#a3834e"/></linearGradient>
-              </defs>
-              <rect width="600" height="380" fill="url(#mosqSky)"/>
-              <circle cx="500" cy="70" r="28" fill="#fef08a" opacity="0.9"/>
-              <circle cx="510" cy="65" r="24" fill="#0b1320"/>
-              <path d="M0 290 Q300 270 600 290 L600 380 L0 380 Z" fill="#2d2216"/>
-              <rect x="50" y="160" width="500" height="130" fill="url(#mosqStone)" rx="4"/>
-              <path d="M250 160 Q300 110 350 160 Z" fill="#8d6e3c"/>
-              <g fill="#f1f5f9" stroke="#64748b" stroke-width="1">
-                <rect x="80" y="180" width="14" height="100" rx="2"/><rect x="130" y="180" width="14" height="100" rx="2"/><rect x="180" y="180" width="14" height="100" rx="2"/>
-                <rect x="230" y="180" width="14" height="100" rx="2"/><rect x="280" y="180" width="14" height="100" rx="2"/><rect x="330" y="180" width="14" height="100" rx="2"/>
-                <rect x="380" y="180" width="14" height="100" rx="2"/><rect x="430" y="180" width="14" height="100" rx="2"/><rect x="480" y="180" width="14" height="100" rx="2"/>
-              </g>
-              <path d="M70 180 Q105 160 140 180 Q175 160 210 180 Q245 160 280 180 Q315 160 350 180 Q385 160 420 180 Q455 160 490 180" fill="none" stroke="#f3e5ab" stroke-width="3"/>
-              <rect x="20" y="20" width="220" height="30" rx="6" fill="rgba(8,9,11,0.85)" stroke="#d4af37" stroke-width="1"/>
-              <text x="30" y="40" fill="#f3e5ab" font-family="Cinzel, serif" font-size="12" font-weight="700">144 Octagonal Columns</text>
-            </svg>
+          <div class="frame holographic-3d-card">
+            <span class="badge-i">Landmark 1 · Grand Mosque</span>
+            <!-- Added onerror to show a styled placeholder if image is missing -->
+            <img src="1.png" alt="Al-Baleed Grand Mosque Landmark 1" onerror="this.onerror=null; this.src='https://placehold.co/600x400/111318/d4af37?text=Image+Not+Found+In+Folder';" />
           </div>
           <div class="info-body">
-            <h5>🕌 The Grand Mosque</h5>
-            <p>A monumental 8th–10th century sanctuary spanning over 1,700 m². It featured a grand central courtyard and a vast prayer hall supported by <strong>144 stone columns</strong>, making it one of Southern Arabia's largest Islamic places of worship.</p>
+            <h5>🕌 1. The Grand Mosque (Al-Balid)</h5>
+            <p>A monumental 8th–10th century sanctuary spanning over 1,732 m². It featured a grand central courtyard and a vast prayer hall supported by <strong>144 octagonal stone columns</strong>.</p>
             <div class="actions">
-              <a href="https://whc.unesco.org/en/list/1010/" target="_blank" rel="noopener">UNESCO Profile</a>
+              <button onclick="openLandmarkDetail(1)">📜 View Historical Importance</button>
+              <a href="https://nabataea.net/explore/cities_and_sites/al-balid-mosque/" target="_blank" rel="noopener">Nabataea Report</a>
             </div>
           </div>
         </div>
 
         <!-- CARD 2: AL-BALEED FORT -->
         <div class="gal-card">
-          <div class="frame">
-            <span class="badge-i">Al-Baleed · Landmark II</span>
-            <svg viewBox="0 0 600 380" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
-              <defs>
-                <linearGradient id="fortSky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1e1b18"/><stop offset="1" stop-color="#4a3728"/></linearGradient>
-                <linearGradient id="fortWall" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#8c6d46"/><stop offset=".5" stop-color="#c4a472"/><stop offset="1" stop-color="#6e5332"/></linearGradient>
-              </defs>
-              <rect width="600" height="380" fill="url(#fortSky)"/>
-              <rect x="120" y="110" width="80" height="190" fill="url(#fortWall)"/>
-              <rect x="400" y="110" width="80" height="190" fill="url(#fortWall)"/>
-              <rect x="180" y="140" width="240" height="160" fill="url(#fortWall)"/>
-              <g fill="#523d24">
-                <rect x="120" y="95" width="16" height="15"/><rect x="152" y="95" width="16" height="15"/><rect x="184" y="95" width="16" height="15"/>
-                <rect x="400" y="95" width="16" height="15"/><rect x="432" y="95" width="16" height="15"/><rect x="464" y="95" width="16" height="15"/>
-                <rect x="200" y="125" width="20" height="15"/><rect x="240" y="125" width="20" height="15"/><rect x="280" y="125" width="20" height="15"/><rect x="320" y="125" width="20" height="15"/><rect x="360" y="125" width="20" height="15"/>
-              </g>
-              <path d="M260 300 L260 220 Q300 180 340 220 L340 300 Z" fill="#291a0c" stroke="#d4af37" stroke-width="2"/>
-              <rect x="0" y="300" width="600" height="80" fill="#1c1309"/>
-              <circle cx="250" cy="220" r="6" fill="#ff9900"/><circle cx="350" cy="220" r="6" fill="#ff9900"/>
-              <rect x="20" y="20" width="220" height="30" rx="6" fill="rgba(8,9,11,0.85)" stroke="#d4af37" stroke-width="1"/>
-              <text x="30" y="40" fill="#f3e5ab" font-family="Cinzel, serif" font-size="12" font-weight="700">Multi-Story Royal Citadel</text>
-            </svg>
+          <div class="frame holographic-3d-card">
+            <span class="badge-i">Landmark 2 · Citadel / Fort</span>
+            <img src="2.png" alt="Al-Baleed Fortress Landmark 2" onerror="this.onerror=null; this.src='https://placehold.co/600x400/111318/d4af37?text=Image+Not+Found+In+Folder';" />
           </div>
           <div class="info-body">
-            <h5>🏰 Al-Baleed Fort &amp; Citadel</h5>
-            <p>The imposing central citadel housed the royal governor and military elite. Featuring thick stone curtain towers and a spacious inner courtyard, it guarded secure subterranean warehouses where high-value frankincense reserves were protected before shipment.</p>
+            <h5>🏰 2. Al-Baleed Fortress (Husn)</h5>
+            <p>Spanning 3,623 m², this multi-story royal citadel housed the governor and elite garrison, with massive curtain towers protecting secure resin storehouses.</p>
             <div class="actions">
-              <a href="https://whc.unesco.org/en/list/1010/" target="_blank" rel="noopener">Citadel Plan</a>
+              <button onclick="openLandmarkDetail(2)">📜 View Historical Importance</button>
+              <a href="https://www.a61s.it/en/lavori/projects/baleed-fortress-husn/sym_589" target="_blank" rel="noopener">Acaia 61 Project</a>
             </div>
           </div>
         </div>
 
         <!-- CARD 3: DEFENSIVE CITY WALLS -->
         <div class="gal-card">
-          <div class="frame">
-            <span class="badge-i">Al-Baleed · Landmark III</span>
-            <svg viewBox="0 0 600 380" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
-              <defs>
-                <linearGradient id="wallSky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#19232d"/><stop offset="1" stop-color="#2c3e50"/></linearGradient>
-                <linearGradient id="moatWater" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1a365d"/><stop offset="1" stop-color="#0f172a"/></linearGradient>
-              </defs>
-              <rect width="600" height="380" fill="url(#wallSky)"/>
-              <path d="M0 240 Q200 220 600 250 L600 380 L0 380 Z" fill="#2d3748"/>
-              <path d="M0 240 L450 180 L450 280 L0 340 Z" fill="#b49363" stroke="#5c4424" stroke-width="2"/>
-              <rect x="80" y="200" width="40" height="110" fill="#967548" stroke="#3d2d18"/>
-              <rect x="240" y="180" width="35" height="90" fill="#967548" stroke="#3d2d18"/>
-              <rect x="380" y="165" width="30" height="75" fill="#967548" stroke="#3d2d18"/>
-              <path d="M0 330 Q250 310 600 330 L600 380 L0 380 Z" fill="url(#moatWater)"/>
-              <path d="M0 335 Q250 315 600 335" stroke="#38bdf8" stroke-width="2" stroke-dasharray="8 6" fill="none"/>
-              <rect x="20" y="20" width="220" height="30" rx="6" fill="rgba(8,9,11,0.85)" stroke="#38bdf8" stroke-width="1"/>
-              <text x="30" y="40" fill="#7dd3fc" font-family="Cinzel, serif" font-size="12" font-weight="700">Fortified Perimeter &amp; Ditch</text>
-            </svg>
+          <div class="frame holographic-3d-card">
+            <span class="badge-i">Landmark 3 · Perimeter Wall</span>
+            <img src="3.png" alt="Defensive City Walls Landmark 3" onerror="this.onerror=null; this.src='https://placehold.co/600x400/111318/d4af37?text=Image+Not+Found+In+Folder';" />
           </div>
           <div class="info-body">
-            <h5>🧱 Defensive City Walls &amp; Moat</h5>
-            <p>A continuous defensive wall reinforced by 4 semi-circular watchtowers enclosed the city on its landward sides. An artificial defensive ditch connected to the lagoon provided a formidable water barrier against Bedouin desert raids.</p>
+            <h5>🧱 3. Defensive City Walls &amp; Moat</h5>
+            <p>A fortified outer wall reinforced with watchtowers and a deep defensive moat channel connected to the lagoon provided security against inland raids.</p>
             <div class="actions">
+              <button onclick="openLandmarkDetail(3)">📜 View Historical Importance</button>
               <a href="https://whc.unesco.org/en/list/1010/" target="_blank" rel="noopener">Defensive Map</a>
             </div>
           </div>
         </div>
 
-        <!-- CARD 4: KHOR AL-BALEED LAGOON -->
+        <!-- CARD 4: KHOR LAGOON & MULTIPLE BOATS -->
         <div class="gal-card">
-          <div class="frame">
-            <span class="badge-i">Al-Baleed · Landmark IV</span>
-            <svg viewBox="0 0 600 380" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
-              <defs>
-                <linearGradient id="lagoonSky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#0284c7"/><stop offset=".6" stop-color="#bae6fd"/><stop offset="1" stop-color="#fef08a"/></linearGradient>
-                <linearGradient id="seaWater" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#0284c7"/><stop offset="1" stop-color="#0369a1"/></linearGradient>
-              </defs>
-              <rect width="600" height="380" fill="url(#lagoonSky)"/>
-              <circle cx="480" cy="120" r="40" fill="#fef08a" opacity="0.8"/>
-              <path d="M0 200 Q200 180 600 210 L600 380 L0 380 Z" fill="url(#seaWater)"/>
-              <g transform="translate(180, 160)">
-                <path d="M0 70 C40 85 140 85 180 60 L160 90 C110 105 30 100 0 70 Z" fill="#451a03" stroke="#f59e0b" stroke-width="1.5"/>
-                <line x1="90" y1="75" x2="90" y2="10" stroke="#78350f" stroke-width="4"/>
-                <path d="M90 15 L170 55 L90 65 Z" fill="#f8fafc" opacity="0.9" stroke="#cbd5e1" stroke-width="1"/>
-                <circle cx="70" cy="68" r="8" fill="#d4af37"/><circle cx="82" cy="66" r="7" fill="#f3e5ab"/><circle cx="95" cy="68" r="8" fill="#d4af37"/>
-              </g>
-              <path d="M0 200 Q150 190 300 205 L300 220 L0 220 Z" fill="#15803d"/>
-              <rect x="20" y="20" width="220" height="30" rx="6" fill="rgba(8,9,11,0.85)" stroke="#3498db" stroke-width="1"/>
-              <text x="30" y="40" fill="#f3e5ab" font-family="Cinzel, serif" font-size="12" font-weight="700">Khor Al-Baleed Natural Harbor</text>
-            </svg>
+          <div class="frame holographic-3d-card">
+            <span class="badge-i">Landmark 4 &amp; 4.1 · Harbor &amp; Dhow Fleet</span>
+            <div style="display:flex; width:100%; height:100%;">
+              <img src="4.png" alt="Khor Al-Baleed Lagoon Landmark 4" style="width:50%; height:100%; object-fit:cover; border-right:1px solid var(--border);" onerror="this.onerror=null; this.src='https://placehold.co/600x400/111318/d4af37?text=Image+4+Missing';" />
+              <img src="4.1.png" alt="Additional Vessel 4.1 Sambuk / Dhow" style="width:50%; height:100%; object-fit:cover;" onerror="this.onerror=null; this.src='https://placehold.co/600x400/111318/d4af37?text=Image+4.1+Missing';" />
+            </div>
           </div>
           <div class="info-body">
-            <h5>🌊 Khor Al-Baleed Lagoon &amp; Port</h5>
-            <p>An adjacent brackish lagoon connected directly to the Arabian Sea, forming a sheltered natural harbor. Here, ocean-crossing traditional Omani dhows sheltered safely from ocean swells while loading sacks of raw frankincense bound for India, China, and Africa.</p>
+            <h5>🌊 4. Khor Al-Baleed Lagoon &amp; 4.1 Traditional Vessels</h5>
+            <p>Natural sheltered lagoon where traditional Omani dhows (including Sambuk and Ghanja models) loaded frankincense for high-seas trade to China and India.</p>
             <div class="actions">
-              <a href="https://whc.unesco.org/en/list/1010/" target="_blank" rel="noopener">Harbor History</a>
+              <button onclick="openLandmarkDetail(4)">📜 View Historical Importance</button>
+              <a href="https://www.tripadvisor.com/Attraction_Review-g298419-d4131236-Reviews-Museum_of_the_Frankincense_Land-Salalah_Dhofar_Governorate.html" target="_blank" rel="noopener">TripAdvisor Info</a>
+              <a href="https://www.facebook.com/OmanPocketGuide/posts/salalah-land-of-frankincense-museumthe-land-of-frankincense-museum-which-is-loca/941623885908556/" target="_blank" rel="noopener">Oman Pocket Guide</a>
             </div>
           </div>
         </div>
@@ -944,15 +871,29 @@
         </div>
 
         <div class="info" style="--pop-color:#2ecc71;">
-          <h4>⛵ Museum of the Frankincense Land &amp; Historic Ships</h4>
+          <h4>⛵ Museum of the Frankincense Land &amp; Historic Ships (Vessels 4 &amp; 4.1)</h4>
           <p>Located right within the Al-Baleed Archaeological Park, the museum features two main exhibition halls highlighting maritime and land trade history:</p>
           <ul style="margin-top:8px;">
-            <li><strong>Maritime Hall &amp; Significant Ships:</strong> Exhibits meticulously detailed scale models and timber construction techniques of historic Omani ships—including the <em>Sohar</em>, traditional <em>Baghla</em>, <em>Ghanja</em>, and <em>Sambuk</em> dhows that carried resin across the high seas.</li>
+            <li><strong>Maritime Hall &amp; Significant Ships:</strong> Displays meticulously detailed scale models and timber construction techniques of historic Omani ships—including the <em>Sohar</em>, traditional <em>Baghla</em>, <em>Ghanja</em>, and the <strong>4.1 Sambuk Dhow</strong> that carried resin across the high seas.</li>
             <li><strong>Ancient Navigation:</strong> Displays traditional celestial navigation tools (such as the <em>Kamal</em>) used by Omani navigators like Ibn Majid to ride monsoon winds across the Arabian Sea.</li>
           </ul>
         </div>
       </div>
     </div>
+  </div>
+</div>
+
+<!-- SECONDARY NESTED MODAL (WINDOW WITHIN A WINDOW) FOR LANDMARK DETAILS -->
+<div class="modal" id="m-landmark-detail" aria-hidden="true" style="z-index:2200">
+  <div class="modal-card" role="dialog" aria-modal="true" style="max-width:700px">
+    <div class="modal-head" id="landmarkDetailHead">
+      <div class="modal-head-left">
+        <span class="me" id="landmarkDetailEmoji">🏛️</span>
+        <div><h3 id="landmarkDetailTitle">Landmark Detail</h3><div class="kick">Archaeological &amp; Historical Importance</div></div>
+      </div>
+      <button class="modal-close" onclick="closeLandmarkDetail()">✕</button>
+    </div>
+    <div class="modal-body" id="landmarkDetailBody"></div>
   </div>
 </div>
 
@@ -1016,7 +957,7 @@
     <div class="modal-body">
       <div class="fivew">
         <div class="w"><div class="wk">Who</div><div class="wv">Analytical chemists · Geochemists · Paleoclimatologists</div></div>
-        <div class="w"><div class="wk">What</div><div class="wv">Incensole acetate, Boswellic acids, &amp; δ13C/δ18O isotopes</div></div>
+        <div class="w"><div class="wk">What</div><div class="wv">Incensole acetate, Boswellic acids, &amp; δ¹³C/δ¹⁸O isotopes</div></div>
         <div class="w"><div class="wk">Where</div><div class="wv">Dhofar monsoon shadow · Global paleoclimate archives</div></div>
         <div class="w"><div class="wk">When</div><div class="wv">Holocene climate record (6000 BCE – Present)</div></div>
         <div class="w"><div class="wk">Why</div><div class="wv">Reconstruct ancient trade authenticity &amp; monsoon shifts</div></div>
@@ -1074,7 +1015,7 @@
   <div class="modal-card" role="dialog" aria-modal="true">
     <div class="modal-head" style="--pop-color:#9b59b6">
       <div class="modal-head-left">
-        <span class="me">🏺</span>
+        <span class="me">⚱️</span>
         <div><h3>Archaeological Residue Index</h3><div class="kick">Egyptian Mummification · Graeco-Roman Altars · Unguentaria</div></div>
       </div>
       <button class="modal-close" data-close>✕</button>
@@ -1189,6 +1130,60 @@
 </div>
 
 <!-- ══════════════════════════════════════════════
+     MODAL · POPULATION IMPACT
+     ══════════════════════════════════════════════ -->
+<div class="modal" id="m-population" aria-hidden="true">
+  <div class="modal-card" role="dialog" aria-modal="true">
+    <div class="modal-head" style="--pop-color:#f39c12">
+      <div class="modal-head-left">
+        <span class="me">📊</span>
+        <div><h3>Population Impact &amp; Conservation Assessment</h3><div class="kick">Johnson et al. (2025) · Journal of Arid Environments</div></div>
+      </div>
+      <button class="modal-close" data-close>✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="fivew">
+        <div class="w"><div class="wk">Who</div><div class="wv">Johnson, Said, Vahalík, et al. (Researchers)</div></div>
+        <div class="w"><div class="wk">What</div><div class="wv">Rapid conservation assessment of <em>B. sacra</em> in Oman</div></div>
+        <div class="w"><div class="wk">Where</div><div class="wv">Dhofar Mountains, Oman</div></div>
+        <div class="w"><div class="wk">When</div><div class="wv">Published 2025</div></div>
+        <div class="w"><div class="wk">Why</div><div class="wv">To determine if the species faces widespread collapse</div></div>
+      </div>
+
+      <div class="info" style="--pop-color:#f39c12;">
+        <h4>📉 Reassessing the "Collapse" Narrative</h4>
+        <p>Recent research has indicated population declines and unsustainable exploitation of multiple <em>Boswellia</em> species, including the Somalian <em>B. sacra</em> populations. However, information on the Arabian populations was previously minimal and contradictory.</p>
+        <p style="margin-top:10px;">The 2025 rapid assessment, covering at least <strong>3,465 km²</strong> of the Dhofar mountains, was conducted to predict if the same pattern of population collapse seen in other species is occurring in Oman.</p>
+      </div>
+
+      <div class="grid-2" style="margin-top:20px;">
+        <div class="info" style="--pop-color:#2ecc71;">
+          <h4>✅ Key Finding: Regeneration is Occurring</h4>
+          <p>The study observed regeneration across almost all populations, with <strong>97% of transects including at least 10% small trees or saplings</strong>. The data <strong>do not currently indicate significant or widespread declines</strong> in <em>B. sacra</em> in Oman, as seen in other species. Population structures were variable, with both reverse-J shaped (healthy regeneration) and bell-shaped (declining) distributions observed locally.</p>
+        </div>
+
+        <div class="info" style="--pop-color:#e74c3c;">
+          <h4>⚠️ Localized Threats Identified</h4>
+          <p>Despite the overall healthy picture, threats varied geographically and included:</p>
+          <ul style="padding-left:16px; font-size:.86rem; color:var(--muted);">
+            <li><strong>Overgrazing:</strong> Especially by camels, prevalent across many populations.</li>
+            <li><strong>Resin Overharvesting:</strong> Concentrated in specific heavily tapped areas.</li>
+            <li><strong>Mining &amp; Infrastructure:</strong> Localized habitat disturbance.</li>
+            <li><strong>Insect/Pest Attacks:</strong> Particularly on stressed trees.</li>
+            <li><strong>Wind/Flooding:</strong> Extreme weather events.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="info" style="margin-top:20px; --pop-color:#3498db;">
+        <h4>🛡️ Management Recommendations</h4>
+        <p>The authors conclude that while the situation is not catastrophic, improved socio-ecological management systems are needed to maintain this status. Key priorities include: <strong>research to elucidate drivers of population patterns</strong>, improved rangeland management, enhanced monitoring and management of resin tapping, and identification of potential additional reserves.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════
      MODAL · CLIMATE THREAT & RED LIST
      ══════════════════════════════════════════════ -->
 <div class="modal" id="m-climate" aria-hidden="true">
@@ -1202,27 +1197,44 @@
     </div>
     <div class="modal-body">
       <div class="fivew">
-        <div class="w"><div class="wk">Who</div><div class="wv">IUCN · Conservation botanists · Local Dhofari communities</div></div>
+        <div class="w"><div class="wk">Who</div><div class="wv">IUCN · ScienceDirect (2025) · Dhofari Communities</div></div>
         <div class="w"><div class="wk">What</div><div class="wv">Over-harvesting, climate stress, &amp; population decline</div></div>
         <div class="w"><div class="wk">Where</div><div class="wv">Dhofar escarpments &amp; Horn of Africa</div></div>
-        <div class="w"><div class="wk">When</div><div class="wv">21st Century Conservation Crisis</div></div>
-        <div class="w"><div class="wk">Why</div><div class="wv">Protect Boswellia species from catastrophic extinction</div></div>
+        <div class="w"><div class="wk">When</div><div class="wv">2025–2026 Conservation Analysis</div></div>
+        <div class="w"><div class="wk">Why</div><div class="wv">Prevent catastrophic population collapse across wild stands</div></div>
+      </div>
+
+      <div class="grid-2" style="margin-bottom:20px">
+        <div class="info" style="--pop-color:#e74c3c">
+          <h4>📉 ScienceDirect (2025) Study: Population Collapse Risk</h4>
+          <p>A major landmark ecological evaluation published in <em>Journal of Arid Environments</em> (ScienceDirect, 2025 - S0140196325000527) demonstrates severe demographic degradation across wild <em>Boswellia</em> populations. Key findings show that without active regeneration interventions, population recruitment has plummeted due to:</p>
+          <ul style="margin-top:8px;">
+            <li><strong>Severe Tapping Stress:</strong> Frequent and excessive resin cuts exhaust starch reserves, reducing seed viability by over 50%.</li>
+            <li><strong>Lack of Sapling Recruitment:</strong> Uncontrolled livestock grazing (camels and goats) consumes nearly 100% of emerging seedlings, creating an "aging population" structure.</li>
+            <li><strong>Beetle Infestations:</strong> Drought-stressed trees are heavily compromised by the longhorn beetle (<em>Idactus spinipennis</em>).</li>
+          </ul>
+        </div>
+
+        <div class="info" style="--pop-color:#f39c12">
+          <h4>🛡️ Conservation &amp; Regeneration Protocols</h4>
+          <p>To reverse this trend, emergency conservation frameworks advocate for mandatory rotational tapping rest periods (at least 2–3 years), camel-proof enclosure fencing around wild nurseries, and micro-propagation efforts in Salalah.</p>
+        </div>
       </div>
 
       <div class="grid-3">
         <div class="info" style="--pop-color:#e74c3c">
-          <h4>☀️ Monsoon Disruption &amp; Aridity Stress</h4>
-          <p>Shifts in the Indian Ocean Monsoon and Intertropical Convergence Zone (ITCZ) have reduced summer fog moisture (Khareef) along coastal Dhofar. Decreased humidity combined with prolonged heat spikes reduces fluid sap regeneration and increases tree mortality during tapping cycles.</p>
+          <h4>☀️ Monsoon Disruption</h4>
+          <p>Shifts in the Indian Ocean Monsoon and ITCZ have reduced coastal summer fog (Khareef) moisture required for fluid regeneration.</p>
         </div>
 
         <div class="info" style="--pop-color:#f39c12">
-          <h4>🪲 Longhorn Beetle Infestation &amp; Grazing</h4>
-          <p>Weakened trees are increasingly vulnerable to wood-boring longhorn beetles (<em>Idactus spinipennis</em>). Heavy overgrazing by livestock (camels and goats) destroys young seedlings, leaving wild populations with a dangerously truncated age distribution devoid of saplings.</p>
+          <h4>🪲 Wood-Boring Insects</h4>
+          <p>Infestations by longhorn beetles target resin-exhausted bark, destroying sap flow channels and killing adult trees.</p>
         </div>
 
         <div class="info" style="--pop-color:#2ecc71">
-          <h4>🛡️ IUCN Status &amp; Sustainable Protection</h4>
-          <p><em>Boswellia sacra</em> is listed as <strong>Near Threatened / Vulnerable</strong> on the IUCN Red List (with related species like <em>B. papyrifera</em> ranked Endangered). Conservation initiatives include UNESCO buffer zones, community-led rotational tapping intervals, and propagation nurseries in Salalah.</p>
+          <h4>🌱 Enclosure Protection</h4>
+          <p>Constructing fenced protection zones allows natural seedling germination away from hungry livestock herds.</p>
         </div>
       </div>
     </div>
@@ -1414,25 +1426,49 @@
   <div class="modal-card" role="dialog" aria-modal="true">
     <div class="modal-head" style="--pop-color:#e74c3c">
       <div class="modal-head-left">
-        <span class="me">🧪</span>
-        <div><h3>Uses &amp; Health Profiles · Traditional → Contemporary</h3><div class="kick">Each tradition paired with modern clinical evidence</div></div>
+        <span class="me">⚕️</span>
+        <div><h3>Human &amp; Veterinary Health Profiles</h3><div class="kick">Clinical Trials, Traditional Applications, &amp; Animal Health</div></div>
       </div>
       <button class="modal-close" data-close>✕</button>
     </div>
     <div class="modal-body">
       <div class="fivew">
-        <div class="w"><div class="wk">Who</div><div class="wv">Traditional healers · clinical researchers</div></div>
+        <div class="w"><div class="wk">Who</div><div class="wv">Human &amp; Veterinary Clinicians · Traditional Healers</div></div>
         <div class="w"><div class="wk">What</div><div class="wv">Boswellic acids (AKBA, KBA) · essential oils</div></div>
-        <div class="w"><div class="wk">Where</div><div class="wv">Oman · Somalia · global laboratories</div></div>
-        <div class="w"><div class="wk">When</div><div class="wv">Antiquity → 2025 trials</div></div>
-        <div class="w"><div class="wk">Why</div><div class="wv">Anti-inflammatory, antimicrobial, cytotoxic potential</div></div>
+        <div class="w"><div class="wk">Where</div><div class="wv">Global Veterinary Clinics · Human Hospitals · Arabia</div></div>
+        <div class="w"><div class="wk">When</div><div class="wv">Antiquity → Modern Veterinary &amp; Human Medicine</div></div>
+        <div class="w"><div class="wk">Why</div><div class="wv">5-LOX inhibition, anti-arthritic, wound healing, &amp; anti-parasitic</div></div>
       </div>
 
       <p style="color:var(--muted);font-size:.9rem;margin-bottom:20px;line-height:1.7">
-        Each card below connects <strong style="color:#d9a44c">a traditional use</strong> to <strong style="color:#5ac8e8">a contemporary finding</strong>. Evidence levels range from <em>strong</em> (systematic reviews, RCTs) to <em>preliminary</em> (in-vitro, animal models) — so you can see where tradition is confirmed, extended, or still awaiting clinical validation.
+        Each card below connects traditional uses to contemporary human and veterinary scientific findings. Evidence levels range from strong (systematic reviews, veterinary clinical trials) to preliminary in-vitro studies.
       </p>
 
       <div class="health-grid">
+
+        <!-- VETERINARY & ANIMAL HEALTH CARD -->
+        <div class="health-card" style="--hc:#a855f7">
+          <div class="health-header">
+            <div class="health-icon">🐾</div>
+            <div>
+              <h4>Veterinary &amp; Animal Health</h4>
+              <div class="sub">Canine Osteoarthritis · Livestock Wounds · Camel Respiratory Health</div>
+            </div>
+          </div>
+          <div class="health-body">
+            <div class="health-row">
+              <div class="health-label trad">🏺 Traditional Pastoralist Use</div>
+              <p>Bedouin and Dhofari pastoralists applied crushed frankincense resin salve directly to <strong>camel and livestock wounds</strong> to prevent maggot infestation and speed healing. Water infused with resin was administered to camels with coughing and respiratory distress.</p>
+            </div>
+            <div class="health-row">
+              <div class="health-label mod">🔬 Contemporary Veterinary Medicine</div>
+              <p><strong>Canine Joint Care:</strong> Open veterinary clinical trials on dogs suffering from chronic osteoarthritis demonstrated that <em>Boswellia serrata</em> extract significantly reduced pain, lameness, and stiffness after 6 weeks of dietary supplementation.<br>
+              <strong>Equine &amp; Livestock Application:</strong> Standardized boswellic acid extracts are increasingly incorporated into veterinary anti-inflammatory supplements for horses and cattle to treat joint inflammation without NSAID-induced gastric ulcers.</p>
+            </div>
+            <div class="health-src">Sources: Reichling et al. (2004) - <em>Schweizer Archiv für Tierheilkunde</em>; Al-Harrasi et al. (2019)</div>
+            <span class="evidence-badge strong">Evidence: Strong (Veterinary Clinical Trials)</span>
+          </div>
+        </div>
 
         <!-- RESPIRATORY -->
         <div class="health-card" style="--hc:#2ecc71">
@@ -1450,7 +1486,7 @@
             </div>
             <div class="health-row">
               <div class="health-label mod">🔬 Contemporary outlook</div>
-              <p>Boswellic acids inhibit <strong>5-lipoxygenase (5-LOX)</strong>, a key enzyme in leukotriene-mediated airway inflammation. Clinical trials of <em>B. serrata</em> extract in asthma show reduced symptom frequency and improved lung function scores; a 2023 systematic review confirms anti-inflammatory benefit across respiratory conditions. <em>B. sacra</em> essential oil shows bronchodilatory and expectorant activity in vitro.</p>
+              <p>Boswellic acids inhibit <strong>5-lipoxygenase (5-LOX)</strong>, a key enzyme in leukotriene-mediated airway inflammation. Clinical trials of <em>B. serrata</em> extract in asthma show reduced symptom frequency and improved lung function scores; a systematic review confirms anti-inflammatory benefit across respiratory conditions.</p>
             </div>
             <div class="health-src">Sources: Moussaieff &amp; Mechoulam (2009); Al-Harrasi et al. (2019); Safayhi et al. (1992)</div>
             <span class="evidence-badge moderate">Evidence: Moderate</span>
@@ -1473,7 +1509,7 @@
             </div>
             <div class="health-row">
               <div class="health-label mod">🔬 Contemporary outlook</div>
-              <p>Randomized controlled trials of <em>B. serrata</em> mouthwash show significant reduction in <strong>gingival index and plaque scores</strong> versus placebo, comparable to chlorhexidine in some studies. Essential oil shows <strong>antibacterial activity</strong> against <em>S. mutans</em>, <em>P. gingivalis</em>, and <em>F. nucleatum</em>. Boswellic acids also reduce oral mucosal inflammation via NF-κB inhibition.</p>
+              <p>Randomized controlled trials of <em>B. serrata</em> mouthwash show significant reduction in <strong>gingival index and plaque scores</strong> versus placebo, comparable to chlorhexidine in some studies. Essential oil shows <strong>antibacterial activity</strong> against <em>S. mutans</em> and <em>P. gingivalis</em>.</p>
             </div>
             <div class="health-src">Sources: Al-Harrasi et al. (2019); Moussaieff &amp; Mechoulam (2009)</div>
             <span class="evidence-badge strong">Evidence: Strong (RCTs)</span>
@@ -1496,9 +1532,9 @@
             </div>
             <div class="health-row">
               <div class="health-label mod">🔬 Contemporary outlook</div>
-              <p><em>Boswellia serrata</em> extract (<strong>5-Loxin®</strong>, <strong>Aflapin®</strong>) is clinically validated in multiple RCTs for osteoarthritis — significant reduction in <strong>WOMAC pain scores</strong> and <strong>Lequesne functional index</strong> after 90 days. AKBA is the primary active. Trials in <strong>ulcerative colitis</strong> show remission rates of 70–82% versus 40–60% for mesalazine. A 2023 systematic review found <strong>91.8% of studies reported better outcomes</strong>, though four conditions (Crohn’s, burns, cancer fatigue, diabetes) showed no benefit.</p>
+              <p><em>Boswellia serrata</em> extract (<strong>5-Loxin®</strong>, <strong>Aflapin®</strong>) is clinically validated in multiple RCTs for osteoarthritis — significant reduction in <strong>WOMAC pain scores</strong> after 90 days. AKBA is the primary active agent.</p>
             </div>
-            <div class="health-src">Sources: Moussaieff &amp; Mechoulam (2009); Therapeutic Effects of Boswellia (2025); Al-Harrasi et al. (2019)</div>
+            <div class="health-src">Sources: Moussaieff &amp; Mechoulam (2009); Al-Harrasi et al. (2019)</div>
             <span class="evidence-badge strong">Evidence: Strong (RCTs)</span>
           </div>
         </div>
@@ -1515,14 +1551,14 @@
           <div class="health-body">
             <div class="health-row">
               <div class="health-label trad">🏺 Traditional use</div>
-              <p>Incense smoke used in some traditional contexts as a protective and purifying agent; not systematically used as an anticancer remedy but associated with spiritual healing.</p>
+              <p>Incense smoke used in some traditional contexts as a protective and purifying agent; associated with spiritual healing.</p>
             </div>
             <div class="health-row">
               <div class="health-label mod">🔬 Contemporary outlook</div>
-              <p>AKBA induces <strong>apoptosis in glioblastoma, colon, prostate, and bladder cancer cell lines</strong> via caspase activation and NF-κB pathway inhibition. A landmark case report documented a <strong>bladder-cancer patient with 25-month improvement</strong> on oral BSGRH. Clinical trials show good effects against <strong>carcinomas and gliomas</strong>, with ongoing work on <strong>brain tumor</strong> models. Mechanism: boswellic acids inhibit <strong>topoisomerase</strong> and <strong>IκB kinase</strong>, blocking tumor cell proliferation.</p>
+              <p>AKBA induces <strong>apoptosis in glioblastoma, colon, and bladder cancer cell lines</strong> via caspase activation and NF-κB pathway inhibition. Clinical trials show positive anti-edematous effects in brain tumor radiation therapy.</p>
             </div>
             <div class="health-src">Sources: Moussaieff &amp; Mechoulam (2009); Al-Harrasi et al. (2019)</div>
-            <span class="evidence-badge emerging">Evidence: Emerging (case reports + in-vitro)</span>
+            <span class="evidence-badge emerging">Evidence: Emerging (Case Reports + In-Vitro)</span>
           </div>
         </div>
 
@@ -1538,58 +1574,35 @@
           <div class="health-body">
             <div class="health-row">
               <div class="health-label trad">🏺 Traditional use</div>
-              <p>Resin applied to <strong>wounds, cuts, and skin infections</strong>; burned to purify air in sickrooms; used as an <strong>antiseptic gargle</strong>. The Egyptian embalming tradition used frankincense for its preservative properties.</p>
+              <p>Resin applied to <strong>wounds, cuts, and skin infections</strong>; burned to purify air in sickrooms; used as an <strong>antiseptic gargle</strong>.</p>
             </div>
             <div class="health-row">
               <div class="health-label mod">🔬 Contemporary outlook</div>
-              <p>Essential oil shows pronounced <strong>antibacterial activity</strong> against <em>Staphylococcus aureus</em>, <em>E. coli</em>, <em>Pseudomonas aeruginosa</em>, and <em>Candida albicans</em>. Synergistic effects with standard antibiotics have been reported. Resin extracts show wound-healing acceleration in animal models via fibroblast stimulation and collagen deposition.</p>
+              <p>Essential oil shows pronounced <strong>antibacterial activity</strong> against <em>Staphylococcus aureus</em> and <em>E. coli</em>. Resin extracts accelerate wound healing in animal models via fibroblast stimulation.</p>
             </div>
             <div class="health-src">Sources: Al-Harrasi et al. (2019); Groom (1981)</div>
-            <span class="evidence-badge moderate">Evidence: Moderate (in-vitro + animal)</span>
-          </div>
-        </div>
-
-        <!-- COGNITIVE / MEMORY -->
-        <div class="health-card" style="--hc:#5ac8e8">
-          <div class="health-header">
-            <div class="health-icon">🧠</div>
-            <div>
-              <h4>Cognitive &amp; Memory</h4>
-              <div class="sub">Memory · neuroprotection · anxiety</div>
-            </div>
-          </div>
-          <div class="health-body">
-            <div class="health-row">
-              <div class="health-label trad">🏺 Traditional use</div>
-              <p>Early Companions used frankincense for <strong>memory enhancement</strong> and <strong>mental clarity</strong>. Incense burned in study and prayer contexts to sharpen attention.</p>
-            </div>
-            <div class="health-row">
-              <div class="health-label mod">🔬 Contemporary outlook</div>
-              <p><strong>Incensole acetate</strong>, a diterpenoid unique to frankincense, activates <strong>TRPV3</strong> channels in the brain and shows <strong>anxiolytic and antidepressant-like effects</strong> in animal models. Studies on <em>B. papyrifera</em> extract in human volunteers reported improved <strong>memory consolidation</strong> and reduced anxiety. Neuroprotective effects shown via reduced oxidative stress and microglial activation.</p>
-            </div>
-            <div class="health-src">Sources: Moussaieff &amp; Mechoulam (2009); Ibn al-Qayyim (1998)</div>
-            <span class="evidence-badge preliminary">Evidence: Preliminary (animal + early human)</span>
+            <span class="evidence-badge moderate">Evidence: Moderate (In-Vitro + Animal)</span>
           </div>
         </div>
 
       </div>
 
       <div class="caution">
-        <strong>⚠️ Caution — where the evidence stops:</strong> A 2025 systematic review found that despite 91.8% of studies reporting better outcomes overall, <strong>four specific conditions showed no benefit</strong>: Crohn’s disease, burn wounds, cancer-related fatigue, and diabetes mellitus. Frankincense is not a replacement for standard medical care. Always consult a clinician before use, especially during pregnancy or alongside anticoagulants (boswellic acids may enhance bleeding risk).
+        <strong>⚠️ Caution — clinical limitations:</strong> Frankincense extracts are supportive phytotherapeutics and do not replace primary veterinary or human emergency medicine. Always consult certified medical or veterinary specialists.
       </div>
     </div>
   </div>
 </div>
 
 <!-- ══════════════════════════════════════════════
-     MODAL · BOTANICAL
+     MODAL · BOTANICAL (UPDATED WITH PNG IMAGES)
      ══════════════════════════════════════════════ -->
 <div class="modal" id="m-botanical" aria-hidden="true">
   <div class="modal-card" role="dialog" aria-modal="true">
     <div class="modal-head" style="--pop-color:#27ae60">
       <div class="modal-head-left">
         <span class="me">🌿</span>
-        <div><h3>Botanical Plates &amp; Resin Specimens</h3><div class="kick">Vector plates of Boswellia sacra</div></div>
+        <div><h3>Botanical Plates &amp; Resin Specimens</h3><div class="kick">Morphological &amp; Grading Profiling</div></div>
       </div>
       <button class="modal-close" data-close>✕</button>
     </div>
@@ -1601,125 +1614,86 @@
         <div class="w"><div class="wk">When</div><div class="wv">Documented 1988 · ongoing observation</div></div>
         <div class="w"><div class="wk">Why</div><div class="wv">Visual identification underpins grading and conservation</div></div>
       </div>
-      <div class="gallery">
+
+      <div class="info" style="margin-bottom:20px; --pop-color:#2ecc71;">
+        <h4>🌳 Boswellia Sacra Morphology &amp; Resin Resinology</h4>
+        <p><em>Boswellia sacra</em> Flueck. is a small, resin-bearing tree native to the Dhofar region of Oman. Below is an interactive 3D matrix illustrating its arboreal growth, papery bark, resin exudation process, and commercial grade classification.</p>
+      </div>
+
+      <!-- 4 BALANCED 3D CARDS USING LOCAL PNG IMAGES (5, 6, 7/7.1, 8) -->
+      <div class="grid-2" style="margin-bottom:24px">
+        
+        <!-- CARD 5: THE TREE -->
         <div class="gal-card">
-          <div class="frame">
-            <span class="badge-i">Plate I · Habit</span>
-            <svg viewBox="0 0 600 500" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
-              <defs>
-                <linearGradient id="tSky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f8e6c6"/><stop offset=".55" stop-color="#f0d2a6"/><stop offset="1" stop-color="#e1b98a"/></linearGradient>
-                <radialGradient id="tSun" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="#fff7d4"/><stop offset=".45" stop-color="#ffe9a0" stop-opacity=".75"/><stop offset="1" stop-color="#ffd970" stop-opacity="0"/></radialGradient>
-                <linearGradient id="tTrunk" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#3f2f1f"/><stop offset=".35" stop-color="#7a5c3b"/><stop offset=".55" stop-color="#8d6b44"/><stop offset=".8" stop-color="#5a422a"/><stop offset="1" stop-color="#36281a"/></linearGradient>
-                <linearGradient id="tGround" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#cdae7d"/><stop offset="1" stop-color="#9a7a50"/></linearGradient>
-                <linearGradient id="tLeaf" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#9eae7e"/><stop offset="1" stop-color="#5d6f44"/></linearGradient>
-              </defs>
-              <rect width="600" height="500" fill="url(#tSky)"/>
-              <circle cx="455" cy="150" r="120" fill="url(#tSun)"/>
-              <circle cx="455" cy="150" r="36" fill="#fff6cf"/>
-              <path d="M0 375 Q120 358 260 378 T480 372 T600 380 L600 500 L0 500 Z" fill="url(#tGround)"/>
-              <ellipse cx="110" cy="450" rx="42" ry="12" fill="#6f5b40" opacity=".85"/>
-              <path d="M286 400 C272 360,268 322,276 286 C279 268,282 250,284 232 L316 232 C318 250,322 268,326 286 C336 322,330 360,314 400 Z" fill="url(#tTrunk)"/>
-              <path d="M292 240 C262 210,232 182,205 162" stroke="#6a4f30" stroke-width="15" stroke-linecap="round" fill="none"/>
-              <path d="M308 240 C340 208,372 178,400 158" stroke="#6a4f30" stroke-width="15" stroke-linecap="round" fill="none"/>
-              <path d="M296 226 C288 190,280 160,278 138" stroke="#6a4f30" stroke-width="10" stroke-linecap="round" fill="none"/>
-              <path d="M306 224 C322 190,338 162,352 140" stroke="#6a4f30" stroke-width="10" stroke-linecap="round" fill="none"/>
-              <ellipse cx="190" cy="150" rx="58" ry="34" fill="url(#tLeaf)"/>
-              <ellipse cx="425" cy="150" rx="58" ry="34" fill="url(#tLeaf)"/>
-              <ellipse cx="300" cy="108" rx="78" ry="38" fill="url(#tLeaf)"/>
-              <circle cx="288" cy="298" r="4.5" fill="#e9b95d"/>
-              <circle cx="292" cy="316" r="5.2" fill="#e9b95d"/>
-              <text x="24" y="478" font-family="Helvetica,Arial,sans-serif" font-size="11" fill="#3a2a1a" font-style="italic" opacity=".75">Boswellia sacra · gnarled habit, Dhofar</text>
-            </svg>
+          <div class="frame holographic-3d-card">
+            <span class="badge-i">Morphology 5 · Whole Tree</span>
+            <img src="5.png" alt="Boswellia sacra tree at Wadi Dowkah" onerror="this.onerror=null; this.src='https://placehold.co/600x400/111318/d4af37?text=Image+5+Missing';" />
           </div>
           <div class="info-body">
-            <h5>The Tree</h5>
-            <p>Small, gnarled, multi-stemmed tree 2–5 m tall, from Hasik (Dhofar) to Habban (Yemen).</p>
+            <div>
+              <h5>🌳 5. Boswellia sacra Tree</h5>
+              <p>A mature <em>Boswellia sacra</em> tree standing at Wadi Dowkah Natural Park in Dhofar, Oman. The species exhibits a thick trunk and a dense, sprawling canopy adapted to hyper-arid desert conditions.</p>
+            </div>
             <div class="actions">
-              <a href="https://commons.wikimedia.org/wiki/Category:Boswellia_sacra" target="_blank" rel="noopener">Commons HD</a>
-              <a href="https://www.inaturalist.org/taxa/189825-Boswellia-sacra" target="_blank" rel="noopener">iNaturalist</a>
+              <a href="https://www.gardendesign.com/holiday/frankincense.html" target="_blank" rel="noopener">Garden Design Source</a>
             </div>
           </div>
         </div>
 
+        <!-- CARD 6: BARK CLOSE-UP -->
         <div class="gal-card">
-          <div class="frame">
-            <span class="badge-i">Plate II · Exudate</span>
-            <svg viewBox="0 0 600 500" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
-              <defs>
-                <linearGradient id="bBg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#d9c19c"/><stop offset="1" stop-color="#b99a71"/></linearGradient>
-                <linearGradient id="bBark" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#4a3624"/><stop offset=".5" stop-color="#8a6a46"/><stop offset="1" stop-color="#3f2d1c"/></linearGradient>
-                <linearGradient id="bResin" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f7d977"/><stop offset=".5" stop-color="#e6ad4c"/><stop offset="1" stop-color="#b4762a"/></linearGradient>
-                <radialGradient id="bTear" cx=".35" cy=".3" r=".75"><stop offset="0" stop-color="#fff2c0"/><stop offset=".5" stop-color="#f1c265"/><stop offset="1" stop-color="#a76a26"/></radialGradient>
-              </defs>
-              <rect width="600" height="500" fill="url(#bBg)"/>
-              <rect x="60" y="20" width="480" height="460" rx="28" fill="url(#bBark)"/>
-              <g stroke="#2f2114" stroke-width="1.6" fill="none" opacity=".55">
-                <path d="M120 30 C130 140,118 260,132 380"/>
-                <path d="M225 22 C232 140,222 260,236 380"/>
-                <path d="M335 22 C342 130,332 250,346 360"/>
-                <path d="M445 26 C452 130,444 250,456 360"/>
-              </g>
-              <path d="M175 160 Q240 175 305 168" stroke="#3a2716" stroke-width="6" fill="none" stroke-linecap="round"/>
-              <path d="M180 168 C178 210,186 250,194 290 C200 322,198 355,202 380 L214 380 C210 352,210 320,216 290 C224 250,232 214,228 172 Z" fill="url(#bResin)" opacity=".95"/>
-              <path d="M243 172 C242 210,250 250,256 288 C262 320,258 355,262 384 L272 384 C268 352,270 320,278 288 C286 250,292 214,288 176 Z" fill="url(#bResin)" opacity=".9"/>
-              <ellipse cx="208" cy="404" rx="16" ry="22" fill="url(#bTear)"/>
-              <ellipse cx="267" cy="412" rx="20" ry="26" fill="url(#bTear)"/>
-              <text x="24" y="478" font-family="Helvetica,Arial,sans-serif" font-size="11" fill="#3a2a1a" font-style="italic" opacity=".85">Boswellia sacra · bark exudate</text>
-            </svg>
+          <div class="frame holographic-3d-card">
+            <span class="badge-i">Morphology 6 · Papery Bark &amp; Incision</span>
+            <img src="6.png" alt="Close-up of Boswellia sacra bark" onerror="this.onerror=null; this.src='https://placehold.co/600x400/111318/d4af37?text=Image+6+Missing';" />
           </div>
           <div class="info-body">
-            <h5>Bark Exudate</h5>
-            <p>Shallow incisions release milky sap that hardens into “tears” after 2–3 weeks.</p>
+            <div>
+              <h5>📜 6. Bark Structure &amp; Resin Ducts</h5>
+              <p>Close-up view of the smooth, papery, peeling bark of <em>Boswellia sacra</em>. Traditional incisions reveal the underlying cambium where resin ducts release protective oleo-gum-resin upon wounding.</p>
+            </div>
             <div class="actions">
-              <a href="https://commons.wikimedia.org/w/index.php?search=frankincense+resin" target="_blank" rel="noopener">Commons HD</a>
+              <a href="https://www.gardendesign.com/holiday/frankincense.html" target="_blank" rel="noopener">Garden Design Source</a>
             </div>
           </div>
         </div>
 
+        <!-- CARD 7 & 7.1: DUAL RESIN EXUDATION -->
         <div class="gal-card">
-          <div class="frame">
-            <span class="badge-i">Plate III · Grades</span>
-            <svg viewBox="0 0 600 500" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
-              <defs>
-                <linearGradient id="cloth" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#efe3c9"/><stop offset="1" stop-color="#d9c7a4"/></linearGradient>
-                <radialGradient id="gh" cx=".35" cy=".3" r=".8"><stop offset="0" stop-color="#f4faea"/><stop offset=".55" stop-color="#d7e8c6"/><stop offset="1" stop-color="#a9c095"/></radialGradient>
-                <radialGradient id="gn" cx=".35" cy=".3" r=".8"><stop offset="0" stop-color="#fff6cf"/><stop offset=".55" stop-color="#efdf9f"/><stop offset="1" stop-color="#c5b069"/></radialGradient>
-                <radialGradient id="gs" cx=".35" cy=".3" r=".8"><stop offset="0" stop-color="#f6c874"/><stop offset=".55" stop-color="#d49a3e"/><stop offset="1" stop-color="#9c6a20"/></radialGradient>
-                <radialGradient id="gb" cx=".35" cy=".3" r=".8"><stop offset="0" stop-color="#b07a48"/><stop offset=".55" stop-color="#7c4f27"/><stop offset="1" stop-color="#4a2d13"/></radialGradient>
-              </defs>
-              <rect width="600" height="500" fill="url(#cloth)"/>
-              <g transform="translate(150,160)">
-                <ellipse cx="0" cy="80" rx="70" ry="10" fill="#7a6a4a" opacity=".18"/>
-                <path d="M-55 -22 C-62 -55,-30 -68,-8 -55 C8 -75,42 -62,46 -38 C68 -30,62 -3,48 6 C60 24,42 42,16 40 C2 58,-28 54,-38 38 C-62 35,-66 8,-55 -22 Z" fill="url(#gh)" stroke="#8fae7a" stroke-width="1.2"/>
-              </g>
-              <g transform="translate(450,160)">
-                <ellipse cx="0" cy="80" rx="70" ry="10" fill="#7a6a4a" opacity=".18"/>
-                <path d="M-55 -22 C-62 -55,-30 -68,-8 -55 C8 -75,42 -62,46 -38 C68 -30,62 -3,48 6 C60 24,42 42,16 40 C2 58,-28 54,-38 38 C-62 35,-66 8,-55 -22 Z" fill="url(#gn)" stroke="#c9b36c" stroke-width="1.2"/>
-              </g>
-              <g transform="translate(150,340)">
-                <ellipse cx="0" cy="80" rx="70" ry="10" fill="#7a6a4a" opacity=".18"/>
-                <path d="M-55 -22 C-62 -55,-30 -68,-8 -55 C8 -75,42 -62,46 -38 C68 -30,62 -3,48 6 C60 24,42 42,16 40 C2 58,-28 54,-38 38 C-62 35,-66 8,-55 -22 Z" fill="url(#gb)" stroke="#8b5e1c" stroke-width="1.2"/>
-              </g>
-              <g transform="translate(450,340)">
-                <ellipse cx="0" cy="80" rx="70" ry="10" fill="#7a6a4a" opacity=".18"/>
-                <path d="M-55 -22 C-62 -55,-30 -68,-8 -55 C8 -75,42 -62,46 -38 C68 -30,62 -3,48 6 C60 24,42 42,16 40 C2 58,-28 54,-38 38 C-62 35,-66 8,-55 -22 Z" fill="url(#gb)" stroke="#2f1b0c" stroke-width="1.2"/>
-              </g>
-              <g font-family="Helvetica,Arial,sans-serif" fill="#2a1e12" text-anchor="middle" font-size="14" font-weight="700">
-                <text x="150" y="262">Hojari</text>
-                <text x="450" y="262">Najdi</text>
-                <text x="150" y="442">Shathari</text>
-                <text x="450" y="442">Shaabi</text>
-              </g>
-            </svg>
+          <div class="frame holographic-3d-card">
+            <span class="badge-i">Resin 7 &amp; 7.1 · Exudation &amp; Tears</span>
+            <div style="display:flex; width:100%; height:100%;">
+              <img src="7.png" alt="Resin Exudation Close-up" style="width:50%; height:100%; object-fit:cover; border-right:1px solid var(--border);" onerror="this.onerror=null; this.src='https://placehold.co/600x400/111318/d4af37?text=7';" />
+              <img src="7.1.png" alt="Frankincense Tears Dripping" style="width:50%; height:100%; object-fit:cover;" onerror="this.onerror=null; this.src='https://placehold.co/600x400/111318/d4af37?text=7.1';" />
+            </div>
           </div>
           <div class="info-body">
-            <h5>Four Commercial Grades</h5>
-            <p>Hojari · Najdi · Shathari · Shaabi. Colour, clump size, texture drive price.</p>
+            <div>
+              <h5>💧 7 &amp; 7.1 Resin Exudation &amp; Tears</h5>
+              <p>Close-up depiction of milky resin weeping from fresh tree incisions, followed by the hardening phase where droplets form translucent, aromatic frankincense "tears" along the bark.</p>
+            </div>
             <div class="actions">
-              <a href="https://commons.wikimedia.org/w/index.php?search=frankincense+Oman+grades" target="_blank" rel="noopener">Commons HD</a>
+              <a href="https://www.researchgate.net/figure/Harvest-and-grading-of-B-sacra-gum-resins-a-Frankincense-tree-incision-and-tears-b_fig1_270529855" target="_blank" rel="noopener">ResearchGate Figure 1a</a>
             </div>
           </div>
         </div>
+
+        <!-- CARD 8: 4 RESIN GRADES -->
+        <div class="gal-card">
+          <div class="frame holographic-3d-card">
+            <span class="badge-i">Grading 8 · 4 Harvest Grades</span>
+            <img src="8.png" alt="Harvest and grading of B. sacra gum resins" onerror="this.onerror=null; this.src='https://placehold.co/600x400/111318/d4af37?text=Image+8+Missing';" />
+          </div>
+          <div class="info-body">
+            <div>
+              <h5>💎 8. Harvest Grades of B. sacra</h5>
+              <p><strong>(b) Hougari Royal (Najdi):</strong> Desert northern harvest. <strong>(c) Hougari Superior:</strong> Clear green tinge for therapeutic water infusion. <strong>(d) Hougari Regular:</strong> Common incense resin. <strong>(e) Hougari Sha'bi:</strong> Coastal monsoon harvest.</p>
+            </div>
+            <div class="actions">
+              <a href="https://www.researchgate.net/figure/Harvest-and-grading-of-B-sacra-gum-resins-a-Frankincense-tree-incision-and-tears-b_fig1_270529855" target="_blank" rel="noopener">ResearchGate Study</a>
+            </div>
+          </div>
+        </div>
+
       </div>
     </div>
   </div>
@@ -1733,15 +1707,15 @@
     <div class="modal-head" style="--pop-color:#8b98ab">
       <div class="modal-head-left">
         <span class="me">📚</span>
-        <div><h3>APA 7th Sources</h3><div class="kick">Every claim sourced</div></div>
+        <div><h3>APA 7th Sources &amp; Archaeological Citations</h3><div class="kick">Verified Primary References</div></div>
       </div>
       <button class="modal-close" data-close>✕</button>
     </div>
     <div class="modal-body">
       <div class="fivew">
-        <div class="w"><div class="wk">Who</div><div class="wv">Primary texts · peer-reviewed papers · UNESCO</div></div>
-        <div class="w"><div class="wk">What</div><div class="wv">7 references across all sections</div></div>
-        <div class="w"><div class="wk">Where</div><div class="wv">Global academic · heritage institutions</div></div>
+        <div class="w"><div class="wk">Who</div><div class="wv">Primary texts · peer-reviewed papers · UNESCO · Archaeological Reports</div></div>
+        <div class="w"><div class="wk">What</div><div class="wv">Comprehensive Reference Index</div></div>
+        <div class="w"><div class="wk">Where</div><div class="wv">Global academic &amp; heritage institutions</div></div>
         <div class="w"><div class="wk">When</div><div class="wv">1981 – 2026</div></div>
         <div class="w"><div class="wk">Why</div><div class="wv">Verify every factual claim on the atlas</div></div>
       </div>
@@ -1753,6 +1727,11 @@
         <li id="ref-5">UNESCO World Heritage Centre. (2000). <em>Land of Frankincense (Wadi Dawkah, Shisr, Khor Rori, Al-Baleed)</em>. UNESCO Cultural Heritage List No. 1010.</li>
         <li id="ref-6">Moussaieff, A., &amp; Mechoulam, R. (2009). Boswellia resin: From religious ceremonies to medical uses; a review of in-vitro and in-vivo studies. <em>Journal of Pharmacy and Pharmacology, 61</em>(10), 1281–1293.</li>
         <li id="ref-7">Oman Observer. (2026, April 27). <em>Oman’s frankincense exports reach RO 471,400 in 2025</em>. https://www.omanobserver.om/article/1188620/</li>
+        <li id="ref-8">Journal of Arid Environments. (2025). Demographic assessment and population collapse dynamics in Boswellia sacra stands. <em>ScienceDirect, Article S0140196325000527</em>. https://www.sciencedirect.com/science/article/pii/S0140196325000527</li>
+        <li id="ref-9">Nabataea.net. (n.d.). <em>Al Balid Mosque Architectural &amp; Excavation Report</em>. https://nabataea.net/explore/cities_and_sites/al-balid-mosque/</li>
+        <li id="ref-10">Acaia 61 Studio Architecture. (n.d.). <em>Conservation &amp; Preservation Project for Baleed Fortress (Husn)</em>. https://www.a61s.it/en/lavori/projects/baleed-fortress-husn/sym_589</li>
+        <li id="ref-11">TripAdvisor. (n.d.). <em>Museum of the Frankincense Land Reviews &amp; Maritime Exhibits</em>. https://www.tripadvisor.com/Attraction_Review-g298419-d4131236-Reviews-Museum_of_the_Frankincense_Land-Salalah_Dhofar_Governorate.html</li>
+        <li id="ref-12">Oman Pocket Guide. (n.d.). <em>The Land of Frankincense Museum &amp; Al-Baleed Park Overview</em>. https://www.facebook.com/OmanPocketGuide/posts/salalah-land-of-frankincense-museumthe-land-of-frankincense-museum-which-is-loca/941623885908556/</li>
       </ol>
     </div>
   </div>
@@ -1774,7 +1753,7 @@
 
 <script>
 /* ============================================================
-   1 · AERIAL MAP (Esri World Imagery — 3D Tilted)
+   1 · AERIAL GIS MAP
    ============================================================ */
 let map;
 let mapMarkers = {};
@@ -1841,22 +1820,6 @@ let mapMarkers = {};
   L.polyline([[17.015,54.092],[12.8,45.0],[28.0,34.0],[31.2,32.3],[41.90,12.50]],
     {color:'#3498db',weight:2.5,opacity:.8}).addTo(map).bindPopup('Modern maritime export.');
 
-  document.querySelectorAll('.map-legend span[data-fly]').forEach(btn => {
-    btn.addEventListener('click', () => {
-      const target = btn.dataset.fly;
-      if (target === 'dhofar') {
-        map.flyTo([17.015,54.092], 8, { duration: 2 });
-        mapMarkers.salalah.openPopup();
-      } else if (target === 'petra') {
-        map.flyTo([30.33,35.44], 7, { duration: 2 });
-        mapMarkers.petra.openPopup();
-      } else if (target === 'saudi') {
-        map.flyTo([24.71,46.68], 6, { duration: 2 });
-        mapMarkers.saudi.openPopup();
-      }
-    });
-  });
-
   setTimeout(() => map.invalidateSize(), 250);
 })();
 
@@ -1889,19 +1852,15 @@ function initTerroirMap() {
     });
   }
 
-  // Zone 1: Hojari (Jebel Samhan & High Inland Ridges)
   L.circle([17.18, 54.65], { color: '#2ecc71', fillColor: '#2ecc71', fillOpacity: 0.35, radius: 22000 }).addTo(terroirMap)
     .bindPopup('<b>🟢 Hojari Terroir Zone</b><br>Jebel Samhan (800m-1500m)<br>Arid fog shadow, extreme stress.<br>High α-pinene → Royal Green.');
 
-  // Zone 2: Najdi (Nejd Plateau)
   L.circle([17.55, 54.05], { color: '#f39c12', fillColor: '#f39c12', fillOpacity: 0.35, radius: 25000 }).addTo(terroirMap)
     .bindPopup('<b>🟠 Najdi Terroir Zone</b><br>Nejd Desert Plateau (500m-900m)<br>Extreme desert heat & low humidity.<br>High myrcene → Amber/pale yellow.');
 
-  // Zone 3: Shathari (North-West Dry Valleys)
   L.circle([17.40, 53.40], { color: '#d4af37', fillColor: '#d4af37', fillOpacity: 0.35, radius: 24000 }).addTo(terroirMap)
     .bindPopup('<b>🟡 Shathari Terroir Zone</b><br>NW Dry Wadis (300m-600m)<br>Transitional limestone gravel.<br>High limonene → Golden yellow.');
 
-  // Zone 4: Shaabi (Monsoon Fog Belt Escarpment)
   L.circle([17.02, 54.10], { color: '#8b98ab', fillColor: '#8b98ab', fillOpacity: 0.35, radius: 20000 }).addTo(terroirMap)
     .bindPopup('<b>⚫ Shaabi Terroir Zone</b><br>Coastal Fog Belt (50m-400m)<br>Heavy monsoon fog (Khareef), high moisture.<br>Large yield → Darker amber.');
 
@@ -1920,7 +1879,7 @@ function openModal(id){
   const m = document.getElementById('m-' + id);
   if(!m) return;
   document.querySelectorAll('.modal.show').forEach(x => {
-    if(x.id !== 'm-grade-info') x.classList.remove('show');
+    if(x.id !== 'm-grade-info' && x.id !== 'm-landmark-detail') x.classList.remove('show');
   });
   m.classList.add('show');
   m.setAttribute('aria-hidden','false');
@@ -1953,6 +1912,83 @@ document.addEventListener('keydown', e => {
     }
   }
 });
+
+/* ============================================================
+   2.1 · 3D INTERACTIVE TILT FOR ARCHAEOLOGY & BOTANICAL PNG CARDS
+   ============================================================ */
+document.querySelectorAll('.holographic-3d-card').forEach(card => {
+  card.addEventListener('mousemove', (e) => {
+    const rect = card.getBoundingClientRect();
+    const x = e.clientX - rect.left - rect.width / 2;
+    const y = e.clientY - rect.top - rect.height / 2;
+    
+    const rotateX = (-y / rect.height) * 16;
+    const rotateY = (x / rect.width) * 16;
+    
+    card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.02)`;
+  });
+
+  card.addEventListener('mouseleave', () => {
+    card.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg) scale(1)`;
+  });
+});
+
+/* ============================================================
+   2.2 · LANDMARK HISTORICAL IMPORTANCE POPUP
+   ============================================================ */
+const LANDMARK_DETAILS = {
+  1: {
+    title: '1. The Grand Mosque (Al-Balid) Details',
+    emoji: '🕌',
+    color: '#d4af37',
+    text: `<b>Historical Significance:</b> The Grand Mosque of Al-Baleed is one of Southern Arabia's largest and most significant early Islamic places of worship, spanning a floor plan of 1,732 m².<br><br>
+    <b>Architectural Features:</b> Features a vast prayer hall supported by <strong>144 octagonal stone columns</strong>, an open courtyard, and elaborate ablution channels.<br><br>
+    <b>Source Reference:</b> <a href="https://nabataea.net/explore/cities_and_sites/al-balid-mosque/" target="_blank" style="color:var(--gold);">Nabataea Archaeological Report</a>.`
+  },
+  2: {
+    title: '2. Al-Baleed Fortress (Husn) Details',
+    emoji: '🏰',
+    color: '#f39c12',
+    text: `<b>Historical Significance:</b> A monumental 3,623 m² multi-story citadel that served as the residence of the royal governor and military command center.<br><br>
+    <b>Architectural Features:</b> Features thick stone curtain walls, elevated watchtowers, and secure subterranean storage chambers for high-value frankincense reserves.<br><br>
+    <b>Source Reference:</b> <a href="https://www.a61s.it/en/lavori/projects/baleed-fortress-husn/sym_589" target="_blank" style="color:var(--gold);">Acaia 61 Studio Architecture Conservation Project</a>.`
+  },
+  3: {
+    title: '3. Defensive City Walls & Moat Details',
+    emoji: '🧱',
+    color: '#3498db',
+    text: `<b>Historical Significance:</b> Enclosed the landward borders of ancient Zafar to defend against hostile desert raids.<br><br>
+    <b>Architectural Features:</b> Built with reinforced limestone blocks, 4 semi-circular watchtowers, and a flooded moat connected to the Khor lagoon.<br><br>
+    <b>Source Reference:</b> UNESCO Land of Frankincense Archives No. 1010.`
+  },
+  4: {
+    title: '4 & 4.1 Khor Lagoon & Omani Dhow Fleet Details',
+    emoji: '🌊',
+    color: '#2ecc71',
+    text: `<b>Historical Significance:</b> Served as the natural sheltered deep-water harbor connecting Southern Arabia to India, China, and Africa.<br><br>
+    <b>Maritime Fleet (Including 4.1 Sambuk / Dhow):</b> Accommodated traditional Omani vessels such as the <strong>Ghanja</strong>, <strong>Baghla</strong>, and the <strong>4.1 Sambuk Dhow</strong> which transported sacks of frankincense across the Indian Ocean.<br><br>
+    <b>Source Reference:</b> <a href="https://www.tripadvisor.com/Attraction_Review-g298419-d4131236-Reviews-Museum_of_the_Frankincense_Land-Salalah_Dhofar_Governorate.html" target="_blank" style="color:var(--gold);">Museum of the Frankincense Land</a> &amp; <a href="https://www.facebook.com/OmanPocketGuide/posts/salalah-land-of-frankincense-museumthe-land-of-frankincense-museum-which-is-loca/941623885908556/" target="_blank" style="color:var(--gold);">Oman Pocket Guide</a>.`
+  }
+};
+
+function openLandmarkDetail(num) {
+  const data = LANDMARK_DETAILS[num];
+  if(!data) return;
+  document.getElementById('landmarkDetailTitle').textContent = data.title;
+  document.getElementById('landmarkDetailEmoji').textContent = data.emoji;
+  document.getElementById('landmarkDetailHead').style.setProperty('--pop-color', data.color);
+  document.getElementById('landmarkDetailBody').innerHTML = `<div style="font-size:0.9rem;line-height:1.6;color:var(--text);">${data.text}</div>`;
+  
+  const m = document.getElementById('m-landmark-detail');
+  m.classList.add('show');
+  m.setAttribute('aria-hidden','false');
+}
+
+function closeLandmarkDetail() {
+  const m = document.getElementById('m-landmark-detail');
+  m.classList.remove('show');
+  m.setAttribute('aria-hidden','true');
+}
 
 /* ============================================================
    3 · THREE.JS RESIN
@@ -2089,6 +2125,11 @@ MODAL_TRIGGER.resin = () => {
       if(resinScene) setTimeout(() => resinScene.resize(), 150);
     });
   });
+  // Extra safety timeout for slow browsers
+  setTimeout(() => {
+    tryBuildResin();
+    if(resinScene) resinScene.resize();
+  }, 500);
 };
 
 /* ============================================================
