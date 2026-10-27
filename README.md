@@ -3,103 +3,81 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-gold.svg)](https://opensource.org/licenses/MIT)
 [![Technology](https://img.shields.io/badge/WebGL-Three.js-blue.svg)](https://threejs.org/)
 [![GIS](https://img.shields.io/badge/GIS-Leaflet.js-green.svg)](https://leafletjs.com/)
-[![Status](https://img.shields.io/badge/Status-Prototype-orange.svg)](#-research-disclaimer--tool-status)
+[![Status](https://img.shields.io/badge/Status-Design--Prototype-orange.svg)](#-design-disclaimer--concept-status)
 
-An enterprise-grade, interactive 3D research dashboard and digital twin mapping the geography, microclimatic terroir, analytical chemistry, paleoclimate proxies, archaeological heritage, scriptural traditions, and pharmacological profiles of Omani *Boswellia sacra*.
+An interactive 3D spatial UI design concept and digital twin prototype illustrating how botanical topography, microclimatic terroir, analytical chemistry, epigraphic heritage, trade corridors, and phytochemistry can be synthesized in a client-side interface for Omani *Boswellia sacra*.
 
 ---
 
-## ⚠️ Research Disclaimer & Tool Status
+## 🎨 Design Disclaimer & Concept Status
 
-> **Notice:** This application is an interactive research prototype under ongoing academic and expert review. Data points—including GC-MS chemical profiles, microclimate GIS maps, paleoclimate isotope ratios ($\delta^{13}\text{C}$ and $\delta^{18}\text{O}$), evolutionary genomics assemblies, historical trade corridors, and pharmacological clinical trials—have been synthesized from peer-reviewed literature and primary sources.
+> **Important Notice:** This application is an **interactive design prototype and UI/UX concept** created by **Asia Khan**. All underlying datasets—including GC-MS chemical profiles, microclimate GIS contours, paleoclimate proxies, genomic assemblies, trade routes, and pharmacological references—are for visual demonstration and design exploration. Information remains under ongoing review and synthesis. 
 
-The primary objective of this prototype is to demonstrate a multi-sensory 3D spatial visualization tool and interactive user experience methodology for complex ethnobotanical research. This tool should not be relied upon as a definitive clinical, pharmacological, or commercial guide without independent verification against primary academic sources.
+This project is intended as a proof-of-concept for **browser-native 3D spatial UI design** and **digital humanities interface architecture**, demonstrating how complex ethnobotanical and cultural heritage data can be intuitively structured for non-specialist and expert audiences alike.
 
 ---
 
 ## 📌 Executive Summary
 
-The **Frankincense Atlas & Spatial Matrix** bridges paleoethnobotany, phytochemistry, paleoclimatology, spatial GIS mapping, evolutionary genomics, and 3D WebGL visualization into a unified, client-side digital twin. Developed by **Asia Khan**, this application explores how microclimate variations across Oman's Dhofar region directly dictate the resin chemistry, color, market grade, and pharmacological efficacy of *Boswellia sacra*.
+Designed by **Asia Khan** (Behavioral UX Researcher & 3D Spatial Architect), the **Frankincense Atlas & Spatial Matrix** explores a unified visual interface bridging paleoethnobotany, phytochemistry, paleoclimatology, spatial GIS mapping, evolutionary genomics, and client-side 3D WebGL design.
+
+Set against the landscape of the Dhofar Governorate in Oman, this design framework showcases how hyper-local microclimates—where arid desert meets coastal monsoon fog lines—can be represented visually alongside resin chemistry, color variations, market grades (*Royal Hojari, Najdi, Shathari, Shaabi*), and historical trade narratives.
 
 ---
 
-## ✨ Key Features & Capabilities
+## ✨ Design Features & Conceptual Capabilities
 
-* **🔶 3D Resin Grade Viewer & Terroir Analysis:**
-  * **Interactive WebGL Renderer (Three.js):** Generates organic resin teardrop geometries with real-time procedural shaders reflecting translucent colors, light refraction, and surface roughness across the four primary commercial grades (*Royal Hojari, Najdi, Shathari, and Shaabi*).
-  * **Embedded GIS Microclimate Map (Leaflet.js):** Details elevation contours, rainfall gradients, and ecological harvesting zones across the Dhofar Governorate.
+### 🔶 3D Terroir & Procedural Resin Visualizer
+* **Three.js Shader Concepts:** Real-time WebGL procedural shaders illustrating organic resin teardrop geometries, light refraction, surface textures, and color grades.
+* **Microclimate GIS Interface (Leaflet.js):** Visual layering of elevation contours, rainfall gradients, and harvesting zones across Dhofar (Wadi Dawkah, Jabal Samhan, Nejd plateau).
 
-* **🛰️ Tilted 3D Satellite GIS Map:**
-  * **Esri World Imagery Overlay:** Custom map view charting ancient caravan routes (the Incense Road through *Sumhuram/Khor Rori, Shisr/Ubar, Shabwa, Marib, Petra,* and *Gaza*) alongside modern maritime export flows to Saudi Arabia, Somalia, and the UAE.
+### 🛰️ Trade Corridors & Maritime GIS UI
+* **Tilted 3D Satellite Map Layout:** Custom Esri cartography framing ancient overland incense routes (*Sumhuram/Khor Rori, Shisr/Ubar, Shabwa, Marib, Petra, Gaza*) alongside maritime Indian Ocean export paths.
 
-* **🏛️ Archaeological & Maritime Port Heritage:**
-  * **Al-Baleed Archaeological Park Visualizations:** Detailed structural cards for the *Grand Mosque (144 octagonal columns), Multi-Story Citadel Fort, Defensive Walls & Moat,* and *Khor Al-Baleed Natural Harbor Lagoon*.
-  * **Museum of the Frankincense Land Integration:** Historical coverage of ancient dhow shipbuilding (*Sohar, Baghla, Ghanja, Sambuk*) and celestial navigation (*Kamal*).
+### 🏛️ Cultural & Heritage Interface Integration
+* **Architectural & Archaeological Cards:** Spatial UI layouts for historic sites including Al-Baleed, Khor Rori, and natural harbor lagoons.
+* **Maritime & Ethnobotanical Storytelling:** Interactive cards documenting traditional dhow heritage (*Sohar, Ghanja, Sambuk*) and celestial navigation (*Kamal*).
 
-* **🧪 Analytical Biomarkers & Paleoclimate Matrix:**
-  * **GC-MS Spectral Visualization:** Chemical fingerprinting mapping diagnostic biomarkers (*incensole, incensole acetate, AKBA, and thermal pyrolysis products like incensole oxide*).
-  * **Holocene Isotope Timeline (6000 BCE – Present):** Interactive Chart.js plots tracking stomatal stress ($\delta^{13}\text{C}$) and evaporative enrichment ($\delta^{18}\text{O}$) proxies to chart ancient monsoonal shifts.
+### 🧪 Phytochemistry & Isotope Proxy Visualizations
+* **Spectral & Isotope UI Layouts:** Clean, responsive charting concepts (using Chart.js) designed to map diagnostic biomarkers (*incensole, AKBA*) and paleoclimate proxies ($\delta^{13}\text{C}$, $\delta^{18}\text{O}$).
 
-* **🏺 Archaeological Residue Index & Pyrolysis Analysis:**
-  * Organic residue extraction pathways documenting ancient Egyptian mummification balms, Graeco-Roman altars, and *unguentaria*.
-
-* **🧬 Evolutionary Genomics & Phylogenetics:**
-  * **667.8 Mb Assembly Analysis:** Details on 18,564 protein-encoding genes, ancient hexaploidy, and *Gypsy* retroelement expansions over the past 2 million years.
-  * **Interspecies Cladogram:** Comparative genomic mapping between *B. sacra, B. frereana, B. serrata,* and *B. papyrifera*.
-
-* **👃 Olfactory Chemistry & Radar Comparison:**
-  * Interactive Chart.js radar engine evaluating six odor dimensions (*resinous, citrus, minty-turpentine, woody, sweet/balsamic, spicy*) derived from GC-olfactometry datasets.
-
-* **⛺ Ethnographic Matrix & Living Heritage:**
-  * Indigenous Modern South Arabian language studies (*Shahri/Jibbali* and *Mahri*), seasonal harvesting calendars (*Al-Khafif, Al-Sarb, Al-Jaz*), and folk domestic rituals.
-
-* **🌡️ Anthropogenic Climate Threats & Conservation:**
-  * IUCN Red List analysis tracking Indian Ocean Monsoon (IOM) disruptions, longhorn beetle (*Idactus spinipennis*) infestations, camel overgrazing, and local sanctuary propagation.
-
-* **⚕️ Traditional-to-Clinical Health Matrix:**
-  * Dual-layer evidence mapping linking traditional Unani, Prophetic (*Tibb al-Nabawi*), and Ayurvedic medicine to contemporary clinical trials (5-LOX inhibition, AKBA pathways, gingivitis RCTs, glioblastoma cytotoxicity, and TRPV3 brain receptor activation).
-
-* **⏳ Interactive Chronology & Scriptural Traditions:**
-  * 13-era interactive timeline spanning **6000 BCE to 2026**.
-  * Comparative textual analysis covering the Torah (*Ketoret*), New Testament (*Magi gifts*), and Islamic traditions.
+### ⛺ Living Heritage, Linguistics & Ethnobotany
+* **Modern South Arabian (MSA) Language Cards:** Visual preservation of indigenous botanical terms in *Jibbali (Shahri)* and *Mahri*.
+* **Interactive Harvesting Timelines:** UI widgets showcasing seasonal tapping cycles (*Al-Khafif*, *Al-Sarb*, *Al-Jaz*).
 
 ---
 
-## 🛠️ Tech Stack & Architecture
+## 🏛️ Intended Collaboration & Sharing Scope
 
-This project is built using a **Zero-API, Single-File Client-Side Architecture** that requires no backend compilation, database servers, or Node modules:
+This visual design prototype is structured to facilitate dialogue with regional institutions, cultural preservation groups, and web technology developers:
 
-* **Core Engine:** HTML5, CSS3 (CSS Variables, Flexbox/Grid, Glassmorphism), Vanilla JavaScript (ES6+)
-* **3D WebGL Graphics:** Three.js (r128) + OrbitControls
-* **Geospatial GIS Engine:** Leaflet.js (v1.9.4) + Esri World Imagery & Topo Tiles
-* **Data Visualization:** Chart.js (v4.4.1)
+* **Regional Research Centers (Nizwa & Dhofar):** Demonstrating how complex botanical, chemical, and environmental datasets can be presented through accessible, browser-native UI tools.
+* **UNESCO & Cultural Heritage Frameworks:** Offering design ideas for lightweight, open-access digital interpretation platforms for UNESCO World Heritage sites along the Frankincense Trail.
+* **Browser-Native WebGL & Spatial Research:** Showcasing zero-dependency client-side architecture (HTML/CSS/JS/Three.js) built for high accessibility without hardware or software barriers.
+
+---
+
+## 🛠️ Design & Technical Architecture
+
+Built on a **Zero-API, Single-File Client-Side Design Stack**:
+
+* **Core Interface:** HTML5, CSS3 (Glassmorphism, CSS Grid), Vanilla JavaScript (ES6+)
+* **3D Graphics Engine:** Three.js (r128) + OrbitControls
+* **Geospatial Engine:** Leaflet.js (v1.9.4) + Esri World Imagery
+* **Data Presentation:** Chart.js (v4.4.1)
 * **Typography:** Google Fonts (*Cinzel, Plus Jakarta Sans, Orbitron*)
 
 ---
 
-## 🔒 Copyright & Intellectual Property
+## 👤 Designer & Author
 
-**Copyright © 2026 Asia Khan. All Rights Reserved.**
-
-This repository, including all code, custom WebGL shaders, vector graphics, visual design assets, curated dataset matrices, and spatial architecture, is the exclusive intellectual property of **Asia Khan**. 
-
-No part of this software, code, or content may be reproduced, distributed, modified, sublicensed, or transmitted in any form or by any means (electronic, mechanical, photocopying, recording, or otherwise) without prior explicit written permission from the copyright owner.
-
----
-
-## 📚 Academic Citation & Bibliography (APA 7th)
-
-When referencing this research dashboard, spatial architecture, or synthesized datasets in academic, clinical, or museum contexts, please cite:
-
-1. **Al-Harrasi, A., Al-Rawahi, A., & Khan, A. L.** (2019). *Biology of Genus Boswellia*. Springer Nature. https://doi.org/10.1007/978-3-030-16725-7
-2. **Groom, N.** (1981). *Frankincense and Myrrh: A Study of the Arabian Incense Trade*. Longman.
-3. **Moussaieff, A., & Mechoulam, R.** (2009). Boswellia resin: From religious ceremonies to medical uses; a review of in-vitro and in-vivo studies. *Journal of Pharmacy and Pharmacology*, 61(10), 1281–1293. https://doi.org/10.1211/jpp.61.10.0003
-4. **Oman Observer.** (2026, April 27). *Oman’s frankincense exports reach RO 471,400 in 2025*. https://www.omanobserver.om/article/1188620/
-5. **UNESCO World Heritage Centre.** (2000). *Land of Frankincense (Wadi Dawkah, Shisr, Khor Rori, Al-Baleed)*. UNESCO Cultural Heritage List No. 1010.
+**Asia Khan**  
+*Behavioral UX Researcher, 3D Spatial Architect & Instructional Designer*  
+Salalah, Dhofar Governorate, Sultanate of Oman  
+🌐 GitHub: [@khan34535-sudo](https://github.com/khan34535-sudo)
 
 ---
-
-## 👤 Author & Contact
+*MIT License © 2026 Asia Khan. Open for design review, academic exchange, and institutional collaboration.*
 
 **Asia Khan**  
 *Behavioural UX Researcher & 3D Spatial Architect*  
