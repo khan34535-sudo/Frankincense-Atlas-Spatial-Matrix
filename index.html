@@ -154,7 +154,14 @@
     box-shadow:0 40px 100px rgba(0,0,0,.9),0 0 0 1px rgba(212,175,55,.15);
     animation:popIn .35s cubic-bezier(.2,.9,.3,1.2);
     position:relative;
+    overflow:hidden;
   }
+  .modal-card::before{
+    content:'';position:absolute;top:0;left:-100%;width:50%;height:100%;
+    background:linear-gradient(90deg,transparent,rgba(255,255,255,0.03),transparent);
+    animation:scanline 8s linear infinite;pointer-events:none;
+  }
+  @keyframes scanline{to{left:200%}}
   @keyframes popIn{from{opacity:0;transform:scale(.96) translateY(20px)}to{opacity:1;transform:none}}
   
   /* MODAL HEAD - Sticking Out Icon */
@@ -212,7 +219,7 @@
     content:'';position:absolute;top:0;left:0;width:3px;height:100%;
     background:linear-gradient(180deg,var(--pop-color,var(--gold)),transparent);opacity:.6;
   }
-  .info:hover{background:rgba(212,175,55,.05);transform:translateY(-2px)}
+  .info:hover{background:rgba(212,175,55,.05);transform:translateY(-2px);box-shadow:0 0 20px rgba(212,175,55,0.1)}
   .info h4{font-family:var(--font-title);color:var(--pop-color,var(--gold-light));margin-bottom:8px;font-size:1rem}
   .info p{color:var(--muted);font-size:.88rem;line-height:1.6}
   .info ul{padding-left:16px;color:var(--muted);font-size:.86rem;margin-top:6px}
@@ -225,6 +232,7 @@
     background:radial-gradient(circle at center,rgba(30,35,45,.9) 0%,rgba(8,9,11,1) 100%);
     border:1px solid var(--border);position:relative;overflow:hidden;cursor:grab;
     width:100%;
+    box-shadow:inset 0 0 40px rgba(46,204,113,0.05);
   }
   .resin-stage:active{cursor:grabbing}
   .resin-stage canvas{display:block;width:100%!important;height:100%!important}
@@ -252,6 +260,7 @@
   .grade-btn:hover,.grade-btn.active{
     background:color-mix(in srgb,var(--gc,var(--gold)) 14%,transparent);
     border-color:var(--gc,var(--gold));color:#fff;
+    box-shadow:0 0 15px color-mix(in srgb,var(--gc,var(--gold)) 30%,transparent);
   }
   .grade-btn .gn{
     display:block;font-family:var(--font-title);font-size:.85rem;
@@ -262,6 +271,7 @@
   #terroirMap{
     height:380px;border-radius:12px;border:1px solid var(--border);
     overflow:hidden;position:relative;margin-top:10px;background:#05070a;
+    box-shadow:inset 0 0 30px rgba(212,175,55,0.05);
   }
   .terroir-grid{
     display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin-top:14px;
@@ -291,7 +301,7 @@
     content:'';position:absolute;top:0;left:0;right:0;height:3px;
     background:var(--rc,var(--gold));
   }
-  .grade-card:hover{border-color:var(--rc,var(--gold));transform:translateY(-3px);box-shadow:0 12px 30px rgba(0,0,0,.5)}
+  .grade-card:hover{border-color:var(--rc,var(--gold));transform:translateY(-3px);box-shadow:0 12px 30px rgba(0,0,0,.5),0 0 20px color-mix(in srgb,var(--rc) 20%,transparent)}
   .grade-card h4{
     font-family:var(--font-title);color:#fff;font-size:1rem;margin-bottom:3px;
     display:flex;align-items:center;justify-content:space-between;gap:8px;
@@ -365,7 +375,7 @@
     border:1px solid var(--border);border-radius:12px;padding:16px 14px;text-align:center;
     transition:all .25s;
   }
-  .stat:hover{transform:translateY(-2px);border-color:var(--gold-glow)}
+  .stat:hover{transform:translateY(-2px);border-color:var(--gold-glow);box-shadow:0 0 15px rgba(212,175,55,0.2)}
   .stat .num{
     font-family:var(--font-title);font-size:1.7rem;font-weight:700;
     background:linear-gradient(135deg,#fff,var(--gold));
@@ -390,7 +400,7 @@
   }
   .health-card:hover{
     border-color:var(--hc,var(--gold));transform:translateY(-3px);
-    box-shadow:0 14px 36px rgba(0,0,0,.6);
+    box-shadow:0 14px 36px rgba(0,0,0,.6),0 0 20px color-mix(in srgb,var(--hc) 20%,transparent);
   }
   .health-header{
     padding:18px 20px 14px;display:flex;align-items:center;gap:12px;
@@ -458,7 +468,7 @@
     overflow:hidden;transition:all .3s;display:flex;flex-direction:column;
   }
   .gal-card:hover{transform:translateY(-4px);box-shadow:0 16px 40px rgba(0,0,0,.6);border-color:var(--gold)}
-  .gal-card .frame{position:relative;width:100%;height:280px;background:#05070a;overflow:hidden}
+  .gal-card .frame{position:relative;width:100%;height:280px;background:#05070a;overflow:hidden;perspective:1000px}
   .gal-card .badge-i{
     position:absolute;top:10px;left:10px;font-size:.6rem;font-weight:700;
     letter-spacing:.1em;text-transform:uppercase;background:rgba(8,9,11,.9);
@@ -502,6 +512,163 @@
   .refs li::marker{color:var(--gold);font-weight:700}
 
   footer{text-align:center;padding:36px 20px;border-top:1px solid var(--border);color:var(--muted);font-size:.8rem;margin-top:40px}
+
+  /* SVG DATA VISUALIZATIONS */
+  .data-svg text {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    text-shadow: 0 0 5px currentColor;
+    transition: all 0.3s;
+  }
+  .data-svg .node {
+    filter: drop-shadow(0 0 8px currentColor);
+    animation: nodePulse 2s infinite alternate;
+  }
+  @keyframes nodePulse {
+    from { opacity: 0.7; transform: scale(1); }
+    to { opacity: 1; transform: scale(1.1); }
+  }
+  .data-svg .scan-line {
+    stroke: rgba(46, 204, 113, 0.3);
+    stroke-width: 2;
+    animation: scanLine 3s linear infinite;
+  }
+  @keyframes scanLine {
+    0% { transform: translateX(-200px); opacity: 0; }
+    10% { opacity: 1; }
+    90% { opacity: 1; }
+    100% { transform: translateX(1000px); opacity: 0; }
+  }
+  .data-svg .branch {
+    stroke-dasharray: 1000;
+    stroke-dashoffset: 1000;
+    animation: drawBranch 2s ease-out forwards;
+  }
+  @keyframes drawBranch { to { stroke-dashoffset: 0; } }
+
+  /* ========== LAYMAN POPUP (PURPLE STAR) ========== */
+  .layman-trigger {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 26px;
+    height: 26px;
+    margin-left: 8px;
+    vertical-align: middle;
+    cursor: pointer;
+    filter: drop-shadow(0 0 6px #a855f7);
+    transition: transform .2s;
+  }
+  .layman-trigger:hover {
+    transform: scale(1.25);
+  }
+  .layman-trigger svg {
+    width: 100%;
+    height: 100%;
+    display: block;
+  }
+  .layman-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(168,85,247,.12);
+    border: 1px solid rgba(168,85,247,.5);
+    padding: 3px 10px 3px 6px;
+    border-radius: 999px;
+    font-size: .68rem;
+    color: #c084fc;
+    cursor: pointer;
+    transition: all .2s;
+    margin-top: 6px;
+    font-weight: 600;
+    letter-spacing: .04em;
+  }
+  .layman-badge:hover {
+    background: rgba(168,85,247,.25);
+    border-color: #a855f7;
+    box-shadow: 0 0 14px rgba(168,85,247,.4);
+  }
+  .layman-badge svg {
+    width: 16px;
+    height: 16px;
+    flex-shrink: 0;
+  }
+  /* modal for layman */
+  #m-layman {
+    z-index: 2500;
+  }
+  .layman-card {
+    max-width: 640px;
+    border-color: #a855f7;
+    box-shadow: 0 40px 100px rgba(0,0,0,.9), 0 0 0 1px rgba(168,85,247,.3);
+  }
+  .layman-card .modal-head {
+    background: linear-gradient(135deg,#1f122b,#0e0714);
+  }
+  .layman-card .modal-head h3 {
+    color: #c084fc;
+  }
+  .layman-card .me {
+    border-color: #a855f7;
+    color: #c084fc;
+  }
+  .layman-content {
+    font-size: .92rem;
+    line-height: 1.7;
+    color: #e2e8f0;
+  }
+  .layman-content p {
+    margin-bottom: 12px;
+  }
+  .layman-content strong {
+    color: #c084fc;
+  }
+  .layman-content em {
+    color: #f3e5ab;
+    font-style: normal;
+  }
+  .layman-content ul {
+    padding-left: 20px;
+    margin: 10px 0;
+  }
+  .layman-content li {
+    margin-bottom: 8px;
+  }
+
+  /* ========== TIMELINE MAP LABEL ========== */
+  .tl-map-label {
+    position: absolute;
+    top: 8px;
+    left: 8px;
+    z-index: 1000;
+    background: rgba(8,9,11,.92);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 4px 10px;
+    font-size: .68rem;
+    font-weight: 600;
+    color: var(--gold-light);
+    letter-spacing: .04em;
+    backdrop-filter: blur(6px);
+    pointer-events: none;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    box-shadow: 0 2px 10px rgba(0,0,0,.6);
+  }
+  .tl-map-label .lbl-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+  .tl-map-wrapper {
+    position: relative;
+    flex: 1;
+    min-width: 220px;
+    height: 200px;
+    border-radius: 12px;
+    overflow: hidden;
+  }
 </style>
 </head>
 <body>
@@ -578,7 +745,12 @@
 
       <div class="grid-2">
         <div class="info" style="--pop-color:#d4af37">
-          <h4>📜 First Archaeological Evidence &amp; Discovery</h4>
+          <h4>📜 First Archaeological Evidence &amp; Discovery
+            <span class="layman-badge" onclick="openLayman('origin')">
+              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 2L14.5 9H22L16 13.5L18.5 21L12 16.5L5.5 21L8 13.5L2 9H9.5L12 2Z" fill="#a855f7" stroke="#d8b4fe" stroke-width="0.8"/></svg>
+              Simple Summary
+            </span>
+          </h4>
           <p>Archaeological finds in Dhofar and Yemen confirm that <strong>Boswellia sacra</strong> was first harvested and traded by early pastoral nomads around <strong>6000–5000 BCE</strong>. Chemical residue analysis on ancient pottery and censers establishes its continuous presence in spiritual and medical practices across Southern Arabia since the Neolithic period.</p>
           <p style="margin-top:10px;">The earliest documented international expedition to collect living frankincense trees is recorded on the reliefs of <strong>Queen Hatshepsut's temple at Deir el-Bahari (c. 1479–1458 BCE)</strong>, depicting Omani/Somali trees being transported to Egypt in baskets.</p>
         </div>
@@ -625,7 +797,12 @@
       </div>
 
       <div class="info" style="margin-bottom: 20px; --pop-color: #2ecc71;">
-        <h4>🌳 Are there different species of trees?</h4>
+        <h4>🌳 Are there different species of trees?
+          <span class="layman-badge" onclick="openLayman('resin')">
+            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 2L14.5 9H22L16 13.5L18.5 21L12 16.5L5.5 21L8 13.5L2 9H9.5L12 2Z" fill="#a855f7" stroke="#d8b4fe" stroke-width="0.8"/></svg>
+            Simple Summary
+          </span>
+        </h4>
         <p>No. All four resin grades originate from the <strong>exact same species of tree</strong> (<em>Boswellia sacra</em>). The trees are genetically identical across Dhofar. The variation in resin grade is driven entirely by <strong>ecological terroir</strong>: <em>it depends on the specific microclimate, altitude, and rainfall of where that individual tree grows in the Dhofar region, which alters the resin's chemistry, colour, and aroma.</em></p>
       </div>
 
@@ -781,7 +958,12 @@
       </div>
 
       <div class="info" style="margin-bottom:20px; --pop-color:#d4af37;">
-        <h4>🏰 Al-Baleed Archaeological Park &amp; The Ancient Maritime City (Zafar)</h4>
+        <h4>🏰 Al-Baleed Archaeological Park &amp; The Ancient Maritime City (Zafar)
+          <span class="layman-badge" onclick="openLayman('archaeology')">
+            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 2L14.5 9H22L16 13.5L18.5 21L12 16.5L5.5 21L8 13.5L2 9H9.5L12 2Z" fill="#a855f7" stroke="#d8b4fe" stroke-width="0.8"/></svg>
+            Simple Summary
+          </span>
+        </h4>
         <p>Al-Baleed (ancient Zafar) stands as one of the premier maritime trading hubs of the medieval Islamic world on the Indian Ocean. Prospering between the 8th and 16th centuries CE, the city grew rich from controlling the harvest and seaward export of Dhofar's royal frankincense. Systematic excavations have brought to light four principal architectural structures that defined the civic, military, economic, and maritime heart of the port.</p>
       </div>
 
@@ -792,7 +974,6 @@
         <div class="gal-card">
           <div class="frame holographic-3d-card">
             <span class="badge-i">Landmark 1 · Grand Mosque</span>
-            <!-- Added onerror to show a styled placeholder if image is missing -->
             <img src="1.png" alt="Al-Baleed Grand Mosque Landmark 1" onerror="this.onerror=null; this.src='https://placehold.co/600x400/111318/d4af37?text=Image+Not+Found+In+Folder';" />
           </div>
           <div class="info-body">
@@ -943,7 +1124,7 @@
 </div>
 
 <!-- ══════════════════════════════════════════════
-     MODAL · BIOMARKERS & PALEOCLIMATE
+     MODAL · BIOMARKERS & PALEOCLIMATE (REDESIGNED)
      ══════════════════════════════════════════════ -->
 <div class="modal" id="m-biomarkers" aria-hidden="true">
   <div class="modal-card" role="dialog" aria-modal="true">
@@ -965,39 +1146,111 @@
 
       <div class="grid-3" style="margin-bottom:20px">
         <div class="info" style="--pop-color:#2ecc71">
-          <h4>🔬 Diagnostic Resin Biomarkers</h4>
+          <h4>🔬 Diagnostic Resin Biomarkers
+            <span class="layman-badge" onclick="openLayman('biomarkers')">
+              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 2L14.5 9H22L16 13.5L18.5 21L12 16.5L5.5 21L8 13.5L2 9H9.5L12 2Z" fill="#a855f7" stroke="#d8b4fe" stroke-width="0.8"/></svg>
+              Simple Summary
+            </span>
+          </h4>
           <p>Mass spectrometry identifies diagnostic chemical fingerprints: <strong>incensole</strong> and <strong>incensole acetate</strong> serve as biomarker signatures specific to <em>Boswellia sacra</em> and <em>B. papyrifera</em>, distinguishing authentic frankincense from adulterants. Non-volatile pentacyclic triterpenes like <strong>AKBA</strong> (3-O-acetyl-11-keto-β-boswellic acid) persist for millennia.</p>
         </div>
 
         <div class="info" style="--pop-color:#3498db">
-          <h4>🌪️ Paleoclimate Proxies (δ¹³C &amp; δ¹⁸O)</h4>
+          <h4>🌪️ Paleoclimate Proxies (δ¹³C &amp; δ¹⁸O)
+            <span class="layman-badge" onclick="openLayman('paleoclimate')">
+              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 2L14.5 9H22L16 13.5L18.5 21L12 16.5L5.5 21L8 13.5L2 9H9.5L12 2Z" fill="#a855f7" stroke="#d8b4fe" stroke-width="0.8"/></svg>
+              Simple Summary
+            </span>
+          </h4>
           <p>Stable carbon (δ¹³C) and oxygen (δ¹⁸O) isotope ratios trapped within fossilized resin tears and sub-fossilized tree rings record severe historic droughts. Elevated δ¹³C values reflect stomatal closure and heightened intrinsic water-use efficiency (WUE) during severe droughts and Indian Ocean Monsoon (IOM) failures. Concurrently, enriched δ¹⁸O signatures indicate low relative humidity, enhanced soil-leaf evapotranspiration, and northward/southward migrations of the Intertropical Convergence Zone (ITCZ) across the Holocene paleoclimate archive (6000 BCE – present).</p>
         </div>
 
         <div class="info" style="--pop-color:#e74c3c">
-          <h4>🔥 Thermal Oxidation Products</h4>
+          <h4>🔥 Thermal Oxidation Products
+            <span class="layman-badge" onclick="openLayman('thermal')">
+              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 2L14.5 9H22L16 13.5L18.5 21L12 16.5L5.5 21L8 13.5L2 9H9.5L12 2Z" fill="#a855f7" stroke="#d8b4fe" stroke-width="0.8"/></svg>
+              Simple Summary
+            </span>
+          </h4>
           <p>When resin is burned during rituals, thermal degradation creates oxidized compounds such as <strong>incensole oxide</strong>. Finding these heat-altered biomarkers in ancient censers provides conclusive proof of active incense combustion rather than raw storage.</p>
         </div>
       </div>
 
-      <!-- SPECTRUM & ISOTOPE VISUALIZATION PLATE -->
-      <div class="gal-card" style="margin-bottom:20px">
-        <div class="frame" style="aspect-ratio:16/7">
+      <!-- FUTURISTIC BIOMARKER SPECTRUM GRAPH -->
+      <div class="gal-card" style="margin-bottom:20px;">
+        <div class="frame" style="aspect-ratio:16/7; background:#05070a; position:relative; overflow:hidden;">
           <span class="badge-i">Plate IV · GC-MS Biomarker Spectrum &amp; Isotope Fractionation</span>
-          <svg viewBox="0 0 1000 400" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
-            <rect width="1000" height="400" fill="#0b0e14"/>
-            <g stroke="rgba(255,255,255,0.1)" stroke-width="1">
-              <line x1="50" y1="50" x2="50" y2="350"/>
-              <line x1="50" y1="350" x2="950" y2="350"/>
-              <line x1="50" y1="200" x2="950" y2="200" stroke-dasharray="4 4"/>
-              <line x1="50" y1="100" x2="950" y2="100" stroke-dasharray="4 4"/>
+          
+          <svg class="data-svg" viewBox="0 0 1000 400" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <filter id="neonGlowGreen" x="-50%" y="-50%" width="200%" height="200%">
+                <feGaussianBlur stdDeviation="6" result="blur" />
+                <feMerge>
+                  <feMergeNode in="blur" />
+                  <feMergeNode in="blur" />
+                  <feMergeNode in="SourceGraphic" />
+                </feMerge>
+              </filter>
+              <filter id="neonGlowCyan" x="-50%" y="-50%" width="200%" height="200%">
+                <feGaussianBlur stdDeviation="6" result="blur" />
+                <feMerge>
+                  <feMergeNode in="blur" />
+                  <feMergeNode in="SourceGraphic" />
+                </feMerge>
+              </filter>
+            </defs>
+
+            <!-- Background Grid -->
+            <g stroke="rgba(46, 204, 113, 0.1)" stroke-width="1">
+              <line x1="50" y1="50" x2="50" y2="350" />
+              <line x1="50" y1="350" x2="950" y2="350" />
+              <line x1="50" y1="200" x2="950" y2="200" stroke-dasharray="5 5" />
+              <line x1="50" y1="100" x2="950" y2="100" stroke-dasharray="5 5" />
+              <line x1="250" y1="50" x2="250" y2="350" stroke-dasharray="5 5" />
+              <line x1="450" y1="50" x2="450" y2="350" stroke-dasharray="5 5" />
+              <line x1="650" y1="50" x2="650" y2="350" stroke-dasharray="5 5" />
+              <line x1="850" y1="50" x2="850" y2="350" stroke-dasharray="5 5" />
             </g>
-            <path d="M50 350 L120 345 L150 320 L165 348 L210 342 L230 180 L245 345 L310 340 L340 90 L355 345 L410 348 L460 210 L480 345 L540 340 L580 60 L600 348 L680 342 L720 140 L740 345 L820 348 L880 300 L950 350" fill="none" stroke="#2ecc71" stroke-width="2.5"/>
-            <text x="230" y="160" fill="#2ecc71" font-family="sans-serif" font-size="11" font-weight="700" text-anchor="middle">α-Pinene</text>
-            <text x="340" y="70" fill="#2ecc71" font-family="sans-serif" font-size="11" font-weight="700" text-anchor="middle">Incensole Acetate</text>
-            <text x="580" y="40" fill="#e6c666" font-family="sans-serif" font-size="11" font-weight="700" text-anchor="middle">AKBA (Boswellic Acid)</text>
-            <text x="720" y="120" fill="#e74c3c" font-family="sans-serif" font-size="11" font-weight="700" text-anchor="middle">Incensole Oxide (Pyrolysis)</text>
-            <text x="500" y="380" fill="#8b98ab" font-family="sans-serif" font-size="12" text-anchor="middle">Retention Time (m/z GC-MS Separation)</text>
+
+            <!-- Axis Labels -->
+            <text x="500" y="390" fill="#8b98ab" font-size="14" text-anchor="middle" letter-spacing="2">RETENTION TIME (m/z)</text>
+            <text x="20" y="200" fill="#8b98ab" font-size="14" text-anchor="middle" transform="rotate(-90 20 200)" letter-spacing="2">ABUNDANCE</text>
+
+            <!-- Moving Scanline -->
+            <line class="scan-line" x1="50" y1="50" x2="50" y2="350" />
+
+            <!-- Main Spectrum Path -->
+            <path class="branch" d="M50 350 L120 345 L150 320 L165 348 L210 342 L230 180 L245 345 L310 340 L340 90 L355 345 L410 348 L460 210 L480 345 L540 340 L580 60 L600 348 L680 342 L720 140 L740 345 L820 348 L880 300 L950 350" 
+                  fill="none" stroke="#2ecc71" stroke-width="3" filter="url(#neonGlowGreen)"/>
+            
+            <!-- Secondary Cyan Path for layered look -->
+            <path d="M50 340 L120 335 L150 310 L165 338 L210 332 L230 170 L245 335 L310 330 L340 80 L355 335 L410 338 L460 200 L480 335 L540 330 L580 50 L600 338 L680 332 L720 130 L740 335 L820 338 L880 290 L950 340" 
+                  fill="none" stroke="#3498db" stroke-width="1.5" opacity="0.6" stroke-dasharray="4 4"/>
+
+            <!-- Nodes and Labels -->
+            <!-- α-Pinene -->
+            <circle cx="230" cy="180" r="6" fill="#2ecc71" class="node"/>
+            <line x1="230" y1="180" x2="230" y2="120" stroke="#2ecc71" stroke-width="1.5"/>
+            <text x="230" y="105" fill="#2ecc71" font-size="12" text-anchor="middle" font-weight="700">α-Pinene</text>
+            <text x="230" y="90" fill="#8b98ab" font-size="10" text-anchor="middle">m/z 136</text>
+
+            <!-- Incensole Acetate -->
+            <circle cx="340" cy="90" r="6" fill="#2ecc71" class="node"/>
+            <line x1="340" y1="90" x2="340" y2="60" stroke="#2ecc71" stroke-width="1.5"/>
+            <text x="340" y="45" fill="#2ecc71" font-size="12" text-anchor="middle" font-weight="700">Incensole Acetate</text>
+            <text x="340" y="30" fill="#8b98ab" font-size="10" text-anchor="middle">m/z 330</text>
+
+            <!-- AKBA -->
+            <circle cx="580" cy="60" r="6" fill="#e6c666" class="node" style="color:#e6c666"/>
+            <line x1="580" y1="60" x2="580" y2="30" stroke="#e6c666" stroke-width="1.5"/>
+            <text x="580" y="20" fill="#e6c666" font-size="12" text-anchor="middle" font-weight="700">AKBA</text>
+            <text x="580" y="10" fill="#8b98ab" font-size="10" text-anchor="middle">m/z 512</text>
+
+            <!-- Incensole Oxide -->
+            <circle cx="720" cy="140" r="6" fill="#e74c3c" class="node" style="color:#e74c3c"/>
+            <line x1="720" y1="140" x2="720" y2="100" stroke="#e74c3c" stroke-width="1.5"/>
+            <text x="720" y="85" fill="#e74c3c" font-size="12" text-anchor="middle" font-weight="700">Incensole Oxide</text>
+            <text x="720" y="70" fill="#8b98ab" font-size="10" text-anchor="middle">m/z 346</text>
           </svg>
         </div>
       </div>
@@ -1068,7 +1321,7 @@
 </div>
 
 <!-- ══════════════════════════════════════════════
-     MODAL · EVOLUTIONARY GENOMICS
+     MODAL · EVOLUTIONARY GENOMICS (REDESIGNED)
      ══════════════════════════════════════════════ -->
 <div class="modal" id="m-evolution" aria-hidden="true">
   <div class="modal-card" role="dialog" aria-modal="true">
@@ -1090,7 +1343,12 @@
 
       <div class="grid-2" style="margin-bottom:20px">
         <div class="info" style="--pop-color:#a855f7">
-          <h4>🧬 Genome Structure &amp; Gene Duplication</h4>
+          <h4>🧬 Genome Structure &amp; Gene Duplication
+            <span class="layman-badge" onclick="openLayman('genome')">
+              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 2L14.5 9H22L16 13.5L18.5 21L12 16.5L5.5 21L8 13.5L2 9H9.5L12 2Z" fill="#a855f7" stroke="#d8b4fe" stroke-width="0.8"/></svg>
+              Simple Summary
+            </span>
+          </h4>
           <p>Recent de novo genome sequencing of <em>Boswellia sacra</em> revealed a <strong>667.8 Mb assembly</strong> encoding 18,564 high-confidence protein-encoding genes. Evolutionary analysis shows gene duplications derived from ancient hexaploidy shared across eudicots, alongside a major expansion of <strong>Gypsy retroelements over the past 2 million years</strong> that shaped its stress-response pathways.</p>
         </div>
 
@@ -1100,28 +1358,71 @@
         </div>
       </div>
 
-      <!-- PHYLOGENETIC TREE VISUALIZATION PLATE -->
+      <!-- FUTURISTIC PHYLOGENETIC TREE GRAPH -->
       <div class="gal-card">
-        <div class="frame" style="aspect-ratio:16/7">
+        <div class="frame" style="aspect-ratio:16/7; background:#05070a; position:relative; overflow:hidden;">
           <span class="badge-i">Plate VI · Phylogenetic Cladogram &amp; Genomic Assembly</span>
-          <svg viewBox="0 0 1000 350" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+          
+          <svg class="data-svg" viewBox="0 0 1000 350" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
             <rect width="1000" height="350" fill="#0a0c10"/>
-            <g stroke="#a855f7" stroke-width="2.5" fill="none">
-              <path d="M100 175 L250 175"/>
-              <path d="M250 100 L250 250"/>
-              <path d="M250 100 L450 100"/>
-              <path d="M250 250 L380 250"/>
-              <path d="M450 60 L450 140"/>
-              <path d="M450 60 L650 60"/>
-              <path d="M450 140 L650 140"/>
-              <path d="M380 200 L380 300"/>
-              <path d="M380 200 L650 200"/>
-              <path d="M380 300 L650 300"/>
+            
+            <!-- Background Grid -->
+            <g stroke="rgba(168, 85, 247, 0.1)" stroke-width="1">
+              <line x1="100" y1="50" x2="100" y2="300" />
+              <line x1="250" y1="50" x2="250" y2="300" />
+              <line x1="400" y1="50" x2="400" y2="300" />
+              <line x1="550" y1="50" x2="550" y2="300" />
+              <line x1="700" y1="50" x2="700" y2="300" />
             </g>
-            <text x="670" y="65" fill="#2ecc71" font-family="sans-serif" font-size="14" font-weight="700">Boswellia sacra (Dhofar / Oman) — High Boswellic Acids</text>
-            <text x="670" y="145" fill="#f39c12" font-family="sans-serif" font-size="14" font-weight="700">Boswellia frereana (Somalia) — Lupeol / Epilupeol</text>
-            <text x="670" y="205" fill="#3498db" font-family="sans-serif" font-size="14" font-weight="700">Boswellia serrata (India) — High O-acetyl-11-keto-β-boswellic acid</text>
-            <text x="670" y="305" fill="#8b98ab" font-family="sans-serif" font-size="14" font-weight="700">Boswellia papyrifera (Ethiopia) — Incensole Acetate Dominant</text>
+
+            <!-- Axis / Time scale -->
+            <text x="100" y="330" fill="#8b98ab" font-size="12" text-anchor="middle">Ancestor</text>
+            <text x="550" y="330" fill="#8b98ab" font-size="12" text-anchor="middle">Divergence Time</text>
+            <text x="700" y="330" fill="#8b98ab" font-size="12" text-anchor="middle">Present</text>
+
+            <!-- Tree Branches -->
+            <g stroke="#a855f7" stroke-width="3" fill="none" filter="url(#neonGlowGreen)">
+              <path class="branch" d="M100 175 L250 175"/>
+              <path class="branch" d="M250 100 L250 250"/>
+              
+              <!-- Top Clade -->
+              <path class="branch" d="M250 100 L450 100"/>
+              <path class="branch" d="M450 60 L450 140"/>
+              <path class="branch" d="M450 60 L650 60"/>
+              <path class="branch" d="M450 140 L650 140"/>
+              
+              <!-- Bottom Clade -->
+              <path class="branch" d="M250 250 L380 250"/>
+              <path class="branch" d="M380 200 L380 300"/>
+              <path class="branch" d="M380 200 L650 200"/>
+              <path class="branch" d="M380 300 L650 300"/>
+            </g>
+
+            <!-- Nodes (Glowing dots at branch points) -->
+            <circle cx="250" cy="175" r="5" fill="#a855f7" class="node"/>
+            <circle cx="250" cy="100" r="4" fill="#a855f7" class="node"/>
+            <circle cx="250" cy="250" r="4" fill="#a855f7" class="node"/>
+            <circle cx="450" cy="100" r="4" fill="#a855f7" class="node"/>
+            <circle cx="380" cy="250" r="4" fill="#a855f7" class="node"/>
+
+            <!-- Leaf Labels -->
+            <g font-family="sans-serif" font-size="14" font-weight="700">
+              <!-- B. sacra -->
+              <text x="670" y="55" fill="#2ecc71">🌿 Boswellia sacra (Dhofar)</text>
+              <text x="670" y="75" fill="#8b98ab" font-size="11" font-weight="400">High Boswellic Acids</text>
+
+              <!-- B. frereana -->
+              <text x="670" y="135" fill="#f39c12">🌿 Boswellia frereana (Somalia)</text>
+              <text x="670" y="155" fill="#8b98ab" font-size="11" font-weight="400">Lupeol / Epilupeol</text>
+
+              <!-- B. serrata -->
+              <text x="670" y="195" fill="#3498db">🌿 Boswellia serrata (India)</text>
+              <text x="670" y="215" fill="#8b98ab" font-size="11" font-weight="400">High O-acetyl-11-keto-β-boswellic acid</text>
+
+              <!-- B. papyrifera -->
+              <text x="670" y="295" fill="#8b98ab">🌿 Boswellia papyrifera (Ethiopia)</text>
+              <text x="670" y="315" fill="#8b98ab" font-size="11" font-weight="400">Incensole Acetate Dominant</text>
+            </g>
           </svg>
         </div>
       </div>
@@ -1751,9 +2052,138 @@
   </div>
 </div>
 
+<!-- ══════════════════════════════════════════════
+     MODAL · LAYMAN SIMPLE SUMMARY (PURPLE STAR)
+     ══════════════════════════════════════════════ -->
+<div class="modal" id="m-layman" aria-hidden="true">
+  <div class="modal-card layman-card" role="dialog" aria-modal="true">
+    <div class="modal-head">
+      <div class="modal-head-left">
+        <span class="me" style="border-color:#a855f7;">⭐</span>
+        <div>
+          <h3 style="color:#c084fc;">Simple Summary</h3>
+          <div class="kick" style="color:#a855f7;">Plain-language translation of the science</div>
+        </div>
+      </div>
+      <button class="modal-close" onclick="closeLayman()">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="layman-content" id="laymanContent">
+        <!-- Content will be injected -->
+      </div>
+    </div>
+  </div>
+</div>
+
 <script>
 /* ============================================================
-   1 · AERIAL GIS MAP
+   0 · LAYMAN SIMPLE SUMMARY SYSTEM (PURPLE STAR)
+   ============================================================ */
+const LAYMAN_DATA = {
+  origin: {
+    title: "🔍 Origin & Discovery — Plain English",
+    body: `
+      <p><strong>What's the big deal?</strong> People have been collecting and trading frankincense for a <em>really</em> long time — like 8,000 years. The first evidence comes from ancient pottery and incense burners found in Oman and Yemen, showing that nomads were harvesting this resin around <strong>6000–5000 BCE</strong>.</p>
+      <p><strong>Why does it matter?</strong> This resin wasn't just a nice smell — it was a sacred substance used in temples, in mummification, and as a luxury good. It was so valuable that ancient Egyptians sent a whole expedition to collect living frankincense trees and bring them back to Egypt. Queen Hatshepsut's temple walls show pictures of these trees being carried in baskets!</p>
+      <p><strong>Who wrote about it?</strong> Ancient writers like Herodotus and Pliny the Elder wrote about frankincense, describing the dangerous desert trade routes and how it was worth more than gold by weight. The Roman Emperor Nero even burned a whole year's harvest at a funeral.</p>
+      <p><em>In short:</em> Frankincense is one of the oldest and most valuable luxury goods in human history, and it all comes from the Dhofar region of Oman.</p>
+    `
+  },
+  resin: {
+    title: "🌳 One Tree, Four Grades — Plain English",
+    body: `
+      <p><strong>The surprising truth:</strong> All four types of frankincense resin — Hojari, Najdi, Shathari, and Shaabi — come from the <em>exact same species of tree</em> (<em>Boswellia sacra</em>). The trees are genetically identical. So why do the resins look and smell different?</p>
+      <p><strong>It's all about location, location, location.</strong> The microclimate where each tree grows changes the chemistry of its resin. Think of it like wine — the same grape varietal grown in different regions makes different-tasting wines. Here, it's called "terroir."</p>
+      <ul>
+        <li><strong>Hojari (green):</strong> Grows high in the mountains where it's super dry and stressful for the tree. The stress produces a translucent green resin with a clean, minty-incense aroma.</li>
+        <li><strong>Najdi (amber):</strong> Grows on a hot desert plateau. The heat produces more fruity, citrusy compounds.</li>
+        <li><strong>Shathari (golden):</strong> Grows in dry wadis (valleys) with moderate rainfall. The resin is golden and has bright citrus notes.</li>
+        <li><strong>Shaabi (dark):</strong> Grows near the coast where it gets lots of monsoon fog. The tree produces more resin but it's darker and woodier.</li>
+      </ul>
+      <p><em>So the next time you see a fancy frankincense label, remember: it's the same tree, just a different neighborhood.</em></p>
+    `
+  },
+  archaeology: {
+    title: "🏛️ Al-Baleed — Plain English",
+    body: `
+      <p><strong>What is Al-Baleed?</strong> It's an ancient port city in Oman (called Zafar back in the day) that was a major hub for the frankincense trade from the 8th to the 16th century CE. It's like the ancient version of a busy international airport — but for incense, spices, and luxury goods.</p>
+      <p><strong>What's been found there?</strong> Archaeologists have uncovered four big landmarks:</p>
+      <ul>
+        <li><strong>🕌 The Grand Mosque:</strong> A huge mosque with 144 octagonal stone columns — one of the biggest in early Islamic Arabia.</li>
+        <li><strong>🏰 The Fortress (Husn):</strong> A massive citadel where the governor lived, with secure storerooms for all that valuable resin.</li>
+        <li><strong>🧱 The City Walls:</strong> A defensive wall with watchtowers and a moat to protect against desert raiders.</li>
+        <li><strong>🌊 The Lagoon &amp; Dhows:</strong> A natural harbor where traditional wooden ships (dhows, including the Sambuk and Ghanja models) loaded frankincense and sailed all the way to India and China.</li>
+      </ul>
+      <p><strong>Why is it famous?</strong> It's a UNESCO World Heritage Site, and the Museum of the Frankincense Land there shows off scale models of the ancient ships and navigation tools like the <em>Kamal</em> that sailors used to ride the monsoon winds across the Indian Ocean.</p>
+      <p><em>Think of Al-Baleed as the "Wall Street" of the ancient frankincense trade — where deals were made, taxes collected, and fortunes built.</em></p>
+    `
+  },
+  biomarkers: {
+    title: "🔬 Biomarkers — Plain English",
+    body: `
+      <p><strong>What are biomarkers?</strong> Think of them as chemical "fingerprints." Scientists use advanced machines (like a GC-MS) to detect specific molecules that prove whether a sample is real frankincense or something fake.</p>
+      <p><strong>Which molecules matter?</strong> Two key ones are <strong>incensole</strong> and <strong>incensole acetate</strong>. These are found only in certain <em>Boswellia</em> species. Another important one is <strong>AKBA</strong> (a type of boswellic acid) — this is the compound that gives frankincense its anti-inflammatory properties and it can survive in archaeological samples for thousands of years.</p>
+      <p><strong>Why is this useful?</strong> Because it lets archaeologists prove that a residue found in an ancient pot or altar really <em>is</em> frankincense — not just some random tree sap. It's like finding DNA at a crime scene, but for ancient trade goods.</p>
+      <p><em>In short: biomarkers are the CSI tools of archaeology, letting us identify ancient frankincense with certainty.</em></p>
+    `
+  },
+  paleoclimate: {
+    title: "🌪️ Paleoclimate Proxies — Plain English",
+    body: `
+      <p><strong>What's a paleoclimate proxy?</strong> It's a natural "thermometer" or "rain gauge" that records past climate conditions. In this case, scientists look at the chemical composition of fossilized resin and tree rings.</p>
+      <p><strong>How does it work?</strong> Trees absorb different types of carbon and oxygen atoms depending on how stressed they are by drought. When a tree is water-stressed, it locks in a different ratio of <strong>carbon isotopes (δ¹³C)</strong> and <strong>oxygen isotopes (δ¹⁸O)</strong>. These ratios stay frozen in the resin and wood for thousands of years.</p>
+      <p><strong>What have we learned?</strong> By analyzing these isotopes in ancient frankincense samples, scientists can reconstruct when there were severe droughts, when the monsoon was weak, and how the climate shifted over the past 6,000 years. This helps us understand how ancient trade routes were affected by climate — and what might happen in the future.</p>
+      <p><em>Think of it as reading the tree's "diary" of hard times, written in atoms.</em></p>
+    `
+  },
+  thermal: {
+    title: "🔥 Thermal Oxidation Products — Plain English",
+    body: `
+      <p><strong>What happens when you burn resin?</strong> When frankincense is burned in a ritual or ceremony, the heat changes its chemistry. Some molecules get "oxidized" — they combine with oxygen to form new compounds.</p>
+      <p><strong>Why does this matter?</strong> One specific compound called <strong>incensole oxide</strong> is formed only when frankincense is burned. So if archaeologists find incensole oxide in an ancient incense burner, they know for sure that someone actually burned incense there — not just stored it or spilled it.</p>
+      <p><strong>It's like finding a toast crumb instead of bread.</strong> The burnt toast (incensole oxide) proves the bread (frankincense) was actually used for its intended purpose.</p>
+      <p><em>This gives us direct physical evidence of ancient religious rituals!</em></p>
+    `
+  },
+  genome: {
+    title: "🧬 Genome Structure — Plain English",
+    body: `
+      <p><strong>What is a genome?</strong> It's the complete set of DNA instructions for a living thing — like a giant instruction manual for building and running a tree.</p>
+      <p><strong>What did scientists find?</strong> They sequenced the entire genome of <em>Boswellia sacra</em> and found it has about <strong>667.8 million "letters"</strong> of DNA code and 18,564 genes. That's a lot!</p>
+      <p><strong>What's interesting about it?</strong> The tree has a huge number of "jumping genes" called <strong>Gypsy retroelements</strong> — these are pieces of DNA that can copy themselves and move around the genome. Over the past 2 million years, these jumping genes have expanded a lot, and they've helped shape how the tree responds to stress (like drought).</p>
+      <p><strong>Why does this matter?</strong> Understanding the genome helps scientists figure out which genes are responsible for producing the valuable resin compounds, and maybe even breed or protect trees that produce more or better resin.</p>
+      <p><em>In short: the genome is the tree's "recipe book," and scientists are learning to read it.</em></p>
+    `
+  }
+};
+
+function openLayman(key) {
+  const data = LAYMAN_DATA[key];
+  if (!data) return;
+  document.getElementById('laymanContent').innerHTML = `
+    <h4 style="color:#c084fc;font-family:var(--font-title);margin-bottom:12px;font-size:1.1rem;">${data.title}</h4>
+    ${data.body}
+  `;
+  const m = document.getElementById('m-layman');
+  m.classList.add('show');
+  m.setAttribute('aria-hidden', 'false');
+  document.body.classList.add('modal-open');
+}
+
+function closeLayman() {
+  const m = document.getElementById('m-layman');
+  m.classList.remove('show');
+  m.setAttribute('aria-hidden', 'true');
+  if (!document.querySelector('.modal.show')) document.body.classList.remove('modal-open');
+}
+
+// Close layman on outside click
+document.getElementById('m-layman').addEventListener('click', (e) => {
+  if (e.target === document.getElementById('m-layman')) closeLayman();
+});
+
+/* ============================================================
+   1 · AERIAL GIS MAP — with 3D close-up, tilt, and tree-level zoom
    ============================================================ */
 let map;
 let mapMarkers = {};
@@ -1765,13 +2195,22 @@ let mapMarkers = {};
   map = L.map(el, { 
     scrollWheelZoom: true, 
     zoomControl: true,
-    pitch: 45,
-    maxPitch: 85
+    pitch: 55,
+    maxPitch: 85,
+    zoomSnap: 0.5,
+    zoomDelta: 0.5
   }).setView([20, 48], 4);
 
   L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
     attribution:'Tiles &copy; Esri — Source: Esri, Maxar, Earthstar Geographics',
-    maxZoom:18
+    maxZoom: 18
+  }).addTo(map);
+
+  // Add a high-res satellite layer for close-up tree viewing
+  L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
+    attribution: 'Esri World Imagery',
+    maxZoom: 21,
+    maxNativeZoom: 18
   }).addTo(map);
 
   function getStarSVG(color) {
@@ -1797,8 +2236,9 @@ let mapMarkers = {};
     });
   }
 
-  mapMarkers.salalah = L.marker([17.015,54.092],{icon:namedIcon('#2ecc71', 'Salalah · Dhofar')}).addTo(map).bindPopup('<b>⭐ Salalah · Dhofar (Oman)</b><br>Primary habitat · Royal Hojari.');
-  mapMarkers.wadiDawkah = L.marker([17.50,54.00],{icon:namedIcon('#2ecc71', 'Wadi Dawkah')}).addTo(map).bindPopup('<b>⭐ Wadi Dawkah / Nejd</b><br>Core frankincense park.');
+  // Tree-level markers with close-up popups
+  mapMarkers.salalah = L.marker([17.015,54.092],{icon:namedIcon('#2ecc71', 'Salalah · Dhofar')}).addTo(map).bindPopup('<b>⭐ Salalah · Dhofar (Oman)</b><br>Primary habitat · Royal Hojari.<br><em>Zoom in to see individual trees.</em>');
+  mapMarkers.wadiDawkah = L.marker([17.50,54.00],{icon:namedIcon('#2ecc71', 'Wadi Dawkah')}).addTo(map).bindPopup('<b>⭐ Wadi Dawkah / Nejd</b><br>Core frankincense park.<br><em>Zoom in for tree-level detail.</em>');
   mapMarkers.khorRori = L.marker([17.03,54.43],{icon:namedIcon('#2ecc71', 'Khor Rori')}).addTo(map).bindPopup('<b>⭐ Khor Rori (Sumhuram)</b><br>Ancient port.');
   mapMarkers.hasik = L.marker([17.75,55.25],{icon:namedIcon('#2ecc71', 'Hasik')}).addTo(map).bindPopup('<b>⭐ Hasik</b><br>Citrusy aroma.');
   mapMarkers.yemen = L.marker([14.5,47.5],{icon:namedIcon('#2ecc71', 'Hadramaut')}).addTo(map).bindPopup('<b>⭐ Hadramaut / Mahra</b><br>Yemen range.');
@@ -1820,6 +2260,42 @@ let mapMarkers = {};
   L.polyline([[17.015,54.092],[12.8,45.0],[28.0,34.0],[31.2,32.3],[41.90,12.50]],
     {color:'#3498db',weight:2.5,opacity:.8}).addTo(map).bindPopup('Modern maritime export.');
 
+  // Add a "Close-up" control that zooms to tree level
+  const closeUpControl = L.Control.extend({
+    options: { position: 'topright' },
+    onAdd: function() {
+      const div = L.DomUtil.create('div', 'leaflet-bar leaflet-control');
+      div.innerHTML = '<a href="#" title="Zoom to tree level" style="font-size:18px; display:grid; place-items:center; width:34px; height:34px; background:rgba(8,9,11,.9); color:#2ecc71; border:1px solid #2ecc71; border-radius:4px; text-decoration:none;">🌳</a>';
+      div.onclick = (e) => {
+        e.preventDefault();
+        map.flyTo([17.015, 54.092], 16, { duration: 2 });
+      };
+      return div;
+    }
+  });
+  map.addControl(new closeUpControl());
+
+  // Add a "Tilt view" control
+  const tiltControl = L.Control.extend({
+    options: { position: 'topright' },
+    onAdd: function() {
+      const div = L.DomUtil.create('div', 'leaflet-bar leaflet-control');
+      div.innerHTML = '<a href="#" title="Toggle 3D tilt view" style="font-size:18px; display:grid; place-items:center; width:34px; height:34px; background:rgba(8,9,11,.9); color:#d4af37; border:1px solid #d4af37; border-radius:4px; text-decoration:none;">⛰️</a>';
+      div.onclick = (e) => {
+        e.preventDefault();
+        if (map.options.pitch === 55) {
+          map.setPitch(0);
+          map.setBearing(0);
+        } else {
+          map.setPitch(60);
+          map.setBearing(45);
+        }
+      };
+      return div;
+    }
+  });
+  map.addControl(new tiltControl());
+
   setTimeout(() => map.invalidateSize(), 250);
 })();
 
@@ -1837,7 +2313,9 @@ function initTerroirMap() {
 
   terroirMap = L.map(el, {
     scrollWheelZoom: false,
-    zoomControl: true
+    zoomControl: true,
+    zoomSnap: 0.5,
+    zoomDelta: 0.5
   }).setView([17.3, 54.1], 8);
 
   L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}', {
@@ -1879,7 +2357,7 @@ function openModal(id){
   const m = document.getElementById('m-' + id);
   if(!m) return;
   document.querySelectorAll('.modal.show').forEach(x => {
-    if(x.id !== 'm-grade-info' && x.id !== 'm-landmark-detail') x.classList.remove('show');
+    if(x.id !== 'm-grade-info' && x.id !== 'm-landmark-detail' && x.id !== 'm-layman') x.classList.remove('show');
   });
   m.classList.add('show');
   m.setAttribute('aria-hidden','false');
@@ -2125,7 +2603,6 @@ MODAL_TRIGGER.resin = () => {
       if(resinScene) setTimeout(() => resinScene.resize(), 150);
     });
   });
-  // Extra safety timeout for slow browsers
   setTimeout(() => {
     tryBuildResin();
     if(resinScene) resinScene.resize();
@@ -2133,74 +2610,126 @@ MODAL_TRIGGER.resin = () => {
 };
 
 /* ============================================================
-   4 · TIMELINE
+   4 · TIMELINE — with interactive 3D map & symbolism
    ============================================================ */
 const EVENTS = [
   { emoji:'🌿', when:'c. 6000 BCE', short:'Routes begin', color:'#8b98ab',
     who:'Neolithic pastoral nomads of southern Arabia',
     what:'Long-distance routes established; frankincense begins moving north.',
     where:'Dhofar → southern Arabia',
-    why:'Ritual and elite demand along pastoral paths.', cite:'UNESCO, n.d.' },
+    why:'Ritual and elite demand along pastoral paths.', cite:'UNESCO, n.d.',
+    mapCenter:[17.0,54.1], mapZoom:7,
+    symbolism:'🌿🌍', symbolLabel:'Neolithic trade beginnings',
+    mapLabel:'Neolithic Trade Beginnings · c. 6000 BCE',
+    mapLabelColor:'#8b98ab' },
   { emoji:'✍️', when:'c. 3200 BCE', short:'Writing & scale', color:'#7f8c8d',
     who:'Dhofari harvesters; southern Mesopotamian consumers',
     what:'Writing appears; trade volume rises sharply.',
     where:'Dhofar → southern Mesopotamia',
-    why:'Temple ritual; frankincense equated with gold.', cite:'UNESCO, n.d.' },
+    why:'Temple ritual; frankincense equated with gold.', cite:'UNESCO, n.d.',
+    mapCenter:[25.0,50.0], mapZoom:5,
+    symbolism:'✍️🏛️', symbolLabel:'Writing & trade expansion',
+    mapLabel:'Writing & Trade Expansion · c. 3200 BCE',
+    mapLabelColor:'#7f8c8d' },
   { emoji:'🕎', when:'c. 1440 BCE', short:'Ketoret', color:'#9b59b6',
     who:'Prophet Musa (Moses); the Israelites',
     what:'A sacred incense containing pure frankincense is commanded for the Tabernacle.',
     where:'Sinai · Tabernacle',
-    why:'Worship reserved to God alone; frankincense set apart as holy.', cite:'Exodus 30:34–38' },
+    why:'Worship reserved to God alone; frankincense set apart as holy.', cite:'Exodus 30:34–38',
+    mapCenter:[28.5,34.0], mapZoom:7,
+    symbolism:'🕎✨', symbolLabel:'Sacred Ketoret incense',
+    mapLabel:'Sacred Ketoret Incense · c. 1440 BCE',
+    mapLabelColor:'#9b59b6' },
   { emoji:'👑', when:'c. 950 BCE', short:'Sheba', color:'#8e44ad',
     who:'Queen of Sheba (Bilqis); Prophet Sulaiman',
     what:'Royal gifts of frankincense and spices travel from Southern Arabia to Jerusalem.',
     where:'Southern Arabia → Jerusalem',
-    why:'Diplomacy and prestige.', cite:'1 Kings 10:1–10' },
+    why:'Diplomacy and prestige.', cite:'1 Kings 10:1–10',
+    mapCenter:[20.0,44.0], mapZoom:6,
+    symbolism:'👑🐪', symbolLabel:'Queen of Sheba\'s caravan',
+    mapLabel:'Queen of Sheba\'s Caravan · c. 950 BCE',
+    mapLabelColor:'#8e44ad' },
   { emoji:'⚓', when:'c. 300 BCE–2nd c. CE', short:'Ports flourish', color:'#d4af37',
     who:'Hadrami state of Shabwa; Sumhuram traders',
     what:'Khor Rori and Al-Baleed flourish; caravans reach Petra and Gaza.',
     where:'Khor Rori · Al-Baleed · Shabwa · Petra · Gaza',
-    why:'Mediterranean temple and funerary demand.', cite:'UNESCO, n.d.' },
+    why:'Mediterranean temple and funerary demand.', cite:'UNESCO, n.d.',
+    mapCenter:[20.0,45.0], mapZoom:5,
+    symbolism:'⚓🚢', symbolLabel:'Maritime incense ports',
+    mapLabel:'Maritime Incense Ports · c. 300 BCE–2nd c. CE',
+    mapLabelColor:'#d4af37' },
   { emoji:'⭐', when:'c. 5 BCE', short:'Magi', color:'#e74c3c',
     who:'Wise Men from the East; the infant ‘Isa',
     what:'Gold, frankincense and myrrh are brought to Bethlehem.',
     where:'Bethlehem, Judaea',
-    why:'Kingship, divine priesthood, and sacrifice.', cite:'Matthew 2:11' },
+    why:'Kingship, divine priesthood, and sacrifice.', cite:'Matthew 2:11',
+    mapCenter:[31.7,35.2], mapZoom:8,
+    symbolism:'⭐👶', symbolLabel:'The Magi\'s gifts',
+    mapLabel:'The Magi\'s Gifts · c. 5 BCE',
+    mapLabelColor:'#e74c3c' },
   { emoji:'🔥', when:'1st c. CE', short:'More than gold', color:'#c0392b',
     who:'Roman Empire; Nabataean and South Arabian traders',
     what:'High-grade Dhofari frankincense trades weight-for-weight above gold; Nero burns a year’s harvest.',
     where:'Rome · Arabia',
-    why:'Scarcity, guarded monopoly, 62-day caravan.', cite:'Pliny, Natural History 12.30–32' },
+    why:'Scarcity, guarded monopoly, 62-day caravan.', cite:'Pliny, Natural History 12.30–32',
+    mapCenter:[38.0,25.0], mapZoom:4,
+    symbolism:'🔥🏛️', symbolLabel:'Worth more than gold',
+    mapLabel:'Worth More Than Gold · 1st c. CE',
+    mapLabelColor:'#c0392b' },
   { emoji:'🕌', when:'7th–13th c. CE', short:'Islamic port', color:'#2ecc71',
     who:'Omani and Indian Ocean merchants',
     what:'Al-Baleed flourishes as a frankincense port.',
     where:'Al-Baleed, Dhofar',
-    why:'Monsoon trade; Islamic ritual and perfume demand.', cite:'UNESCO, n.d.' },
+    why:'Monsoon trade; Islamic ritual and perfume demand.', cite:'UNESCO, n.d.',
+    mapCenter:[17.0,54.1], mapZoom:9,
+    symbolism:'🕌🌙', symbolLabel:'Islamic maritime trade',
+    mapLabel:'Islamic Maritime Trade · 7th–13th c. CE',
+    mapLabelColor:'#2ecc71' },
   { emoji:'📏', when:'1930s–1970s', short:'Grading codified', color:'#3498db',
     who:'Dhofari harvesting families; Salalah traders',
     what:'Four commercial grades codified.',
     where:'Salalah · Samhan · Nejd',
-    why:'Market price differentiation.', cite:'Al-Harrasi et al., 2019' },
+    why:'Market price differentiation.', cite:'Al-Harrasi et al., 2019',
+    mapCenter:[17.0,54.1], mapZoom:9,
+    symbolism:'📏💎', symbolLabel:'Commercial grading',
+    mapLabel:'Commercial Grading Codified · 1930s–1970s',
+    mapLabelColor:'#3498db' },
   { emoji:'🏛️', when:'2000', short:'UNESCO listing', color:'#16a085',
     who:'UNESCO and the Sultanate of Oman',
     what:'Land of Frankincense inscribed as a World Heritage Site.',
     where:'Wadi Dawkah · Shisr · Khor Rori · Al-Baleed',
-    why:'Heritage protection; conservation.', cite:'UNESCO, n.d.' },
+    why:'Heritage protection; conservation.', cite:'UNESCO, n.d.',
+    mapCenter:[17.5,54.0], mapZoom:8,
+    symbolism:'🏛️🌍', symbolLabel:'UNESCO World Heritage',
+    mapLabel:'UNESCO World Heritage Listing · 2000',
+    mapLabelColor:'#16a085' },
   { emoji:'🔬', when:'2010s–2020s', short:'Science', color:'#2980b9',
     who:'Researchers (Al-Harrasi, Moussaieff et al.)',
     what:'GC-MS profiling and clinical trials on boswellic acids.',
     where:'Oman · Somalia · global laboratories',
-    why:'Validate pharmacology.', cite:'Moussaieff & Mechoulam, 2009' },
+    why:'Validate pharmacology.', cite:'Moussaieff & Mechoulam, 2009',
+    mapCenter:[22.0,58.0], mapZoom:4,
+    symbolism:'🔬🧪', symbolLabel:'Modern scientific validation',
+    mapLabel:'Modern Scientific Validation · 2010s–2020s',
+    mapLabelColor:'#2980b9' },
   { emoji:'⚠️', when:'2020s', short:'Red List risk', color:'#e67e22',
     who:'IUCN; harvesters in the Horn of Africa and Arabia',
     what:'Several Boswellia species upgraded to Endangered.',
     where:'Horn of Africa · southern Arabia',
-    why:'Overharvesting and habitat pressure.', cite:'Oman Observer, 2026' },
+    why:'Overharvesting and habitat pressure.', cite:'Oman Observer, 2026',
+    mapCenter:[10.0,45.0], mapZoom:5,
+    symbolism:'⚠️🌡️', symbolLabel:'Conservation alert',
+    mapLabel:'Conservation Alert · 2020s',
+    mapLabelColor:'#e67e22' },
   { emoji:'🚢', when:'2025–2026', short:'RO 471,400', color:'#27ae60',
     who:'Omani exporters',
     what:'Exports reach RO 471,400; Saudi Arabia is top destination.',
     where:'Oman → Saudi Arabia · Somalia · UAE',
-    why:'Regional demand across perfume, ritual, wellness.', cite:'Oman Observer, 2026' }
+    why:'Regional demand across perfume, ritual, wellness.', cite:'Oman Observer, 2026',
+    mapCenter:[22.0,50.0], mapZoom:5,
+    symbolism:'🚢💰', symbolLabel:'Modern export economy',
+    mapLabel:'Modern Export Economy · 2025–2026',
+    mapLabelColor:'#27ae60' }
 ];
 
 (function initTimeline(){
@@ -2226,6 +2755,8 @@ const EVENTS = [
     });
     const ev = EVENTS[i];
     detail.style.setProperty('--era', ev.color);
+    
+    // Build the detail with an interactive mini-map and a labeled wrapper
     detail.innerHTML = `
       <div class="when"><span class="de">${ev.emoji}</span>${ev.when}</div>
       <div class="who">${ev.who}</div>
@@ -2234,8 +2765,78 @@ const EVENTS = [
         <div class="w"><div class="wk">Where</div><div class="wv">${ev.where}</div></div>
         <div class="w"><div class="wk">Why</div><div class="wv">${ev.why}</div></div>
       </div>
+      <div style="display:flex; align-items:center; gap:16px; margin:14px 0; flex-wrap:wrap;">
+        <div style="display:flex; align-items:center; gap:10px; background:rgba(0,0,0,.3); border:1px solid var(--border); border-radius:12px; padding:8px 16px;">
+          <span style="font-size:2.2rem; filter:drop-shadow(0 0 12px ${ev.color});">${ev.symbolism}</span>
+          <span style="font-size:.85rem; color:${ev.color}; font-weight:600;">${ev.symbolLabel}</span>
+        </div>
+        <div class="tl-map-wrapper">
+          <div class="tl-map-label">
+            <span class="lbl-dot" style="background:${ev.mapLabelColor}; box-shadow:0 0 6px ${ev.mapLabelColor};"></span>
+            ${ev.mapLabel}
+          </div>
+          <div id="tlMap-${i}" style="width:100%; height:100%;"></div>
+        </div>
+      </div>
       <p style="font-size:.74rem;color:var(--muted);font-style:italic;margin:0">(${ev.cite})</p>
     `;
+
+    // Create the mini-map after the DOM is updated
+    setTimeout(() => {
+      const mapEl = document.getElementById('tlMap-' + i);
+      if (!mapEl) return;
+      // Remove any existing map
+      if (mapEl._leaflet_id) {
+        const oldMap = mapEl._leaflet_map;
+        if (oldMap) {
+          oldMap.flyTo(ev.mapCenter, ev.mapZoom, { duration: 1.5 });
+          oldMap.invalidateSize();
+          return;
+        }
+      }
+      const miniMap = L.map(mapEl, {
+        zoomControl: false,
+        attributionControl: false,
+        scrollWheelZoom: false,
+        dragging: true,
+        touchZoom: true,
+        doubleClickZoom: true,
+        boxZoom: false,
+        keyboard: false,
+        zoomSnap: 0.5,
+        zoomDelta: 0.5
+      }).setView(ev.mapCenter, ev.mapZoom);
+
+      // Satellite base
+      L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
+        maxZoom: 18
+      }).addTo(miniMap);
+
+      // Add a glowing circle at the center
+      L.circle(ev.mapCenter, {
+        color: ev.color,
+        fillColor: ev.color,
+        fillOpacity: 0.15,
+        radius: 80000,
+        weight: 2,
+        dashArray: '6 4'
+      }).addTo(miniMap);
+
+      // Add a star marker at the center
+      const starIcon = L.divIcon({
+        className: '',
+        html: `<div style="font-size:28px; filter:drop-shadow(0 0 10px ${ev.color}); text-align:center;">${ev.emoji}</div>`,
+        iconSize: [30, 30],
+        iconAnchor: [15, 15]
+      });
+      L.marker(ev.mapCenter, { icon: starIcon }).addTo(miniMap);
+
+      // Store reference
+      mapEl._leaflet_map = miniMap;
+
+      // Invalidate size after a short delay
+      setTimeout(() => miniMap.invalidateSize(), 100);
+    }, 50);
   }
   select(0);
 })();
