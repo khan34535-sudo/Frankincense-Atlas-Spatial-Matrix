@@ -710,6 +710,12 @@
     <button class="opt-btn" data-open="trade"><span class="oe">🚢</span><span class="ol">Trade Today</span></button>
     <button class="opt-btn" data-open="uses"><span class="oe">⚕️</span><span class="ol">Health Profiles</span></button>
     <button class="opt-btn" data-open="botanical"><span class="oe">🌿</span><span class="ol">Botanical</span></button>
+    <button class="opt-btn" data-open="genomics"><span class="oe">🧬</span><span class="ol">Genomics Lab</span></button>
+    <button class="opt-btn" data-open="microbiome"><span class="oe">🦠</span><span class="ol">Microbiome</span></button>
+    <button class="opt-btn" data-open="satellite"><span class="oe">🛰️</span><span class="ol">AI Satellite</span></button>
+    <button class="opt-btn" data-open="carbon"><span class="oe">💨</span><span class="ol">Carbon Balance</span></button>
+    <button class="opt-btn" data-open="provenance"><span class="oe">🔍</span><span class="ol">Provenance AI</span></button>
+    <button class="opt-btn" data-open="future"><span class="oe">🚀</span><span class="ol">Future Lab</span></button>
     <button class="opt-btn" data-open="refs"><span class="oe">📚</span><span class="ol">References</span></button>
   </div>
 
@@ -2001,6 +2007,483 @@
 </div>
 
 <!-- ══════════════════════════════════════════════
+     MODAL · GENOMICS LAB (NEW)
+     ══════════════════════════════════════════════ -->
+<div class="modal" id="m-genomics" aria-hidden="true">
+  <div class="modal-card" role="dialog" aria-modal="true">
+    <div class="modal-head" style="--pop-color:#a855f7">
+      <div class="modal-head-left">
+        <span class="me">🧬</span>
+        <div><h3>Genomics Laboratory · DNA Matrix</h3><div class="kick">667.8 Mb Assembly · 18,564 Genes · Gypsy Retroelements</div></div>
+      </div>
+      <button class="modal-close" data-close>✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="fivew">
+        <div class="w"><div class="wk">Who</div><div class="wv">Botanical geneticists · Bioinformatics teams</div></div>
+        <div class="w"><div class="wk">What</div><div class="wv">De novo genome · Resin pathway genes · Population SNPs</div></div>
+        <div class="w"><div class="wk">Where</div><div class="wv">Arabian Peninsula · Horn of Africa · Global labs</div></div>
+        <div class="w"><div class="wk">When</div><div class="wv">2 Mya retroelement expansion → 2024 sequencing</div></div>
+        <div class="w"><div class="wk">Why</div><div class="wv">Decode drought resilience &amp; resin biosynthesis</div></div>
+      </div>
+
+      <div class="info" style="margin-bottom:20px; --pop-color:#a855f7;">
+        <h4>🧬 Genome Architecture &amp; Stress Adaptation
+          <span class="layman-badge" onclick="openLayman('genomics')">
+            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 2L14.5 9H22L16 13.5L18.5 21L12 16.5L5.5 21L8 13.5L2 9H9.5L12 2Z" fill="#a855f7" stroke="#d8b4fe" stroke-width="0.8"/></svg>
+            Simple Summary
+          </span>
+        </h4>
+        <p>The <em>Boswellia sacra</em> genome assembly spans <strong>667.8 Mb</strong> with 18,564 protein-coding genes. A major discovery is the expansion of <strong>Gypsy retroelements</strong> over the past 2 million years — mobile DNA elements that reshaped stress-response pathways, enabling survival in hyper-arid Dhofar. Gene families for terpene synthases (TPS) and cytochrome P450 enzymes are heavily duplicated, driving the complex resin chemistry.</p>
+      </div>
+
+      <div class="gal-card" style="margin-bottom:20px;">
+        <div class="frame" style="aspect-ratio:16/8; background:#05070a; position:relative; overflow:hidden;">
+          <span class="badge-i">Plate VII · Genome Architecture &amp; Gene Family Expansion</span>
+          <svg class="data-svg" viewBox="0 0 1000 400" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <linearGradient id="dnaGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+                <stop offset="0%" stop-color="#a855f7"/>
+                <stop offset="50%" stop-color="#2ecc71"/>
+                <stop offset="100%" stop-color="#3498db"/>
+              </linearGradient>
+            </defs>
+            <rect width="1000" height="400" fill="#0a0c10"/>
+            <g stroke="rgba(168,85,247,0.1)" stroke-width="1">
+              <line x1="100" y1="40" x2="100" y2="360"/>
+              <line x1="300" y1="40" x2="300" y2="360"/>
+              <line x1="500" y1="40" x2="500" y2="360"/>
+              <line x1="700" y1="40" x2="700" y2="360"/>
+              <line x1="900" y1="40" x2="900" y2="360"/>
+            </g>
+            <text x="500" y="25" fill="#a855f7" font-size="14" text-anchor="middle" letter-spacing="2" font-weight="700">BOSWELLIA SACRA · 667.8 Mb GENOME MAP</text>
+            <path d="M100 200 Q200 120 300 200 T500 200 T700 200 T900 200" fill="none" stroke="url(#dnaGrad)" stroke-width="4" filter="url(#neonGlowGreen)"/>
+            <path d="M100 200 Q200 280 300 200 T500 200 T700 200 T900 200" fill="none" stroke="url(#dnaGrad)" stroke-width="4" opacity="0.6"/>
+            <circle cx="300" cy="200" r="8" fill="#a855f7" class="node"/>
+            <text x="300" y="170" fill="#a855f7" font-size="11" text-anchor="middle" font-weight="700">TPS Gene Cluster</text>
+            <circle cx="500" cy="200" r="8" fill="#2ecc71" class="node"/>
+            <text x="500" y="170" fill="#2ecc71" font-size="11" text-anchor="middle" font-weight="700">P450 Cytochromes</text>
+            <circle cx="700" cy="200" r="8" fill="#3498db" class="node"/>
+            <text x="700" y="170" fill="#3498db" font-size="11" text-anchor="middle" font-weight="700">Gypsy Retroelements</text>
+            <text x="100" y="340" fill="#8b98ab" font-size="10">Chr 1</text>
+            <text x="300" y="340" fill="#8b98ab" font-size="10">Chr 2</text>
+            <text x="500" y="340" fill="#8b98ab" font-size="10">Chr 3</text>
+            <text x="700" y="340" fill="#8b98ab" font-size="10">Chr 4</text>
+            <text x="900" y="340" fill="#8b98ab" font-size="10">Chr 5</text>
+          </svg>
+        </div>
+      </div>
+
+      <div class="grid-3">
+        <div class="info" style="--pop-color:#a855f7">
+          <h4>🧪 Terpene Synthase (TPS) Family</h4>
+          <p>Expanded TPS gene clusters produce the monoterpenes (α-pinene, myrcene, limonene) responsible for each grade's unique aroma.</p>
+        </div>
+        <div class="info" style="--pop-color:#2ecc71">
+          <h4>🌡️ Drought-Responsive Genes</h4>
+          <p>DREB and NAC transcription factors show positive selection, enabling stomatal control under extreme water deficit.</p>
+        </div>
+        <div class="info" style="--pop-color:#3498db">
+          <h4>🔄 Gypsy Retroelement Legacy</h4>
+          <p>Mobile elements reshaped regulatory networks — a genomic "memory" of 2 million years of arid adaptation.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════
+     MODAL · MICROBIOME (NEW)
+     ══════════════════════════════════════════════ -->
+<div class="modal" id="m-microbiome" aria-hidden="true">
+  <div class="modal-card" role="dialog" aria-modal="true">
+    <div class="modal-head" style="--pop-color:#2ecc71">
+      <div class="modal-head-left">
+        <span class="me">🦠</span>
+        <div><h3>Rhizosphere Microbiome Matrix</h3><div class="kick">Wild vs Cultivated · Actinobacteria · IAA Producers</div></div>
+      </div>
+      <button class="modal-close" data-close>✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="fivew">
+        <div class="w"><div class="wk">Who</div><div class="wv">Soil microbiologists · Plant ecologists</div></div>
+        <div class="w"><div class="wk">What</div><div class="wv">Bacterial &amp; fungal communities in root zone</div></div>
+        <div class="w"><div class="wk">Where</div><div class="wv">Wadi Dawkah · Jebel Samhan · cultivated nurseries</div></div>
+        <div class="w"><div class="wk">When</div><div class="wv">2019–2024 metagenomic surveys</div></div>
+        <div class="w"><div class="wk">Why</div><div class="wv">Microbes boost drought survival &amp; resin yield</div></div>
+      </div>
+
+      <div class="info" style="margin-bottom:20px; --pop-color:#2ecc71;">
+        <h4>🦠 Wild vs Cultivated Microbiome Divergence
+          <span class="layman-badge" onclick="openLayman('microbiome')">
+            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 2L14.5 9H22L16 13.5L18.5 21L12 16.5L5.5 21L8 13.5L2 9H9.5L12 2Z" fill="#a855f7" stroke="#d8b4fe" stroke-width="0.8"/></svg>
+            Simple Summary
+          </span>
+        </h4>
+        <p>Wild <em>B. sacra</em> roots are dominated by <strong>Ascomycota (60.3%)</strong> fungi and <strong>Actinobacteria</strong> bacteria, while cultivated trees shift toward <strong>Basidiomycota (52%)</strong> and <strong>Proteobacteria</strong>. Wild-associated microbes produce higher <strong>glucosidase and cellulase</strong> enzyme activity and <strong>indole-3-acetic acid (IAA)</strong> — a plant growth hormone that likely helps the tree survive extreme aridity.</p>
+      </div>
+
+      <div class="gal-card" style="margin-bottom:20px;">
+        <div class="frame" style="aspect-ratio:16/8; background:#05070a; position:relative; overflow:hidden;">
+          <span class="badge-i">Plate VIII · Rhizosphere Microbial Composition</span>
+          <svg class="data-svg" viewBox="0 0 1000 400" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+            <rect width="1000" height="400" fill="#0a0c10"/>
+            <text x="250" y="40" fill="#2ecc71" font-size="16" text-anchor="middle" font-weight="700">WILD TREES</text>
+            <text x="750" y="40" fill="#3498db" font-size="16" text-anchor="middle" font-weight="700">CULTIVATED TREES</text>
+            <g transform="translate(250,220)">
+              <circle r="120" fill="none" stroke="#2ecc71" stroke-width="2" opacity="0.4"/>
+              <path d="M0,0 L0,-120 A120,120 0 0,1 103.9,60 Z" fill="#2ecc71" opacity="0.7"/>
+              <path d="M0,0 L103.9,60 A120,120 0 0,1 -103.9,60 Z" fill="#f39c12" opacity="0.7"/>
+              <path d="M0,0 L-103.9,60 A120,120 0 0,1 0,-120 Z" fill="#9b59b6" opacity="0.7"/>
+              <text x="0" y="0" fill="#fff" font-size="14" text-anchor="middle" font-weight="700">Ascomycota 60%</text>
+            </g>
+            <g transform="translate(750,220)">
+              <circle r="120" fill="none" stroke="#3498db" stroke-width="2" opacity="0.4"/>
+              <path d="M0,0 L0,-120 A120,120 0 0,1 103.9,60 Z" fill="#3498db" opacity="0.7"/>
+              <path d="M0,0 L103.9,60 A120,120 0 0,1 -103.9,60 Z" fill="#e74c3c" opacity="0.7"/>
+              <path d="M0,0 L-103.9,60 A120,120 0 0,1 0,-120 Z" fill="#2ecc71" opacity="0.7"/>
+              <text x="0" y="0" fill="#fff" font-size="14" text-anchor="middle" font-weight="700">Basidiomycota 52%</text>
+            </g>
+            <text x="500" y="380" fill="#8b98ab" font-size="11" text-anchor="middle">Wild trees harbour IAA-producing Actinobacteria · Cultivated trees shift to Proteobacteria dominance</text>
+          </svg>
+        </div>
+      </div>
+
+      <div class="grid-3">
+        <div class="info" style="--pop-color:#2ecc71">
+          <h4>🌱 IAA Producers</h4>
+          <p>Wild-associated bacteria secrete indole-3-acetic acid, promoting root elongation under drought stress.</p>
+        </div>
+        <div class="info" style="--pop-color:#f39c12">
+          <h4>🔬 Enzyme Activity</h4>
+          <p>Higher glucosidase &amp; cellulase activity in wild rhizospheres accelerates nutrient cycling in poor desert soils.</p>
+        </div>
+        <div class="info" style="--pop-color:#3498db">
+          <h4>🌍 Conservation Impact</h4>
+          <p>Microbiome transplants may boost survival rates of nursery-raised seedlings reintroduced to wild habitats.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════
+     MODAL · AI SATELLITE (NEW)
+     ══════════════════════════════════════════════ -->
+<div class="modal" id="m-satellite" aria-hidden="true">
+  <div class="modal-card" role="dialog" aria-modal="true">
+    <div class="modal-head" style="--pop-color:#3498db">
+      <div class="modal-head-left">
+        <span class="me">🛰️</span>
+        <div><h3>AI Satellite Monitoring &amp; Deep Learning</h3><div class="kick">WorldView-3 · 93.7% Accuracy · Kappa 0.87</div></div>
+      </div>
+      <button class="modal-close" data-close>✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="fivew">
+        <div class="w"><div class="wk">Who</div><div class="wv">Remote sensing scientists · Conservation NGOs</div></div>
+        <div class="w"><div class="wk">What</div><div class="wv">Individual tree crown detection via deep learning</div></div>
+        <div class="w"><div class="wk">Where</div><div class="wv">Wadi Dawkah UNESCO site · Dhofar mountains</div></div>
+        <div class="w"><div class="wk">When</div><div class="wv">2020–2024 model training &amp; validation</div></div>
+        <div class="w"><div class="wk">Why</div><div class="wv">Scalable population health monitoring</div></div>
+      </div>
+
+      <div class="info" style="margin-bottom:20px; --pop-color:#3498db;">
+        <h4>🛰️ Deep Learning Tree Crown Detection
+          <span class="layman-badge" onclick="openLayman('satellite')">
+            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 2L14.5 9H22L16 13.5L18.5 21L12 16.5L5.5 21L8 13.5L2 9H9.5L12 2Z" fill="#a855f7" stroke="#d8b4fe" stroke-width="0.8"/></svg>
+            Simple Summary
+          </span>
+        </h4>
+        <p>High-resolution <strong>WorldView-3</strong> satellite imagery combined with convolutional neural networks (CNNs) can identify individual <em>B. sacra</em> tree crowns with <strong>93.7% overall accuracy</strong> and a Cohen's Kappa of <strong>0.87</strong>. This enables automated population counts, health classification (healthy/stressed/dead), and land-cover change detection across the entire Dhofar range — a task impossible with manual surveys.</p>
+      </div>
+
+      <div class="gal-card" style="margin-bottom:20px;">
+        <div class="frame" style="aspect-ratio:16/8; background:#05070a; position:relative; overflow:hidden;">
+          <span class="badge-i">Plate IX · AI Tree Crown Detection Overlay</span>
+          <svg class="data-svg" viewBox="0 0 1000 400" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+            <rect width="1000" height="400" fill="#0a0c10"/>
+            <g stroke="rgba(52,152,219,0.15)" stroke-width="1">
+              <line x1="0" y1="100" x2="1000" y2="100"/>
+              <line x1="0" y1="200" x2="1000" y2="200"/>
+              <line x1="0" y1="300" x2="1000" y2="300"/>
+              <line x1="200" y1="0" x2="200" y2="400"/>
+              <line x1="400" y1="0" x2="400" y2="400"/>
+              <line x1="600" y1="0" x2="600" y2="400"/>
+              <line x1="800" y1="0" x2="800" y2="400"/>
+            </g>
+            <g>
+              <circle cx="150" cy="120" r="30" fill="none" stroke="#2ecc71" stroke-width="2"/>
+              <circle cx="150" cy="120" r="3" fill="#2ecc71"/>
+              <text x="150" y="170" fill="#2ecc71" font-size="10" text-anchor="middle">Healthy</text>
+              <circle cx="320" cy="180" r="28" fill="none" stroke="#2ecc71" stroke-width="2"/>
+              <circle cx="320" cy="180" r="3" fill="#2ecc71"/>
+              <circle cx="520" cy="140" r="35" fill="none" stroke="#f39c12" stroke-width="2"/>
+              <circle cx="520" cy="140" r="3" fill="#f39c12"/>
+              <text x="520" y="200" fill="#f39c12" font-size="10" text-anchor="middle">Stressed</text>
+              <circle cx="720" cy="220" r="32" fill="none" stroke="#2ecc71" stroke-width="2"/>
+              <circle cx="720" cy="220" r="3" fill="#2ecc71"/>
+              <circle cx="880" cy="160" r="25" fill="none" stroke="#e74c3c" stroke-width="2"/>
+              <circle cx="880" cy="160" r="3" fill="#e74c3c"/>
+              <text x="880" y="210" fill="#e74c3c" font-size="10" text-anchor="middle">Dead</text>
+              <circle cx="250" cy="300" r="26" fill="none" stroke="#2ecc71" stroke-width="2"/>
+              <circle cx="250" cy="300" r="3" fill="#2ecc71"/>
+              <circle cx="600" cy="320" r="30" fill="none" stroke="#2ecc71" stroke-width="2"/>
+              <circle cx="600" cy="320" r="3" fill="#2ecc71"/>
+            </g>
+            <text x="500" y="30" fill="#3498db" font-size="14" text-anchor="middle" font-weight="700">CNN DETECTION · 93.7% ACCURACY · KAPPA 0.87</text>
+          </svg>
+        </div>
+      </div>
+
+      <div class="grid-3">
+        <div class="info" style="--pop-color:#2ecc71">
+          <h4>🎯 93.7% Accuracy</h4>
+          <p>Model precision/recall validated against ground-truth field surveys across 12 transects.</p>
+        </div>
+        <div class="info" style="--pop-color:#3498db">
+          <h4>📡 WorldView-3 Resolution</h4>
+          <p>31 cm panchromatic resolution reveals individual canopy geometry, enabling species-level classification.</p>
+        </div>
+        <div class="info" style="--pop-color:#f39c12">
+          <h4>⏱️ Temporal Monitoring</h4>
+          <p>Repeat passes every 2 weeks track seasonal dieback, tapping stress, and regeneration hotspots.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════
+     MODAL · CARBON BALANCE (NEW)
+     ══════════════════════════════════════════════ -->
+<div class="modal" id="m-carbon" aria-hidden="true">
+  <div class="modal-card" role="dialog" aria-modal="true">
+    <div class="modal-head" style="--pop-color:#e67e22">
+      <div class="modal-head-left">
+        <span class="me">💨</span>
+        <div><h3>Carbon Balance &amp; Physiological Ecology</h3><div class="kick">TNC Depletion · Stomatal Stress · Tapping Cost</div></div>
+      </div>
+      <button class="modal-close" data-close>✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="fivew">
+        <div class="w"><div class="wk">Who</div><div class="wv">Plant physiologists · Ecophysiologists</div></div>
+        <div class="w"><div class="wk">What</div><div class="wv">Total non-structural carbohydrates (TNC) dynamics</div></div>
+        <div class="w"><div class="wk">Where</div><div class="wv">Dhofar wild stands · experimental tapping plots</div></div>
+        <div class="w"><div class="wk">When</div><div class="wv">2018–2024 physiological monitoring</div></div>
+        <div class="w"><div class="wk">Why</div><div class="wv">Determine sustainable tapping limits</div></div>
+      </div>
+
+      <div class="info" style="margin-bottom:20px; --pop-color:#e67e22;">
+        <h4>💨 Resin Tapping Imposes a Carbon Cost
+          <span class="layman-badge" onclick="openLayman('carbon')">
+            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 2L14.5 9H22L16 13.5L18.5 21L12 16.5L5.5 21L8 13.5L2 9H9.5L12 2Z" fill="#a855f7" stroke="#d8b4fe" stroke-width="0.8"/></svg>
+            Simple Summary
+          </span>
+        </h4>
+        <p>Every resin cut drains <strong>total non-structural carbohydrates (TNC)</strong> — the tree's stored energy reserves. Studies show carbon gain is limited more by <strong>atmospheric drought</strong> (high VPD) than by soil water deficit. Trees with smaller leaf areas face carbon starvation sooner, especially during the dry season when tapping coincides with peak evaporative demand. Over-tapping leads to reduced seed viability and, eventually, canopy dieback.</p>
+      </div>
+
+      <div class="gal-card" style="margin-bottom:20px;">
+        <div class="frame" style="aspect-ratio:16/8; background:#05070a; position:relative; overflow:hidden;">
+          <span class="badge-i">Plate X · TNC Depletion Under Tapping Stress</span>
+          <svg class="data-svg" viewBox="0 0 1000 400" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+            <rect width="1000" height="400" fill="#0a0c10"/>
+            <g stroke="rgba(230,126,34,0.15)" stroke-width="1">
+              <line x1="80" y1="50" x2="80" y2="350"/>
+              <line x1="80" y1="350" x2="950" y2="350"/>
+              <line x1="80" y1="250" x2="950" y2="250" stroke-dasharray="5 5"/>
+              <line x1="80" y1="150" x2="950" y2="150" stroke-dasharray="5 5"/>
+            </g>
+            <text x="500" y="30" fill="#e67e22" font-size="14" text-anchor="middle" font-weight="700">TNC RESERVES · UNTAPPED vs TAPPED TREES</text>
+            <text x="40" y="200" fill="#8b98ab" font-size="12" text-anchor="middle" transform="rotate(-90 40 200)">TNC (mg/g)</text>
+            <path d="M100 200 L200 195 L300 190 L400 188 L500 185 L600 183 L700 180 L800 178 L900 175" fill="none" stroke="#2ecc71" stroke-width="3" filter="url(#neonGlowGreen)"/>
+            <text x="920" y="170" fill="#2ecc71" font-size="11">Untapped</text>
+            <path d="M100 200 L200 220 L300 240 L400 255 L500 270 L600 285 L700 300 L800 310 L900 320" fill="none" stroke="#e74c3c" stroke-width="3" filter="url(#neonGlowCyan)"/>
+            <text x="920" y="335" fill="#e74c3c" font-size="11">Tapped</text>
+            <text x="100" y="375" fill="#8b98ab" font-size="10">Mar</text>
+            <text x="300" y="375" fill="#8b98ab" font-size="10">May</text>
+            <text x="500" y="375" fill="#8b98ab" font-size="10">Jul</text>
+            <text x="700" y="375" fill="#8b98ab" font-size="10">Sep</text>
+            <text x="900" y="375" fill="#8b98ab" font-size="10">Nov</text>
+          </svg>
+        </div>
+      </div>
+
+      <div class="grid-3">
+        <div class="info" style="--pop-color:#e74c3c">
+          <h4>🌡️ Atmospheric Drought</h4>
+          <p>High vapor pressure deficit (VPD) forces stomatal closure, limiting photosynthesis regardless of soil moisture.</p>
+        </div>
+        <div class="info" style="--pop-color:#f39c12">
+          <h4>🍂 Carbon Starvation Risk</h4>
+          <p>Repeated tapping during the dry season depletes TNC reserves faster than they can be replenished.</p>
+        </div>
+        <div class="info" style="--pop-color:#2ecc71">
+          <h4>✅ Sustainable Threshold</h4>
+          <p>Research suggests 2–3 year rest periods are needed for full TNC recovery between tapping cycles.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════
+     MODAL · PROVENANCE AI (NEW)
+     ══════════════════════════════════════════════ -->
+<div class="modal" id="m-provenance" aria-hidden="true">
+  <div class="modal-card" role="dialog" aria-modal="true">
+    <div class="modal-head" style="--pop-color:#d4af37">
+      <div class="modal-head-left">
+        <span class="me">🔍</span>
+        <div><h3>Chemical Provenance &amp; Authentication AI</h3><div class="kick">Isoincensole Acetate · Species Fingerprinting · Origin Tracing</div></div>
+      </div>
+      <button class="modal-close" data-close>✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="fivew">
+        <div class="w"><div class="wk">Who</div><div class="wv">Analytical chemists · Customs authorities · Perfumers</div></div>
+        <div class="w"><div class="wk">What</div><div class="wv">Terpenic fingerprinting for origin &amp; species ID</div></div>
+        <div class="w"><div class="wk">Where</div><div class="wv">Global trade networks · Archaeological samples</div></div>
+        <div class="w"><div class="wk">When</div><div class="wv">2012–2026 method development</div></div>
+        <div class="w"><div class="wk">Why</div><div class="wv">Combat adulteration &amp; verify sacred provenance</div></div>
+      </div>
+
+      <div class="info" style="margin-bottom:20px; --pop-color:#d4af37;">
+        <h4>🔍 Species-Specific Chemical Fingerprints
+          <span class="layman-badge" onclick="openLayman('provenance')">
+            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 2L14.5 9H22L16 13.5L18.5 21L12 16.5L5.5 21L8 13.5L2 9H9.5L12 2Z" fill="#a855f7" stroke="#d8b4fe" stroke-width="0.8"/></svg>
+            Simple Summary
+          </span>
+        </h4>
+        <p>Each <em>Boswellia</em> species has a unique terpenic "fingerprint." <strong>Isoincensole acetate</strong> is the shared biomarker for <em>B. sacra</em> and <em>B. carteri</em>, while <strong>incensole</strong> dominates in <em>B. papyrifera</em>. Machine learning models trained on GC-MS spectra can identify species and geographic origin with high confidence — even in mixed archaeological samples or commercial blends.</p>
+      </div>
+
+      <div class="gal-card" style="margin-bottom:20px;">
+        <div class="frame" style="aspect-ratio:16/8; background:#05070a; position:relative; overflow:hidden;">
+          <span class="badge-i">Plate XI · Chemical Fingerprint Matrix</span>
+          <svg class="data-svg" viewBox="0 0 1000 400" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+            <rect width="1000" height="400" fill="#0a0c10"/>
+            <text x="500" y="30" fill="#d4af37" font-size="14" text-anchor="middle" font-weight="700">SPECIES DISCRIMINATION BY BIOMARKER RATIOS</text>
+            <g transform="translate(250,220)">
+              <circle r="100" fill="none" stroke="#d4af37" stroke-width="2" opacity="0.4"/>
+              <text x="0" y="-115" fill="#d4af37" font-size="12" text-anchor="middle" font-weight="700">B. sacra</text>
+              <circle cx="0" cy="0" r="8" fill="#d4af37" class="node"/>
+            </g>
+            <g transform="translate(750,220)">
+              <circle r="100" fill="none" stroke="#9b59b6" stroke-width="2" opacity="0.4"/>
+              <text x="0" y="-115" fill="#9b59b6" font-size="12" text-anchor="middle" font-weight="700">B. papyrifera</text>
+              <circle cx="0" cy="0" r="8" fill="#9b59b6" class="node"/>
+            </g>
+            <line x1="350" y1="220" x2="650" y2="220" stroke="#3498db" stroke-width="2" stroke-dasharray="8 6"/>
+            <text x="500" y="205" fill="#3498db" font-size="11" text-anchor="middle">ML classifier</text>
+            <text x="500" y="255" fill="#8b98ab" font-size="10" text-anchor="middle">Isoincensole acetate ↑</text>
+            <text x="500" y="275" fill="#8b98ab" font-size="10" text-anchor="middle">Incensole ↑</text>
+          </svg>
+        </div>
+      </div>
+
+      <div class="grid-3">
+        <div class="info" style="--pop-color:#d4af37">
+          <h4>🧪 Isoincensole Acetate</h4>
+          <p>Shared biomarker for <em>B. sacra</em> &amp; <em>B. carteri</em> — identifies Dhofari origin.</p>
+        </div>
+        <div class="info" style="--pop-color:#9b59b6">
+          <h4>🧬 Incensole Marker</h4>
+          <p>Dominant in <em>B. papyrifera</em> — distinguishes Ethiopian resin from Arabian.</p>
+        </div>
+        <div class="info" style="--pop-color:#3498db">
+          <h4>🤖 AI Classification</h4>
+          <p>Deep learning on GC-MS spectra achieves &gt;95% species-level accuracy in mixed samples.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════
+     MODAL · FUTURE LAB (NEW)
+     ══════════════════════════════════════════════ -->
+<div class="modal" id="m-future" aria-hidden="true">
+  <div class="modal-card" role="dialog" aria-modal="true">
+    <div class="modal-head" style="--pop-color:#a855f7">
+      <div class="modal-head-left">
+        <span class="me">🚀</span>
+        <div><h3>Future Research Frontiers</h3><div class="kick">Synthetic Biology · CRISPR · Climate-Adaptive Breeding</div></div>
+      </div>
+      <button class="modal-close" data-close>✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="fivew">
+        <div class="w"><div class="wk">Who</div><div class="wv">Synthetic biologists · Conservation geneticists</div></div>
+        <div class="w"><div class="wk">What</div><div class="wv">CRISPR-edited drought tolerance · Yeast-based resin production</div></div>
+        <div class="w"><div class="wk">Where</div><div class="wv">Oman · global biotech labs</div></div>
+        <div class="w"><div class="wk">When</div><div class="wv">2025–2035 projected roadmap</div></div>
+        <div class="w"><div class="wk">Why</div><div class="wv">Protect wild populations while meeting demand</div></div>
+      </div>
+
+      <div class="grid-3" style="margin-bottom:20px">
+        <div class="info" style="--pop-color:#a855f7">
+          <h4>🧬 CRISPR Drought Engineering
+            <span class="layman-badge" onclick="openLayman('crispr')">
+              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 2L14.5 9H22L16 13.5L18.5 21L12 16.5L5.5 21L8 13.5L2 9H9.5L12 2Z" fill="#a855f7" stroke="#d8b4fe" stroke-width="0.8"/></svg>
+              Simple Summary
+            </span>
+          </h4>
+          <p>Editing DREB and NAC transcription factor genes could enhance stomatal control and water-use efficiency in nursery seedlings before reintroduction to wild habitats.</p>
+        </div>
+        <div class="info" style="--pop-color:#2ecc71">
+          <h4>🍞 Yeast-Based Resin Fermentation
+            <span class="layman-badge" onclick="openLayman('fermentation')">
+              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 2L14.5 9H22L16 13.5L18.5 21L12 16.5L5.5 21L8 13.5L2 9H9.5L12 2Z" fill="#a855f7" stroke="#d8b4fe" stroke-width="0.8"/></svg>
+              Simple Summary
+            </span>
+          </h4>
+          <p>Synthetic biology could engineer yeast to produce boswellic acids and incensole acetate, reducing pressure on wild trees while supplying pharmaceutical demand.</p>
+        </div>
+        <div class="info" style="--pop-color:#3498db">
+          <h4>🌱 Climate-Adaptive Breeding
+            <span class="layman-badge" onclick="openLayman('breeding')">
+              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 2L14.5 9H22L16 13.5L18.5 21L12 16.5L5.5 21L8 13.5L2 9H9.5L12 2Z" fill="#a855f7" stroke="#d8b4fe" stroke-width="0.8"/></svg>
+              Simple Summary
+            </span>
+          </h4>
+          <p>Marker-assisted selection for heat-tolerant genotypes could future-proof reforestation efforts as monsoon patterns shift under climate change.</p>
+        </div>
+      </div>
+
+      <div class="gal-card">
+        <div class="frame" style="aspect-ratio:16/8; background:#05070a; position:relative; overflow:hidden;">
+          <span class="badge-i">Plate XII · 2025–2035 Research Roadmap</span>
+          <svg class="data-svg" viewBox="0 0 1000 400" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+            <rect width="1000" height="400" fill="#0a0c10"/>
+            <line x1="50" y1="200" x2="950" y2="200" stroke="#a855f7" stroke-width="3" opacity="0.4"/>
+            <g>
+              <circle cx="150" cy="200" r="12" fill="#2ecc71" class="node"/>
+              <text x="150" y="170" fill="#2ecc71" font-size="12" text-anchor="middle" font-weight="700">2025</text>
+              <text x="150" y="240" fill="#8b98ab" font-size="10" text-anchor="middle">Genome-wide SNP chip</text>
+              <circle cx="350" cy="200" r="12" fill="#3498db" class="node"/>
+              <text x="350" y="170" fill="#3498db" font-size="12" text-anchor="middle" font-weight="700">2027</text>
+              <text x="350" y="240" fill="#8b98ab" font-size="10" text-anchor="middle">CRISPR field trials</text>
+              <circle cx="550" cy="200" r="12" fill="#a855f7" class="node"/>
+              <text x="550" y="170" fill="#a855f7" font-size="12" text-anchor="middle" font-weight="700">2030</text>
+              <text x="550" y="240" fill="#8b98ab" font-size="10" text-anchor="middle">Yeast resin production</text>
+              <circle cx="750" cy="200" r="12" fill="#f39c12" class="node"/>
+              <text x="750" y="170" fill="#f39c12" font-size="12" text-anchor="middle" font-weight="700">2033</text>
+              <text x="750" y="240" fill="#8b98ab" font-size="10" text-anchor="middle">Climate-adapted reforestation</text>
+              <circle cx="920" cy="200" r="12" fill="#e74c3c" class="node"/>
+              <text x="920" y="170" fill="#e74c3c" font-size="12" text-anchor="middle" font-weight="700">2035</text>
+              <text x="920" y="240" fill="#8b98ab" font-size="10" text-anchor="middle">Sustainable trade certification</text>
+            </g>
+          </svg>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════
      MODAL · REFERENCES
      ══════════════════════════════════════════════ -->
 <div class="modal" id="m-refs" aria-hidden="true">
@@ -2153,6 +2636,83 @@ const LAYMAN_DATA = {
       <p><strong>What's interesting about it?</strong> The tree has a huge number of "jumping genes" called <strong>Gypsy retroelements</strong> — these are pieces of DNA that can copy themselves and move around the genome. Over the past 2 million years, these jumping genes have expanded a lot, and they've helped shape how the tree responds to stress (like drought).</p>
       <p><strong>Why does this matter?</strong> Understanding the genome helps scientists figure out which genes are responsible for producing the valuable resin compounds, and maybe even breed or protect trees that produce more or better resin.</p>
       <p><em>In short: the genome is the tree's "recipe book," and scientists are learning to read it.</em></p>
+    `
+  },
+  genomics: {
+    title: "🧬 Genomics Lab — Plain English",
+    body: `
+      <p><strong>What's a genome again?</strong> It's the complete instruction manual for a tree — every piece of DNA that tells it how to grow, make resin, and survive tough conditions.</p>
+      <p><strong>What did scientists find?</strong> They sequenced the entire <em>Boswellia sacra</em> genome and found it has about <strong>667.8 million DNA "letters"</strong> and 18,564 genes. That's a big instruction manual!</p>
+      <p><strong>The surprising discovery:</strong> Over the past 2 million years, a type of "jumping gene" called <strong>Gypsy retroelements</strong> has been copying and pasting itself all over the genome. This reshuffling helped the tree develop new ways to survive extreme drought.</p>
+      <p><strong>Why does this matter?</strong> By knowing which genes control resin production and stress tolerance, scientists could eventually breed or engineer trees that produce more resin or survive harsher conditions — helping conservation and the industry at the same time.</p>
+      <p><em>In short: the genome is the tree's recipe book, and we're finally learning to read it.</em></p>
+    `
+  },
+  microbiome: {
+    title: "🦠 Microbiome — Plain English",
+    body: `
+      <p><strong>What's a microbiome?</strong> It's the community of tiny organisms — bacteria and fungi — that live around and inside a tree's roots. Think of them as the tree's "invisible helpers."</p>
+      <p><strong>What's the difference between wild and farmed trees?</strong> Wild frankincense trees have a different mix of microbes than cultivated ones. Wild trees are dominated by a fungus group called <strong>Ascomycota</strong> (60%) and bacteria called <strong>Actinobacteria</strong>. Cultivated trees shift to <strong>Basidiomycota</strong> (52%) and <strong>Proteobacteria</strong>.</p>
+      <p><strong>Why does this matter?</strong> The wild microbes produce enzymes that help break down nutrients in poor desert soil, and they make a plant hormone called <strong>IAA</strong> that helps roots grow deeper. These microbial allies are probably why wild trees survive harsh conditions so well.</p>
+      <p><strong>Future application:</strong> Scientists could transplant beneficial microbes into nursery seedlings before planting them in the wild — giving them a "probiotic boost" for survival.</p>
+      <p><em>In short: it's not just the tree — it's the tree plus its invisible microbial partners.</em></p>
+    `
+  },
+  satellite: {
+    title: "🛰️ AI Satellite — Plain English",
+    body: `
+      <p><strong>What's the challenge?</strong> Counting and monitoring thousands of frankincense trees across the vast Dhofar mountains is impossible on foot. But satellites can see them from space!</p>
+      <p><strong>How does it work?</strong> Very high-resolution satellite images (from WorldView-3) are fed into a <strong>deep learning AI model</strong> — the same kind of AI that recognizes faces in photos. Instead of faces, this AI is trained to recognize individual tree crowns.</p>
+      <p><strong>How accurate is it?</strong> The model achieves <strong>93.7% accuracy</strong> (a Kappa score of 0.87) — meaning it correctly identifies trees almost every time. That's better than most human surveyors could do across such a huge area!</p>
+      <p><strong>What can it detect?</strong> Healthy trees, stressed trees, and dead trees. By comparing images over time, scientists can track seasonal dieback, tapping stress, and where new seedlings are regenerating.</p>
+      <p><em>In short: AI + satellites = the ultimate tree census from space.</em></p>
+    `
+  },
+  carbon: {
+    title: "💨 Carbon Balance — Plain English",
+    body: `
+      <p><strong>What's the carbon cost of resin?</strong> Every time a tree is tapped for resin, it loses stored energy — called <strong>total non-structural carbohydrates (TNC)</strong>. Think of TNC as the tree's "savings account."</p>
+      <p><strong>What happens when you tap too much?</strong> The tree spends its savings faster than it can earn more from photosynthesis. During the dry season, this is especially dangerous because high heat and dry air force the tree to close its pores (stomata) — reducing its ability to make new energy.</p>
+      <p><strong>What does research show?</strong> Trees with smaller leaf areas lose carbon faster and are more vulnerable to "carbon starvation." Over-tapped trees produce fewer viable seeds and eventually lose branches.</p>
+      <p><strong>What's the solution?</strong> The research suggests that trees need <strong>2–3 year rest periods</strong> between tapping cycles to fully recover their energy reserves.</p>
+      <p><em>In short: tapping is like borrowing money from the tree — and you can't overdraw the account forever.</em></p>
+    `
+  },
+  provenance: {
+    title: "🔍 Provenance AI — Plain English",
+    body: `
+      <p><strong>What's provenance?</strong> It means "where something came from." For frankincense, this matters a lot — buyers want to know if their resin is genuine Dhofari Hojari or something cheaper from another region.</p>
+      <p><strong>How do scientists trace it?</strong> Each <em>Boswellia</em> species produces a unique blend of chemicals — a "fingerprint." By analyzing the terpenes and other compounds with machines like GC-MS, scientists can tell exactly which species and even which region the resin came from.</p>
+      <p><strong>What are the key markers?</strong> <strong>Isoincensole acetate</strong> is the fingerprint for <em>B. sacra</em> and <em>B. carteri</em> (Arabian/Somali origin). <strong>Incensole</strong> dominates in <em>B. papyrifera</em> (Ethiopian origin).</p>
+      <p><strong>What about AI?</strong> Machine learning models trained on thousands of chemical spectra can identify species and origin with over 95% accuracy — even in mixed samples.</p>
+      <p><em>In short: chemical fingerprints + AI = the "CSI" of the frankincense trade.</em></p>
+    `
+  },
+  crispr: {
+    title: "🧬 CRISPR — Plain English",
+    body: `
+      <p><strong>What is CRISPR?</strong> It's a gene-editing tool that lets scientists make precise changes to DNA — like editing a typo in a document.</p>
+      <p><strong>What could it do for frankincense?</strong> Researchers could edit genes that control how the tree responds to drought stress, potentially making seedlings better able to survive in harsh conditions.</p>
+      <p><strong>Why is this important?</strong> Wild frankincense populations are threatened by climate change, over-harvesting, and habitat loss. CRISPR could help create hardier trees for reforestation efforts — but it raises ethical questions about engineering wild species.</p>
+      <p><em>In short: a powerful tool that needs careful, responsible use.</em></p>
+    `
+  },
+  fermentation: {
+    title: "🍞 Yeast Fermentation — Plain English",
+    body: `
+      <p><strong>What's the idea?</strong> Instead of tapping wild trees for resin, scientists could engineer yeast — the same microbe used to make bread and beer — to produce the valuable compounds found in frankincense.</p>
+      <p><strong>How would it work?</strong> Yeast could be given the genes for making <strong>boswellic acids</strong> (the anti-inflammatory compounds) and <strong>incensole acetate</strong> (the key aroma molecule). The yeast would then brew these compounds in large fermentation tanks.</p>
+      <p><strong>Why does this matter?</strong> It could reduce pressure on wild tree populations while supplying the pharmaceutical and perfume industries with consistent, high-quality ingredients.</p>
+      <p><em>In short: brewing frankincense in a lab could protect wild trees while meeting global demand.</em></p>
+    `
+  },
+  breeding: {
+    title: "🌱 Climate-Adaptive Breeding — Plain English",
+    body: `
+      <p><strong>What's the goal?</strong> To breed frankincense trees that can better survive the hotter, drier conditions expected under climate change.</p>
+      <p><strong>How does it work?</strong> Scientists identify trees that naturally tolerate heat and drought, then use marker-assisted selection to breed those traits into nursery seedlings — without genetic engineering.</p>
+      <p><strong>Why is this urgent?</strong> As monsoon patterns shift, traditional frankincense habitats may become unsuitable. Climate-adapted trees could help reforestation efforts succeed in a changing world.</p>
+      <p><em>In short: using natural genetic variation to future-proof the frankincense tree.</em></p>
     `
   }
 };
