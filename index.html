@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="description" content="Interactive scientific atlas of Boswellia sacra (frankincense): trade routes, archaeology, chemistry, genomics, conservation and Dhofari heritage." />
 <title>Asia Khan | Frankincense Atlas · Boswellia sacra</title>
 
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
@@ -669,6 +670,74 @@
     border-radius: 12px;
     overflow: hidden;
   }
+
+  /* ===================== v2 ADDITIONS ===================== */
+  .hero-pad{position:relative;overflow:hidden}
+  .hero-pad>*:not(canvas){position:relative;z-index:1}
+  #heroSmoke{position:absolute;inset:0;width:100%;height:100%;z-index:0;pointer-events:none}
+  .legend-line{font-size:.76rem;color:var(--muted);margin:-10px auto 20px;max-width:860px;line-height:1.9}
+
+  /* evidence tags */
+  .nv,.ill,.vf{display:inline-block;font-family:var(--font-body);font-size:.58rem;font-weight:700;letter-spacing:.06em;
+    text-transform:uppercase;padding:1px 7px;border-radius:999px;margin-left:4px;vertical-align:middle;white-space:nowrap;font-style:normal}
+  .nv{background:rgba(231,76,60,.12);color:#ff8f80;border:1px solid rgba(231,76,60,.45)}
+  .ill{background:rgba(168,85,247,.12);color:#cfa8ff;border:1px solid rgba(168,85,247,.5)}
+  .vf{background:rgba(46,204,113,.12);color:#63e6a6;border:1px solid rgba(46,204,113,.45)}
+  .srcline{font-size:.76rem;color:var(--muted);margin-top:10px;font-style:italic;line-height:1.7}
+  .srcline a,.refs a{color:var(--gold)}
+  .ref-h{font-family:var(--font-title);color:var(--gold-light);font-size:.95rem;margin:22px 0 8px}
+
+  /* grouped navigation: every section visible, themed colour bands */
+  .theme-nav{margin:28px 0 8px}
+  .nav-groups{display:flex;flex-wrap:wrap;gap:26px 22px;justify-content:center;align-items:flex-start}
+  .nav-group{--gc:#d4af37;display:flex;flex-direction:column;gap:20px;max-width:100%}
+  .nav-group[data-theme="origins"]{--gc:#d4af37}
+  .nav-group[data-theme="science"]{--gc:#5dade2}
+  .nav-group[data-theme="conservation"]{--gc:#2ecc71}
+  .nav-group[data-theme="culture"]{--gc:#c39bd3}
+  .nav-group[data-theme="trade"]{--gc:#e67e22}
+  .nav-group[data-theme="refs"]{--gc:#8b98ab}
+  .nav-group-label{font-family:var(--font-title);font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--gc);padding:0 2px 7px;border-bottom:3px solid var(--gc);
+    box-shadow:0 8px 14px -10px var(--gc);display:flex;align-items:center;gap:7px}
+  .nav-group-label em{margin-left:auto;font-style:normal;font-family:var(--font-body);opacity:.6;font-size:.68rem}
+  .nav-group-btns{display:flex;flex-wrap:nowrap;gap:20px 7px;padding-top:6px}
+  .nav-group .opt-btn{min-width:0;width:84px;padding:16px 6px 11px}
+  .nav-group .opt-btn .ol{font-size:.68rem;text-align:center;line-height:1.25;letter-spacing:.02em}
+  .nav-group .opt-btn:hover,.nav-group .opt-btn:focus-visible{border-color:var(--gc);box-shadow:0 10px 26px color-mix(in srgb,var(--gc) 35%,transparent)}
+  .nav-group .opt-btn .ol{color:var(--text)}
+  @media (max-width:1240px){.nav-group-btns{flex-wrap:wrap}}
+  .opt-btn{transform-style:preserve-3d;will-change:transform}
+  @media (max-width:640px){
+    .nav-groups{gap:22px 0}
+    .nav-group{width:100%}
+    .nav-group-btns{gap:20px 8px}
+    .nav-group .opt-btn{flex:1 1 calc(33% - 8px);width:auto}
+  }
+  @keyframes btnEnter{from{opacity:0;transform:translateY(14px) rotateX(-25deg)}to{opacity:1;transform:none}}
+  .opt-btn.enter{animation:btnEnter .45s cubic-bezier(.2,.9,.3,1.1) both}
+
+  /* tilted 3D satellite map */
+  .map-3d-stage{perspective:1500px;perspective-origin:50% 0%;height:560px;border-radius:12px;overflow:hidden;
+    background:radial-gradient(circle at 50% 100%,#10202c,#05070a)}
+  .map-3d-stage #map{transition:transform .85s cubic-bezier(.2,.8,.2,1);transform-origin:50% 100%}
+  .map-3d-stage.tilted #map{transform:rotateX(40deg) scale(1.3)}
+
+  /* 3D terroir relief */
+  .t3d-head{margin-top:22px}
+  .t3d-head h4{font-family:var(--font-title);color:var(--gold-light);font-size:1rem;margin-bottom:4px}
+  .t3d-head p{font-size:.8rem;color:var(--muted);margin-bottom:10px;line-height:1.55}
+  .terroir3d{height:440px}
+  .t3d-bar{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+  .t3d-btn{font-family:var(--font-body);font-size:.76rem;font-weight:600;color:var(--text);min-height:40px;
+    background:rgba(255,255,255,.04);border:1px solid var(--border);border-radius:999px;padding:8px 16px;cursor:pointer;transition:all .2s}
+  .t3d-btn:hover,.t3d-btn:focus-visible{border-color:var(--gold);background:rgba(212,175,55,.12);outline:none}
+  @media(max-width:600px){.terroir3d{height:340px}.map-3d-stage{height:440px}#map{height:440px}}
+
+  @media (prefers-reduced-motion: reduce){
+    #heroSmoke{display:none}
+    *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}
+  }
 </style>
 </head>
 <body>
@@ -687,44 +756,79 @@
 
 <div class="container">
   <section class="hero-pad">
+    <canvas id="heroSmoke" aria-hidden="true"></canvas>
     <h1>The Sacred Resin: Boswellia Sacra &amp; Spatial Matrix</h1>
     <p class="sub">An interactive scientific atlas exploring <em>Boswellia sacra</em> — historical trade routes, archaeological discoveries, chemical biomarkers, paleoclimate proxies, evolutionary genomics, population dynamics, and indigenous Dhofari ethnography.</p>
+    <p class="legend-line">Evidence labels used throughout: <span class="vf">verified</span> checked against the original record · <span class="ill">illustrative</span> conceptual graphic or score, not measured data · <span class="nv">needs source</span> claim retained but not yet traced to a primary source.</p>
   </section>
 
-  <!-- ALL SECTION BUTTONS -->
-  <div class="section-options" id="sectionOptions">
-    <button class="opt-btn" data-open="origin"><span class="oe">🏺</span><span class="ol">Origin &amp; Discovery</span></button>
-    <button class="opt-btn" data-open="resin"><span class="oe">🔶</span><span class="ol">Resin 3D</span></button>
-    <button class="opt-btn" data-open="smell"><span class="oe">👃</span><span class="ol">Smell Index</span></button>
-    <button class="opt-btn" data-open="archaeology"><span class="oe">🏛️</span><span class="ol">Archaeology</span></button>
-    <button class="opt-btn" data-open="ethnography"><span class="oe">⛺</span><span class="ol">Ethnography</span></button>
-    <button class="opt-btn" data-open="biomarkers"><span class="oe">🧪</span><span class="ol">Biomarkers</span></button>
-    <button class="opt-btn" data-open="residue"><span class="oe">⚱️</span><span class="ol">Residues</span></button>
-    <button class="opt-btn" data-open="evolution"><span class="oe">🧬</span><span class="ol">Evolution</span></button>
-    <button class="opt-btn" data-open="population"><span class="oe">📊</span><span class="ol">Population Impact</span></button>
-    <button class="opt-btn" data-open="climate"><span class="oe">🌡️</span><span class="ol">Climate Threat</span></button>
-    <button class="opt-btn" data-open="scriptural"><span class="oe">📖</span><span class="ol">Sacred</span></button>
-    <button class="opt-btn" data-open="etymology"><span class="oe">💎</span><span class="ol">Etymology</span></button>
-    <button class="opt-btn" data-open="timeline"><span class="oe">⏳</span><span class="ol">Timeline</span></button>
-    <button class="opt-btn" data-open="history"><span class="oe">📜</span><span class="ol">History</span></button>
-    <button class="opt-btn" data-open="trade"><span class="oe">🚢</span><span class="ol">Trade Today</span></button>
-    <button class="opt-btn" data-open="uses"><span class="oe">⚕️</span><span class="ol">Health Profiles</span></button>
-    <button class="opt-btn" data-open="botanical"><span class="oe">🌿</span><span class="ol">Botanical</span></button>
-    <button class="opt-btn" data-open="genomics"><span class="oe">🧬</span><span class="ol">Genomics Lab</span></button>
-    <button class="opt-btn" data-open="microbiome"><span class="oe">🦠</span><span class="ol">Microbiome</span></button>
-    <button class="opt-btn" data-open="satellite"><span class="oe">🛰️</span><span class="ol">AI Satellite</span></button>
-    <button class="opt-btn" data-open="carbon"><span class="oe">💨</span><span class="ol">Carbon Balance</span></button>
-    <button class="opt-btn" data-open="provenance"><span class="oe">🔍</span><span class="ol">Provenance AI</span></button>
-    <button class="opt-btn" data-open="future"><span class="oe">🚀</span><span class="ol">Future Lab</span></button>
-    <button class="opt-btn" data-open="refs"><span class="oe">📚</span><span class="ol">References</span></button>
-  </div>
+  <!-- GROUPED NAVIGATION: all sections visible, grouped by theme -->
+  <nav class="theme-nav" aria-label="Atlas sections">
+    <div class="nav-groups" id="sectionOptions">
+      <div class="nav-group" data-theme="origins" role="group" aria-label="Origins">
+        <div class="nav-group-label"><span>🏺</span> Origins<em>5</em></div>
+        <div class="nav-group-btns">
+          <button class="opt-btn" data-open="origin" data-group="origins"><span class="oe">🏺</span><span class="ol">Origin &amp; Discovery</span></button>
+          <button class="opt-btn" data-open="timeline" data-group="origins"><span class="oe">⏳</span><span class="ol">Timeline</span></button>
+          <button class="opt-btn" data-open="archaeology" data-group="origins"><span class="oe">🏛️</span><span class="ol">Archaeology</span></button>
+          <button class="opt-btn" data-open="residue" data-group="origins"><span class="oe">⚱️</span><span class="ol">Residues</span></button>
+          <button class="opt-btn" data-open="etymology" data-group="origins"><span class="oe">💎</span><span class="ol">Etymology</span></button>
+        </div>
+      </div>
+      <div class="nav-group" data-theme="science" role="group" aria-label="Science">
+        <div class="nav-group-label"><span>🧪</span> Science<em>8</em></div>
+        <div class="nav-group-btns">
+          <button class="opt-btn" data-open="resin" data-group="science"><span class="oe">🔶</span><span class="ol">Resin 3D</span></button>
+          <button class="opt-btn" data-open="smell" data-group="science"><span class="oe">👃</span><span class="ol">Smell Index</span></button>
+          <button class="opt-btn" data-open="botanical" data-group="science"><span class="oe">🌿</span><span class="ol">Botanical</span></button>
+          <button class="opt-btn" data-open="biomarkers" data-group="science"><span class="oe">🧪</span><span class="ol">Biomarkers</span></button>
+          <button class="opt-btn" data-open="provenance" data-group="science"><span class="oe">🔍</span><span class="ol">Provenance</span></button>
+          <button class="opt-btn" data-open="evolution" data-group="science"><span class="oe">🧬</span><span class="ol">Evolution</span></button>
+          <button class="opt-btn" data-open="genomics" data-group="science"><span class="oe">🧬</span><span class="ol">Genomics Lab</span></button>
+          <button class="opt-btn" data-open="microbiome" data-group="science"><span class="oe">🦠</span><span class="ol">Microbiome</span></button>
+        </div>
+      </div>
+      <div class="nav-group" data-theme="conservation" role="group" aria-label="Conservation">
+        <div class="nav-group-label"><span>🌳</span> Conservation<em>5</em></div>
+        <div class="nav-group-btns">
+          <button class="opt-btn" data-open="population" data-group="conservation"><span class="oe">📊</span><span class="ol">Population Impact</span></button>
+          <button class="opt-btn" data-open="climate" data-group="conservation"><span class="oe">🌡️</span><span class="ol">Threats</span></button>
+          <button class="opt-btn" data-open="carbon" data-group="conservation"><span class="oe">💨</span><span class="ol">Carbon Balance</span></button>
+          <button class="opt-btn" data-open="satellite" data-group="conservation"><span class="oe">🛰️</span><span class="ol">Satellite Mapping</span></button>
+          <button class="opt-btn" data-open="future" data-group="conservation"><span class="oe">🚀</span><span class="ol">Future Lab</span></button>
+        </div>
+      </div>
+      <div class="nav-group" data-theme="culture" role="group" aria-label="Culture">
+        <div class="nav-group-label"><span>📖</span> Culture<em>3</em></div>
+        <div class="nav-group-btns">
+          <button class="opt-btn" data-open="ethnography" data-group="culture"><span class="oe">⛺</span><span class="ol">Ethnography</span></button>
+          <button class="opt-btn" data-open="scriptural" data-group="culture"><span class="oe">📖</span><span class="ol">Sacred Texts</span></button>
+          <button class="opt-btn" data-open="uses" data-group="culture"><span class="oe">⚕️</span><span class="ol">Health Profiles</span></button>
+        </div>
+      </div>
+      <div class="nav-group" data-theme="trade" role="group" aria-label="Trade">
+        <div class="nav-group-label"><span>🚢</span> Trade<em>2</em></div>
+        <div class="nav-group-btns">
+          <button class="opt-btn" data-open="history" data-group="trade"><span class="oe">📜</span><span class="ol">Trade Route</span></button>
+          <button class="opt-btn" data-open="trade" data-group="trade"><span class="oe">🚢</span><span class="ol">Trade Today</span></button>
+        </div>
+      </div>
+      <div class="nav-group" data-theme="refs" role="group" aria-label="Sources">
+        <div class="nav-group-label"><span>📚</span> Sources</div>
+        <div class="nav-group-btns">
+          <button class="opt-btn" data-open="refs" data-group="refs"><span class="oe">📚</span><span class="ol">References</span></button>
+        </div>
+      </div>
+    </div>
+  </nav>
 
   <section class="map-panel">
     <div class="map-panel-title">
       <h2><span>🛰️</span> Where Frankincense Grows Today · 3D Aerial Satellite GIS</h2>
       <span class="tag">Esri World Imagery</span>
     </div>
-    <div id="map"></div>
+    <div class="map-3d-stage" id="mapStage"><div id="map"></div></div>
+    <p class="srcline">Tap ⛰️ for a tilted 3D perspective · 🌳 zooms to tree level · pinch or scroll to zoom · drag to pan.</p>
   </section>
 </div>
 
@@ -742,10 +846,10 @@
     </div>
     <div class="modal-body">
       <div class="fivew">
-        <div class="w"><div class="wk">Who</div><div class="wv">Neolithic South Arabian Tribes &amp; Egyptians</div></div>
-        <div class="w"><div class="wk">What</div><div class="wv">First botanical discovery &amp; ritual incense trade</div></div>
-        <div class="w"><div class="wk">Where</div><div class="wv">Dhofar region (Oman) &amp; Punt (Horn of Africa)</div></div>
-        <div class="w"><div class="wk">When</div><div class="wv">c. 6000 BCE (First usage) | 15th Century BCE (Hatshepsut)</div></div>
+        <div class="w"><div class="wk">Who</div><div class="wv">Early South Arabian communities &amp; Egyptian expeditions</div></div>
+        <div class="w"><div class="wk">What</div><div class="wv">Early ritual use &amp; incense trade</div></div>
+        <div class="w"><div class="wk">Where</div><div class="wv">Southern Arabia (incl. Dhofar) &amp; Punt (location debated)</div></div>
+        <div class="w"><div class="wk">When</div><div class="wv">Earliest use debated | c. 1479–1458 BCE (Hatshepsut)</div></div>
         <div class="w"><div class="wk">Why</div><div class="wv">Sacred offerings, mummification, &amp; royal prestige</div></div>
       </div>
 
@@ -757,16 +861,16 @@
               Simple Summary
             </span>
           </h4>
-          <p>Archaeological finds in Dhofar and Yemen confirm that <strong>Boswellia sacra</strong> was first harvested and traded by early pastoral nomads around <strong>6000–5000 BCE</strong>. Chemical residue analysis on ancient pottery and censers establishes its continuous presence in spiritual and medical practices across Southern Arabia since the Neolithic period.</p>
-          <p style="margin-top:10px;">The earliest documented international expedition to collect living frankincense trees is recorded on the reliefs of <strong>Queen Hatshepsut's temple at Deir el-Bahari (c. 1479–1458 BCE)</strong>, depicting Omani/Somali trees being transported to Egypt in baskets.</p>
+          <p>Frankincense has been used in southern Arabia since prehistory, but <strong>when</strong> harvesting and trade began is not firmly established. A date of roughly <strong>6000 BCE</strong> is often quoted <span class="nv">needs source</span> and should be read as an estimate. The best-documented trade infrastructure in this atlas is later: <strong>Sumhuram (Khor Rori)</strong> from the 3rd century BCE and <strong>Al-Baleed</strong> in the medieval period (UNESCO, 2000).</p>
+          <p style="margin-top:10px;">Reliefs at <strong>Queen Hatshepsut's temple at Deir el-Bahari (c. 1479–1458 BCE)</strong> record an Egyptian expedition to <strong>Punt</strong> and show incense trees being carried to Egypt in baskets. Where Punt lay is debated (often placed in the Horn of Africa / southern Red Sea region), and the species shown is not certain, so the reliefs should not be read as evidence for <em>Boswellia sacra</em> in Oman.</p>
         </div>
 
         <div class="info" style="--pop-color:#3498db">
           <h4>📚 Credible Classical Sources</h4>
           <ul>
             <li><strong>Herodotus (c. 484–425 BCE):</strong> Recorded in <em>Histories (Book III)</em> that Southern Arabia was the sole source of frankincense, myrrh, and cinnamon, guarded by winged serpents.</li>
-            <li><strong>Pliny the Elder (23–79 CE):</strong> In <em>Naturalis Historia (Book XII)</em>, detailed the exact 62-day camel caravan route from Dhofar through Sab'a to Petra and Gaza, noting that frankincense was priced above gold weight-for-weight.</li>
-            <li><strong>Periplus of the Erythraean Sea (1st Century CE):</strong> An anonymous Graeco-Roman maritime guide identifying Sumhuram (Khor Rori) as the primary fortified harbor for resin collection.</li>
+            <li><strong>Pliny the Elder (23–79 CE):</strong> In <em>Natural History</em> 12.32 he describes the route from Thomna (Tamna), capital of the Gebbanitae, to Gaza as <strong>65 stages</strong> with halts for camels, and in 12.65 lists frankincense at 3–6 denarii per pound by quality. He makes no comparison with gold.</li>
+            <li><strong>Periplus of the Erythraean Sea (1st Century CE):</strong> An anonymous Graeco-Roman maritime guide that names a frankincense-exporting harbour on the Dhofar coast (<em>Moscha Limen</em>, usually identified with Sumhuram / Khor Rori).</li>
           </ul>
         </div>
       </div>
@@ -775,7 +879,7 @@
       <div class="info" style="margin-top:20px; --pop-color:#2ecc71;">
         <h4>👨‍🔬 Person of Interest: Prof. Ahmed Al-Harrasi</h4>
         <p>Prof. Ahmed Al-Harrasi is the Chair of the Natural & Medical Sciences Research Center (NMSRC) and Vice Chancellor for Graduate Studies, Research & External Relations at the University of Nizwa, Oman. He is a leading global authority on the chemistry and extraction of <em>Boswellia sacra</em> frankincense, spearheading research into its bioactive compounds, including boswellic acids and incensole acetate.</p>
-        <p style="margin-top:8px;"><em>Key Contributions:</em> His team's work has identified novel triterpenes (e.g., Nizwanone) and elucidated the pharmacological mechanisms of frankincense, bridging traditional medicine and modern clinical research.</p>
+        <p style="margin-top:8px;"><em>Key Contributions:</em> His group has published extensively on the chemistry and bioactivity of <em>Boswellia</em> resins, including the 2022 <em>B. sacra</em> genome (Khan et al., <em>iScience</em>). Titles and roles are as listed by the University of Nizwa and may have changed.</p>
       </div>
     </div>
   </div>
@@ -789,7 +893,7 @@
     <div class="modal-head" style="--pop-color:#2ecc71">
       <div class="modal-head-left">
         <span class="me">🔶</span>
-        <div><h3>3D Resin Grade Viewer &amp; Microclimate Terroir Matrix</h3><div class="kick">Drag to rotate · click a grade or geographical zone</div></div>
+        <div><h3>3D Resin Grade Viewer &amp; Microclimate Terroir Matrix</h3><div class="kick">Drag to rotate · pinch or scroll to zoom · pick a grade or zone</div></div>
       </div>
       <button class="modal-close" data-close>✕</button>
     </div>
@@ -798,7 +902,7 @@
         <div class="w"><div class="wk">Who</div><div class="wv">Dhofari harvesters · Salalah traders</div></div>
         <div class="w"><div class="wk">What</div><div class="wv">Four commercial grades: Hojari, Najdi, Shathari, Shaabi</div></div>
         <div class="w"><div class="wk">Where</div><div class="wv">Jebel Samhan · Nejd Plateau · NW Dhofar · Escarpment</div></div>
-        <div class="w"><div class="wk">When</div><div class="wv">Codified 20th c. · analysed 2012–2026</div></div>
+        <div class="w"><div class="wk">When</div><div class="wv">Traditional trade categories · composition studied in recent decades</div></div>
         <div class="w"><div class="wk">Why</div><div class="wv">Microclimate, rainfall &amp; elevation drive chemical synthesis</div></div>
       </div>
 
@@ -809,11 +913,11 @@
             Simple Summary
           </span>
         </h4>
-        <p>No. All four resin grades originate from the <strong>exact same species of tree</strong> (<em>Boswellia sacra</em>). The trees are genetically identical across Dhofar. The variation in resin grade is driven entirely by <strong>ecological terroir</strong>: <em>it depends on the specific microclimate, altitude, and rainfall of where that individual tree grows in the Dhofar region, which alters the resin's chemistry, colour, and aroma.</em></p>
+        <p>No. The four trade grades are all described as coming from the <strong>same species</strong> (<em>Boswellia sacra</em>). Differences in colour, chemistry and aroma are linked to <strong>where the tree grows</strong> (microclimate, altitude, rainfall) and also to <strong>harvest timing, tapping practice and how the resin is sorted and graded</strong>. Whether genetic differences between Dhofari populations also contribute has not been ruled out <span class="nv">open question</span>.</p>
       </div>
 
       <div class="resin-stage" id="resin-3d">
-        <div class="resin-hint">Drag · Scroll · Click a grade below</div>
+        <div class="resin-hint">Drag to rotate · pinch / scroll to zoom · pick a grade below</div>
       </div>
       <div class="grade-row" id="gradeRow">
         <button class="grade-btn active" data-grade="hojari" style="--gc:#2ecc71"><span class="gn">Hojari</span>Royal Green</button>
@@ -824,9 +928,19 @@
 
       <div style="margin-top:28px;">
         <h3 style="font-family:var(--font-title);color:var(--gold-light);font-size:1.1rem;margin-bottom:6px">🗺️ Dhofar Terroir &amp; Microclimate Geographic Map</h3>
-        <p style="font-size:.82rem;color:var(--muted);margin-bottom:12px">Explore the microclimate, elevation contour, and rainfall barriers across the Dhofar region that directly dictate resin grade formation.</p>
+        <p style="font-size:.82rem;color:var(--muted);margin-bottom:12px">Explore the microclimate, elevation and rainfall gradient across the Dhofar region that is associated with differences in resin grade. Zone locations and the altitude and rainfall ranges below are indicative summaries, not outputs of a single dataset <span class="nv">needs source</span>.</p>
 
         <div id="terroirMap"></div>
+
+        <div class="t3d-head">
+          <h4>🏔️ 3D Terroir Relief <span class="ill">schematic</span></h4>
+          <p>A vertically exaggerated sketch of the south-to-north gradient: Arabian Sea → Khareef escarpment → Samhan highlands → Nejd plateau. Heights are illustrative (not a DEM); zone positions follow the map above. Tap a glowing zone to open its grade profile.</p>
+        </div>
+        <div class="resin-stage terroir3d" id="terroir3d"><div class="resin-hint">Drag to rotate · two-finger drag to pan · pinch / scroll to zoom</div></div>
+        <div class="t3d-bar">
+          <button type="button" class="t3d-btn" id="t3dFog" aria-pressed="true">☁️ Khareef fog: on</button>
+          <button type="button" class="t3d-btn" id="t3dReset">↺ Reset view</button>
+        </div>
 
         <div class="terroir-grid">
           <div class="climate-card" style="border-left: 3px solid #2ecc71;">
@@ -902,17 +1016,17 @@
     <div class="modal-head" style="--pop-color:#e6c666">
       <div class="modal-head-left">
         <span class="me">👃</span>
-        <div><h3>Smell Index · Radar Comparison</h3><div class="kick">GC-olfactometry + expert panels</div></div>
+        <div><h3>Smell Index · Radar Comparison</h3><div class="kick">Illustrative sensory profile · not measured data</div></div>
       </div>
       <button class="modal-close" data-close>✕</button>
     </div>
     <div class="modal-body">
       <div class="fivew">
-        <div class="w"><div class="wk">Who</div><div class="wv">Aroma researchers · Dhofari traders</div></div>
+        <div class="w"><div class="wk">Who</div><div class="wv">Atlas author’s qualitative synthesis</div></div>
         <div class="w"><div class="wk">What</div><div class="wv">Six odour dimensions across four grades</div></div>
         <div class="w"><div class="wk">Where</div><div class="wv">Samhan · Nejd · north-west Dhofar</div></div>
-        <div class="w"><div class="wk">When</div><div class="wv">Analysed 2012–2025</div></div>
-        <div class="w"><div class="wk">Why</div><div class="wv">Chemistry explains aroma; aroma drives grade</div></div>
+        <div class="w"><div class="wk">When</div><div class="wv">Scores are illustrative</div></div>
+        <div class="w"><div class="wk">Why</div><div class="wv">Compare how the four grades are described to smell</div></div>
       </div>
       <div class="chart-wrap"><canvas id="smellChart"></canvas></div>
       <div class="info" style="margin-top:22px">
@@ -936,7 +1050,7 @@
             <tr><td style="padding:6px">Spicy / herb-like</td><td>3</td><td>4</td><td>4</td><td>4</td></tr>
           </tbody>
         </table>
-        <p style="font-size:.76rem;color:var(--muted);font-style:italic;margin-top:10px">Attributes adapted from GC-olfactometry and expert-panel odour profiles. (Al-Harrasi et al., 2019)</p>
+        <p style="font-size:.76rem;color:var(--muted);font-style:italic;margin-top:10px">The 0–10 scores are the atlas author’s illustrative summary of how the four grades are described in the trade and in the literature <span class="ill">illustrative</span>. They are <strong>not</strong> published GC-olfactometry or panel measurements. See Al-Harrasi et al. (2019) for the underlying chemistry.</p>
       </div>
     </div>
   </div>
@@ -1019,7 +1133,7 @@
             <p>A fortified outer wall reinforced with watchtowers and a deep defensive moat channel connected to the lagoon provided security against inland raids.</p>
             <div class="actions">
               <button onclick="openLandmarkDetail(3)">📜 View Historical Importance</button>
-              <a href="https://whc.unesco.org/en/list/1010/" target="_blank" rel="noopener">Defensive Map</a>
+              <a href="https://whc.unesco.org/en/list/1010/" target="_blank" rel="noopener">UNESCO listing</a>
             </div>
           </div>
         </div>
@@ -1038,8 +1152,7 @@
             <p>Natural sheltered lagoon where traditional Omani dhows (including Sambuk and Ghanja models) loaded frankincense for high-seas trade to China and India.</p>
             <div class="actions">
               <button onclick="openLandmarkDetail(4)">📜 View Historical Importance</button>
-              <a href="https://www.tripadvisor.com/Attraction_Review-g298419-d4131236-Reviews-Museum_of_the_Frankincense_Land-Salalah_Dhofar_Governorate.html" target="_blank" rel="noopener">TripAdvisor Info</a>
-              <a href="https://www.facebook.com/OmanPocketGuide/posts/salalah-land-of-frankincense-museumthe-land-of-frankincense-museum-which-is-loca/941623885908556/" target="_blank" rel="noopener">Oman Pocket Guide</a>
+              <a href="https://whc.unesco.org/en/list/1010/" target="_blank" rel="noopener">UNESCO listing</a>
             </div>
           </div>
         </div>
@@ -1052,8 +1165,8 @@
           <p>Founded in the 3rd century BCE by the Hadramaut Kingdom, Sumhuram was built as a fortified coastal outpost to control the collection and maritime export of Dhofari frankincense.</p>
           <ul style="margin-top:8px;">
             <li><strong>Natural Harbor:</strong> Built on a prominent limestone bluff overlooking the Khor Rori lagoon, providing a sheltered anchorage for ocean-crossing dhows.</li>
-            <li><strong>Inscriptions &amp; Storage:</strong> Monumental South Arabian bronze and stone inscriptions document royal tax decrees and secure resin storage rooms.</li>
-            <li><strong>Global Reach:</strong> Excavated artifacts include Roman amphorae, Bronze incense burners, and Indian pottery, proving direct trade links across the Indian Ocean.</li>
+            <li><strong>Inscriptions &amp; Storage:</strong> South Arabian inscriptions and storage structures were recovered at the site <span class="nv">details need source</span>.</li>
+            <li><strong>Global Reach:</strong> Excavated artifacts include Roman amphorae, Bronze incense burners, and Indian pottery, indicating trade links across the Indian Ocean.</li>
           </ul>
         </div>
 
@@ -1108,11 +1221,12 @@
       <div class="grid-3">
         <div class="info" style="--pop-color:#e67e22">
           <h4>🗣️ Indigenous Language &amp; Lineage</h4>
-          <p>The traditional harvesters of Dhofar belong primarily to the <strong>Shahri (Jibbali)</strong> and <strong>Mahri</strong> tribal lineages. They speak unwritten Modern South Arabian languages—distinct Semitic languages that predate Arabic in the region and contain rich indigenous botanical vocabularies specifically for <em>Boswellia sacra</em> habitats and resin grades.</p>
+          <p>The traditional harvesters of Dhofar belong primarily to the <strong>Shahri (Jibbali)</strong> and <strong>Mahri</strong> tribal lineages. They speak unwritten Modern South Arabian languages—Semitic languages that are distinct from Arabic and not descended from it, with rich local botanical vocabularies.</p>
         </div>
 
         <div class="info" style="--pop-color:#f39c12">
-          <h4>📅 Seasonal Harvesting Calendar</h4>
+          <h4>📅 Seasonal Harvesting Calendar <span class="nv">verify terms &amp; dates</span></h4>
+          <p style="font-size:.74rem;color:var(--muted);margin-bottom:6px">Indicative only. Local season names and months should be checked against field ethnography (e.g., Miller &amp; Morris, 1988) before reuse.</p>
           <ul>
             <li><strong>Al-Khafif (Spring / March–April):</strong> The first light incision (<em>tazwa</em>) is made in the bark using the traditional <em>manqaf</em> knife to wake the tree.</li>
             <li><strong>Al-Sarb (Autumn / Oct–Nov):</strong> The primary harvesting season following the Khareef monsoon fog, yielding the highest-grade resin tears after drying for 2–3 weeks.</li>
@@ -1146,8 +1260,8 @@
         <div class="w"><div class="wk">Who</div><div class="wv">Analytical chemists · Geochemists · Paleoclimatologists</div></div>
         <div class="w"><div class="wk">What</div><div class="wv">Incensole acetate, Boswellic acids, &amp; δ¹³C/δ¹⁸O isotopes</div></div>
         <div class="w"><div class="wk">Where</div><div class="wv">Dhofar monsoon shadow · Global paleoclimate archives</div></div>
-        <div class="w"><div class="wk">When</div><div class="wv">Holocene climate record (6000 BCE – Present)</div></div>
-        <div class="w"><div class="wk">Why</div><div class="wv">Reconstruct ancient trade authenticity &amp; monsoon shifts</div></div>
+        <div class="w"><div class="wk">When</div><div class="wv">Proxy approach (concept)</div></div>
+        <div class="w"><div class="wk">Why</div><div class="wv">Illustrate how chemistry and isotopes can inform trade and climate studies</div></div>
       </div>
 
       <div class="grid-3" style="margin-bottom:20px">
@@ -1158,7 +1272,7 @@
               Simple Summary
             </span>
           </h4>
-          <p>Mass spectrometry identifies diagnostic chemical fingerprints: <strong>incensole</strong> and <strong>incensole acetate</strong> serve as biomarker signatures specific to <em>Boswellia sacra</em> and <em>B. papyrifera</em>, distinguishing authentic frankincense from adulterants. Non-volatile pentacyclic triterpenes like <strong>AKBA</strong> (3-O-acetyl-11-keto-β-boswellic acid) persist for millennia.</p>
+          <p>Mass spectrometry can profile the chemistry of <em>Boswellia</em> resins. <strong>Incensole</strong> and <strong>incensole acetate</strong> are characteristic diterpenoids (especially abundant in <em>B. papyrifera</em>) and, together with pentacyclic triterpenes such as <strong>AKBA</strong> (3-O-acetyl-11-keto-β-boswellic acid), are used as chemical markers. How specific each marker is varies by species and sample.</p>
         </div>
 
         <div class="info" style="--pop-color:#3498db">
@@ -1168,7 +1282,7 @@
               Simple Summary
             </span>
           </h4>
-          <p>Stable carbon (δ¹³C) and oxygen (δ¹⁸O) isotope ratios trapped within fossilized resin tears and sub-fossilized tree rings record severe historic droughts. Elevated δ¹³C values reflect stomatal closure and heightened intrinsic water-use efficiency (WUE) during severe droughts and Indian Ocean Monsoon (IOM) failures. Concurrently, enriched δ¹⁸O signatures indicate low relative humidity, enhanced soil-leaf evapotranspiration, and northward/southward migrations of the Intertropical Convergence Zone (ITCZ) across the Holocene paleoclimate archive (6000 BCE – present).</p>
+          <p>Stable carbon (δ¹³C) and oxygen (δ¹⁸O) isotope ratios in plant tissue respond to water stress: higher δ¹³C can reflect stomatal closure and greater water-use efficiency, and enriched δ¹⁸O can reflect dry air and strong evaporation. This is a well-established approach in other plants. A published, dated Holocene isotope record from <em>Boswellia</em> resin or wood is <strong>not cited here</strong>, so the chart below is a concept sketch only <span class="nv">no B. sacra record cited</span>.</p>
         </div>
 
         <div class="info" style="--pop-color:#e74c3c">
@@ -1178,14 +1292,14 @@
               Simple Summary
             </span>
           </h4>
-          <p>When resin is burned during rituals, thermal degradation creates oxidized compounds such as <strong>incensole oxide</strong>. Finding these heat-altered biomarkers in ancient censers provides conclusive proof of active incense combustion rather than raw storage.</p>
+          <p>When resin is burned during rituals, thermal degradation creates oxidized compounds such as <strong>incensole oxide</strong>. Finding heat-altered compounds in ancient censers can provide supporting evidence that incense was burned rather than only stored.</p>
         </div>
       </div>
 
       <!-- FUTURISTIC BIOMARKER SPECTRUM GRAPH -->
       <div class="gal-card" style="margin-bottom:20px;">
         <div class="frame" style="aspect-ratio:16/7; background:#05070a; position:relative; overflow:hidden;">
-          <span class="badge-i">Plate IV · GC-MS Biomarker Spectrum &amp; Isotope Fractionation</span>
+          <span class="badge-i">Plate IV · GC-MS Biomarker Spectrum · Illustrative</span>
           
           <svg class="data-svg" viewBox="0 0 1000 400" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
             <defs>
@@ -1219,7 +1333,7 @@
             </g>
 
             <!-- Axis Labels -->
-            <text x="500" y="390" fill="#8b98ab" font-size="14" text-anchor="middle" letter-spacing="2">RETENTION TIME (m/z)</text>
+            <text x="500" y="390" fill="#8b98ab" font-size="14" text-anchor="middle" letter-spacing="2">RETENTION TIME (schematic)</text>
             <text x="20" y="200" fill="#8b98ab" font-size="14" text-anchor="middle" transform="rotate(-90 20 200)" letter-spacing="2">ABUNDANCE</text>
 
             <!-- Moving Scanline -->
@@ -1238,30 +1352,32 @@
             <circle cx="230" cy="180" r="6" fill="#2ecc71" class="node"/>
             <line x1="230" y1="180" x2="230" y2="120" stroke="#2ecc71" stroke-width="1.5"/>
             <text x="230" y="105" fill="#2ecc71" font-size="12" text-anchor="middle" font-weight="700">α-Pinene</text>
-            <text x="230" y="90" fill="#8b98ab" font-size="10" text-anchor="middle">m/z 136</text>
+            <text x="230" y="90" fill="#8b98ab" font-size="10" text-anchor="middle">MW 136</text>
 
             <!-- Incensole Acetate -->
             <circle cx="340" cy="90" r="6" fill="#2ecc71" class="node"/>
             <line x1="340" y1="90" x2="340" y2="60" stroke="#2ecc71" stroke-width="1.5"/>
             <text x="340" y="45" fill="#2ecc71" font-size="12" text-anchor="middle" font-weight="700">Incensole Acetate</text>
-            <text x="340" y="30" fill="#8b98ab" font-size="10" text-anchor="middle">m/z 330</text>
+            <text x="340" y="30" fill="#8b98ab" font-size="10" text-anchor="middle">MW 348</text>
 
             <!-- AKBA -->
             <circle cx="580" cy="60" r="6" fill="#e6c666" class="node" style="color:#e6c666"/>
             <line x1="580" y1="60" x2="580" y2="30" stroke="#e6c666" stroke-width="1.5"/>
             <text x="580" y="20" fill="#e6c666" font-size="12" text-anchor="middle" font-weight="700">AKBA</text>
-            <text x="580" y="10" fill="#8b98ab" font-size="10" text-anchor="middle">m/z 512</text>
+            <text x="580" y="10" fill="#8b98ab" font-size="10" text-anchor="middle">MW 513</text>
 
             <!-- Incensole Oxide -->
             <circle cx="720" cy="140" r="6" fill="#e74c3c" class="node" style="color:#e74c3c"/>
             <line x1="720" y1="140" x2="720" y2="100" stroke="#e74c3c" stroke-width="1.5"/>
             <text x="720" y="85" fill="#e74c3c" font-size="12" text-anchor="middle" font-weight="700">Incensole Oxide</text>
-            <text x="720" y="70" fill="#8b98ab" font-size="10" text-anchor="middle">m/z 346</text>
+            <text x="720" y="70" fill="#8b98ab" font-size="10" text-anchor="middle">MW 322</text>
           </svg>
         </div>
       </div>
 
-      <h4 style="font-family:var(--font-title);color:var(--gold-light);margin-bottom:8px">📊 Holocene Paleoclimate Isotope Trend &amp; Stomatal Stress (6000 BCE – Present)</h4>
+      <p class="srcline" style="margin:-6px 0 18px">Plate IV is a schematic chromatogram: peak positions and heights are invented for illustration; labels give approximate molecular weights (g/mol).</p>
+      <h4 style="font-family:var(--font-title);color:var(--gold-light);margin-bottom:8px">📊 Isotope Proxy Concept <span class="ill">illustrative</span></h4>
+      <p class="srcline" style="margin:0 0 10px">Invented values to show how two proxies could move together. Not measured data.</p>
       <div class="chart-wrap"><canvas id="isotopeChart"></canvas></div>
     </div>
   </div>
@@ -1281,7 +1397,7 @@
     </div>
     <div class="modal-body">
       <div class="fivew">
-        <div class="w"><div class="wk">Who</div><div class="wv">Egyptian embalmers · Roman priests · Nabataean merchants</div></div>
+        <div class="w"><div class="wk">Who</div><div class="wv">Archaeological chemists · conservators</div></div>
         <div class="w"><div class="wk">What</div><div class="wv">Pyrolysis-GC-MS residue extraction from artifacts</div></div>
         <div class="w"><div class="wk">Where</div><div class="wv">Nile Valley · Tel Arad · Roman Empire sarcophagi</div></div>
         <div class="w"><div class="wk">When</div><div class="wv">1500 BCE – 400 CE</div></div>
@@ -1291,19 +1407,19 @@
       <div class="grid-2" style="margin-bottom:20px">
         <div class="info" style="--pop-color:#9b59b6">
           <h4>⚰️ Egyptian Embalming Balms</h4>
-          <p>Gas chromatography of organic residues scraped from mummies and jar liners confirms that <em>Boswellia</em> resin was a crucial component of ancient Egyptian mummification balms, prized for its antibacterial properties and ability to retard tissue decay.</p>
+          <p>Chemical analyses of Egyptian embalming materials have identified many resins, balms and gums. <em>Boswellia</em> / frankincense has been reported in some analyses, but it is documented far less often than conifer and pistacia resins, and how central it was to mummification is still debated <span class="nv">cite specific studies</span>.</p>
         </div>
 
         <div class="info" style="--pop-color:#f39c12">
           <h4>🏛️ Altar Residues &amp; Roman Unguentaria</h4>
-          <p>Residue analysis from limestone altars across the Levant (such as Tel Arad) reveals sacred incense mixtures blending frankincense with animal fats and wine. In Roman contexts, small glass and ceramic <em>unguentaria</em> retain traces of boswellic acids, confirming its use in luxury cosmetics and medicinal salves.</p>
+          <p>Residue analysis of the incense altars at the Judahite shrine of Tel Arad reported frankincense with animal fat on the larger altar (Arie, Rosen &amp; Namdar, 2020) <span class="nv">re-check citation</span>. Claims about boswellic acids in Roman <em>unguentaria</em> are retained from the earlier draft but need a specific citation <span class="nv">needs source</span>.</p>
         </div>
       </div>
 
       <!-- VISUAL PLATE FOR MUMMY & RESIDUE ANALYSIS -->
       <div class="gal-card">
         <div class="frame" style="aspect-ratio:16/7">
-          <span class="badge-i">Plate V · Organic Residue Extraction &amp; Egyptian Mummification Balms</span>
+          <span class="badge-i">Plate V · Residue analysis workflow · Illustrative</span>
           <svg viewBox="0 0 1000 400" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
             <rect width="1000" height="400" fill="#0d0f14"/>
             <g transform="translate(150, 80)">
@@ -1343,7 +1459,7 @@
         <div class="w"><div class="wk">Who</div><div class="wv">Botanical geneticists · Evolutionary biologists</div></div>
         <div class="w"><div class="wk">What</div><div class="wv">De novo genome assembly (667.8 Mb, 18,564 genes)</div></div>
         <div class="w"><div class="wk">Where</div><div class="wv">Arabian Peninsula &amp; Horn of Africa</div></div>
-        <div class="w"><div class="wk">When</div><div class="wv">2 Million Year Expansion → Present Genomic Profiling</div></div>
+        <div class="w"><div class="wk">When</div><div class="wv">Genome published 2022 (Khan et al., <em>iScience</em>)</div></div>
         <div class="w"><div class="wk">Why</div><div class="wv">Understand resin pathway expansion &amp; xerophytic survival</div></div>
       </div>
 
@@ -1355,19 +1471,19 @@
               Simple Summary
             </span>
           </h4>
-          <p>Recent de novo genome sequencing of <em>Boswellia sacra</em> revealed a <strong>667.8 Mb assembly</strong> encoding 18,564 high-confidence protein-encoding genes. Evolutionary analysis shows gene duplications derived from ancient hexaploidy shared across eudicots, alongside a major expansion of <strong>Gypsy retroelements over the past 2 million years</strong> that shaped its stress-response pathways.</p>
+          <p>Recent de novo genome sequencing of <em>Boswellia sacra</em> revealed a <strong>667.8 Mb assembly</strong> encoding 18,564 high-confidence protein-encoding genes. The genome retains the signature of the ancient eudicot-wide hexaploidy (about 115–130 million years ago) and shows no further whole-genome duplication in the <em>B. sacra</em> lineage. The authors report a major expansion of <strong>Gypsy retroelements within the last ~2 million years</strong> (Gypsy elements make up 119.1 Mb). Links from that expansion to stress-response pathways are the authors’ interpretation <span class="vf">verified</span>.</p>
         </div>
 
         <div class="info" style="--pop-color:#3498db">
           <h4>🌳 Speciation &amp; Chemical Divergence</h4>
-          <p>Phylogenetic trees show distinct divergence between <em>Boswellia sacra</em> (Arabia/Somaliland), <em>B. frereana</em> (Somaliland), <em>B. serrata</em> (India), and <em>B. papyrifera</em> (Ethiopia). While <em>B. sacra</em> produces high pentacyclic triterpenes (boswellic acids), <em>B. frereana</em> evolved resin pathways yielding lupeol and epilupeol tailored to rocky cliff ecosystems.</p>
+          <p>Boswellia species differ in chemistry and range, including <em>Boswellia sacra</em> (Arabia/Somaliland), <em>B. frereana</em> (Somaliland), <em>B. serrata</em> (India), and <em>B. papyrifera</em> (Ethiopia). <em>B. sacra</em> resin is rich in pentacyclic triterpenes (boswellic acids), whereas <em>B. frereana</em> resin is chemically distinct (reported to be rich in lupeol-type triterpenes). Ecological explanations for these differences are not cited here <span class="nv">needs source</span>.</p>
         </div>
       </div>
 
       <!-- FUTURISTIC PHYLOGENETIC TREE GRAPH -->
       <div class="gal-card">
         <div class="frame" style="aspect-ratio:16/7; background:#05070a; position:relative; overflow:hidden;">
-          <span class="badge-i">Plate VI · Phylogenetic Cladogram &amp; Genomic Assembly</span>
+          <span class="badge-i">Plate VI · Schematic species diagram · Illustrative (not a computed phylogeny)</span>
           
           <svg class="data-svg" viewBox="0 0 1000 350" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
             <rect width="1000" height="350" fill="#0a0c10"/>
@@ -1444,7 +1560,7 @@
     <div class="modal-head" style="--pop-color:#f39c12">
       <div class="modal-head-left">
         <span class="me">📊</span>
-        <div><h3>Population Impact &amp; Conservation Assessment</h3><div class="kick">Johnson et al. (2025) · Journal of Arid Environments</div></div>
+        <div><h3>Population Impact &amp; Conservation Assessment</h3><div class="kick">Johnson et al. (2025) · Journal of Arid Environments 229:105368</div></div>
       </div>
       <button class="modal-close" data-close>✕</button>
     </div>
@@ -1485,6 +1601,7 @@
       <div class="info" style="margin-top:20px; --pop-color:#3498db;">
         <h4>🛡️ Management Recommendations</h4>
         <p>The authors conclude that while the situation is not catastrophic, improved socio-ecological management systems are needed to maintain this status. Key priorities include: <strong>research to elucidate drivers of population patterns</strong>, improved rangeland management, enhanced monitoring and management of resin tapping, and identification of potential additional reserves.</p>
+        <p class="srcline">Source: Johnson, S., Bait Said, A., Vahalík, P., Karas, L., Sarrouf Willson, M., &amp; Bongers, F. (2025). <a href="https://doi.org/10.1016/j.jaridenv.2025.105368" target="_blank" rel="noopener">doi:10.1016/j.jaridenv.2025.105368</a> <span class="vf">verified</span></p>
       </div>
     </div>
   </div>
@@ -1498,50 +1615,45 @@
     <div class="modal-head" style="--pop-color:#e74c3c">
       <div class="modal-head-left">
         <span class="me">🌡️</span>
-        <div><h3>Anthropogenic Climate Threats &amp; Conservation</h3><div class="kick">Monsoon Disruption · Longhorn Beetle · IUCN Red List</div></div>
+        <div><h3>Threats, Evidence &amp; Conservation Status</h3><div class="kick">What is shown for <em>B. sacra</em> vs. related species · IUCN status</div></div>
       </div>
       <button class="modal-close" data-close>✕</button>
     </div>
     <div class="modal-body">
       <div class="fivew">
-        <div class="w"><div class="wk">Who</div><div class="wv">IUCN · ScienceDirect (2025) · Dhofari Communities</div></div>
-        <div class="w"><div class="wk">What</div><div class="wv">Over-harvesting, climate stress, &amp; population decline</div></div>
-        <div class="w"><div class="wk">Where</div><div class="wv">Dhofar escarpments &amp; Horn of Africa</div></div>
-        <div class="w"><div class="wk">When</div><div class="wv">2025–2026 Conservation Analysis</div></div>
-        <div class="w"><div class="wk">Why</div><div class="wv">Prevent catastrophic population collapse across wild stands</div></div>
+        <div class="w"><div class="wk">Who</div><div class="wv">Johnson et al. (2025) · Rijkers et al. (2006) · IUCN / RBGE summaries</div></div>
+        <div class="w"><div class="wk">What</div><div class="wv">Tapping, grazing, pests, climate · and what is (not) yet shown</div></div>
+        <div class="w"><div class="wk">Where</div><div class="wv">Dhofar (Oman) · related species in the Horn of Africa</div></div>
+        <div class="w"><div class="wk">When</div><div class="wv">Literature 1998–2025</div></div>
+        <div class="w"><div class="wk">Why</div><div class="wv">Keep Oman-specific findings separate from findings on other species</div></div>
       </div>
 
       <div class="grid-2" style="margin-bottom:20px">
-        <div class="info" style="--pop-color:#e74c3c">
-          <h4>📉 ScienceDirect (2025) Study: Population Collapse Risk</h4>
-          <p>A major landmark ecological evaluation published in <em>Journal of Arid Environments</em> (ScienceDirect, 2025 - S0140196325000527) demonstrates severe demographic degradation across wild <em>Boswellia</em> populations. Key findings show that without active regeneration interventions, population recruitment has plummeted due to:</p>
-          <ul style="margin-top:8px;">
-            <li><strong>Severe Tapping Stress:</strong> Frequent and excessive resin cuts exhaust starch reserves, reducing seed viability by over 50%.</li>
-            <li><strong>Lack of Sapling Recruitment:</strong> Uncontrolled livestock grazing (camels and goats) consumes nearly 100% of emerging seedlings, creating an "aging population" structure.</li>
-            <li><strong>Beetle Infestations:</strong> Drought-stressed trees are heavily compromised by the longhorn beetle (<em>Idactus spinipennis</em>).</li>
-          </ul>
+        <div class="info" style="--pop-color:#2ecc71">
+          <h4>🔎 What the Oman assessment found</h4>
+          <p>Johnson et al. (2025) surveyed at least 3,465 km² of the Dhofar mountains and found regeneration in nearly all populations and <strong>no evidence of significant or widespread decline</strong>. They documented local threats: overgrazing (especially by camels), resin over-harvesting in heavily tapped areas, mining and infrastructure, pests on stressed trees, and wind or flood events. Management of grazing and tapping is recommended. See the Population Impact module. <span class="vf">verified</span></p>
         </div>
 
         <div class="info" style="--pop-color:#f39c12">
-          <h4>🛡️ Conservation &amp; Regeneration Protocols</h4>
-          <p>To reverse this trend, emergency conservation frameworks advocate for mandatory rotational tapping rest periods (at least 2–3 years), camel-proof enclosure fencing around wild nurseries, and micro-propagation efforts in Salalah.</p>
+          <h4>🌿 Evidence from a related species (<em>B. papyrifera</em>)</h4>
+          <p>In Eritrea, intensive tapping of <em>B. papyrifera</em> lowered seed quality. At one site, germination was about 90% for untapped trees, 60% for normally tapped trees and 40% for heavily tapped trees; at three annually tapped sites it was 13–16%, versus 80–94% at two untapped sites (Rijkers et al., 2006). <strong>These are findings for <em>B. papyrifera</em>.</strong> Whether Dhofari <em>B. sacra</em> responds the same way is not shown here. <span class="vf">verified</span></p>
         </div>
       </div>
 
       <div class="grid-3">
         <div class="info" style="--pop-color:#e74c3c">
-          <h4>☀️ Monsoon Disruption</h4>
-          <p>Shifts in the Indian Ocean Monsoon and ITCZ have reduced coastal summer fog (Khareef) moisture required for fluid regeneration.</p>
+          <h4>📋 Red List status</h4>
+          <p><em>B. sacra</em> is listed <strong>Near Threatened</strong> (IUCN assessment from 1998, now dated). Draft assessments from 2024, still pending review, rate <em>B. papyrifera</em> and <em>B. frereana</em> as Vulnerable. Endangered ratings apply to some other <em>Boswellia</em> species, mostly Socotran endemics (under review). Source: RBGE review of <em>Boswellia</em> conservation status. <span class="vf">verified</span></p>
         </div>
 
-        <div class="info" style="--pop-color:#f39c12">
-          <h4>🪲 Wood-Boring Insects</h4>
-          <p>Infestations by longhorn beetles target resin-exhausted bark, destroying sap flow channels and killing adult trees.</p>
+        <div class="info" style="--pop-color:#3498db">
+          <h4>☀️ Monsoon &amp; climate</h4>
+          <p>Dhofar’s summer monsoon fog (Khareef) shapes local habitats, and changing rainfall could matter for the species. This atlas does <strong>not</strong> cite a quantified climate effect on <em>B. sacra</em> <span class="nv">no source cited</span>.</p>
         </div>
 
         <div class="info" style="--pop-color:#2ecc71">
-          <h4>🌱 Enclosure Protection</h4>
-          <p>Constructing fenced protection zones allows natural seedling germination away from hungry livestock herds.</p>
+          <h4>🛡️ Management options</h4>
+          <p>The Oman assessment recommends better rangeland management, monitoring and management of resin tapping, and additional reserves. Fenced nurseries and tapping rest periods are commonly proposed, but the rest period <em>B. sacra</em> needs is not established in the sources cited here.</p>
         </div>
       </div>
     </div>
@@ -1562,24 +1674,24 @@
     </div>
     <div class="modal-body">
       <div class="fivew">
-        <div class="w"><div class="wk">Who</div><div class="wv">Moses · Solomon &amp; Sheba · the Magi · the Prophet Muhammad ﷺ</div></div>
+        <div class="w"><div class="wk">Who</div><div class="wv">Moses (Musa) · Solomon (Sulaiman) &amp; Sheba · the Magi · Jewish, Christian &amp; Muslim communities</div></div>
         <div class="w"><div class="wk">What</div><div class="wv">Scriptural, liturgical, royal and medicinal use</div></div>
         <div class="w"><div class="wk">Where</div><div class="wv">Sinai · Jerusalem · Southern Arabia · Bethlehem</div></div>
-        <div class="w"><div class="wk">When</div><div class="wv">c. 1440 BCE → 7th c. CE → present</div></div>
+        <div class="w"><div class="wk">When</div><div class="wv">Traditional biblical dates → present</div></div>
         <div class="w"><div class="wk">Why</div><div class="wv">Worship, kingship, purification</div></div>
       </div>
       <div class="grid-3">
         <div class="info">
           <h4>🕎 In the Torah</h4>
-          <p>Hebrew <strong>Levonah</strong>. Exodus 30:34–38: God commands Prophet Musa (Moses) to formulate the sacred <em>Ketoret</em> incense containing pure frankincense, stacte, onycha and galbanum — reserved for the Tabernacle. Also placed on grain offerings (Leviticus 2:1–2). <a href="#" class="cite">[1]</a></p>
+          <p>Hebrew <strong>levonah</strong>. Exodus 30:34–38 instructs Moses (<em>Musa</em> in Islamic tradition) to prepare a sacred incense (<em>ketoret</em>) from stacte, onycha, galbanum and pure frankincense, reserved for the Tabernacle. Leviticus 2:1–2 places frankincense on grain offerings. <a href="https://www.biblegateway.com/passage/?search=Exodus+30%3A34-38&amp;version=NIV" target="_blank" rel="noopener" class="cite">[Ex 30]</a> <a href="#ref-bible" class="cite">[1]</a></p>
         </div>
         <div class="info">
           <h4>✝️ In the New Testament</h4>
-          <p>Matthew 2:11: the Magi bring <strong>gold, frankincense and myrrh</strong> to the infant Prophet ‘Isa (Jesus). Gold for kingship, frankincense for divine priesthood, myrrh for mortality. <a href="#" class="cite">[1]</a></p>
+          <p>Matthew 2:11 says the Magi brought <strong>gold, frankincense and myrrh</strong> to the child Jesus (<em>‘Isa</em> in Islamic tradition). The familiar readings (gold for kingship, frankincense for divinity or priesthood, myrrh for mortality) come from later Christian interpretation, not from the verse itself. <a href="https://www.biblegateway.com/passage/?search=Matthew+2%3A11&amp;version=NIV" target="_blank" rel="noopener" class="cite">[Mt 2:11]</a> <a href="#ref-bible" class="cite">[1]</a></p>
         </div>
         <div class="info">
           <h4>☪️ In Islamic Tradition</h4>
-          <p>Not named in the Quran, but woven through tradition — the Queen of Sheba’s gifts to Prophet Sulaiman, the sanctuary use of Prophet Musa, the Magi’s gifts to Prophet ‘Isa, and Companions’ use of <em>bakhoor</em>. <a href="#" class="cite">[2]</a></p>
+          <p>Frankincense (<em>luban</em>) is <strong>not named in the Qur’an</strong>. The Qur’an mentions a gift sent by the Queen of Sheba to Sulaiman (Solomon) without naming its contents (<a href="https://quran.com/27/35" target="_blank" rel="noopener" class="cite">27:35</a>). Burning <em>bakhoor</em> is a widespread custom in Muslim households, and classical Islamic medical writing, including Prophetic-medicine texts such as Ibn al-Qayyim’s, discusses frankincense as a remedy <span class="nv">cite exact passage</span> <a href="#ref-ibn" class="cite">[2]</a></p>
         </div>
       </div>
     </div>
@@ -1604,7 +1716,7 @@
         <div class="w"><div class="wk">What</div><div class="wv">Name from franc + incens; L-B-N root for “milky white”</div></div>
         <div class="w"><div class="wk">Where</div><div class="wv">Europe · Arabia · Levant</div></div>
         <div class="w"><div class="wk">When</div><div class="wv">1st c. BCE → modern English</div></div>
-        <div class="w"><div class="wk">Why</div><div class="wv">Name the rank &amp; colour; price above gold in Rome</div></div>
+        <div class="w"><div class="wk">Why</div><div class="wv">How the name arose; why the resin was so prized</div></div>
       </div>
       <div class="grid-2">
         <div class="info">
@@ -1613,14 +1725,15 @@
           <p><strong>Luban (Arabic) / Levonah (Hebrew)</strong> — from the ancient Semitic root <strong>L-B-N</strong>, meaning “milky white,” referring to the fresh milky sap oozing from bark cuts.</p>
         </div>
         <div class="info">
-          <h4>💰 Why Worth More Than Gold?</h4>
+          <h4>💰 Why “Worth More Than Gold”?</h4>
           <ul>
-            <li><strong>Regional monopoly</strong> — grown almost exclusively in Dhofar and Southern Arabia.</li>
-            <li><strong>Mandatory sacred demand</strong> — burned daily in Roman, Egyptian, Greek and Jewish temples.</li>
-            <li><strong>62-day caravan tax burden</strong> — transit fees at every kingdom along the Incense Road.</li>
-            <li><strong>Imperial funerals</strong> — Nero burned a year’s harvest for Poppaea.</li>
+            <li><strong>Limited sources</strong> — concentrated in southern Arabia and the Horn of Africa.</li>
+            <li><strong>Heavy ritual demand</strong> — burned in Egyptian, Greek, Roman and Jewish temple rites.</li>
+            <li><strong>Long, taxed caravan route</strong> — Pliny describes 65 stages from Thomna to Gaza, with tithes and charges along the way (NH 12.32).</li>
+            <li><strong>Prices in perspective</strong> — Pliny lists frankincense at 3–6 denarii per pound by quality (NH 12.65) and makes no comparison with gold, so “worth more than gold” is better read as a statement of sacred prestige than of market price.</li>
+            <li><strong>Funeral extravagance</strong> — Pliny says Nero burned more perfume in one day at Poppaea’s funeral than Arabia produces in a year (NH 12.83; perfumes in general, not frankincense specifically).</li>
           </ul>
-          <p style="margin-top:8px"><em>(Pliny, Natural History 12.30–32; Groom, 1981)</em></p>
+          <p style="margin-top:8px"><em>(Pliny, Natural History 12.32, 12.65, 12.83; Groom, 1981)</em></p>
         </div>
       </div>
     </div>
@@ -1670,20 +1783,20 @@
         <div class="w"><div class="wk">Who</div><div class="wv">Nomads · southern Arabic states · Hadramis · Nabataeans</div></div>
         <div class="w"><div class="wk">What</div><div class="wv">Overland caravan route from Dhofar to the Mediterranean</div></div>
         <div class="w"><div class="wk">Where</div><div class="wv">Dhofar → Shisr → Shabwa → Marib → Petra → Gaza</div></div>
-        <div class="w"><div class="wk">When</div><div class="wv">c. 6000 BCE – 2nd c. CE</div></div>
-        <div class="w"><div class="wk">Why</div><div class="wv">Frankincense equated with gold; reserved for divine worship</div></div>
+        <div class="w"><div class="wk">When</div><div class="wv">1st millennium BCE – 2nd c. CE (earlier use debated)</div></div>
+        <div class="w"><div class="wk">Why</div><div class="wv">Prized for worship and medicine; a high-value luxury commodity</div></div>
       </div>
       <div class="grid-2">
         <div class="info">
           <h4>👥 Who was involved?</h4>
-          <p>The identity of the earliest traders is not fully known, but distinctive flint types link the trade to Dhofar. Later, the Hadrami state of Shabwa (Khor Rori/Sumhuram), indigenous Dhofari communities, Omani Arabs moving north-east from Yemen, and Parthian Persians all participated.</p>
+          <p>The identity of the earliest traders is not fully known; distinctive flint types have been linked to Dhofar <span class="nv">needs source</span>. Later, the Hadrami state of Shabwa (Khor Rori/Sumhuram), indigenous Dhofari communities, Omani Arabs moving north-east from Yemen, and Parthian Persians all participated.</p>
           <h4 style="margin-top:12px">📦 What moved?</h4>
-          <p>Frankincense and myrrh moved north; spices, textiles and silk arrived by ship from India and China. The lost city of Ubar, roughly 75 km north of Salalah, was likely a key caravan hub.</p>
+          <p>Frankincense and myrrh moved north; spices, textiles and silk arrived by ship from India and China. Shisr, in the desert interior north of Dhofar and often identified with the legendary city of Ubar, may have been a caravan hub.</p>
         </div>
         <div class="info">
           <h4>⭐ Why it mattered</h4>
-          <p>Frankincense was reserved for divine worship in earliest times and was equated in value with gold. The Egyptian <em>Book of the Dead</em> called it the “sweat of the gods.”</p>
-          <p>By 3200 BCE, with the introduction of writing, trade volume from Dhofar toward southern Mesopotamia increased sharply.</p>
+          <p>Frankincense was prized for worship and medicine. Egyptian texts are often cited as calling incense the “sweat of the gods” <span class="nv">cite text</span>. Pliny’s own price list puts it well below gold.</p>
+          <p>How large the earliest trade was is uncertain; the written evidence is much later. Pliny (NH 12.32) describes the route from Thomna, capital of the Gebbanitae, to Gaza as <strong>65 stages</strong> with halts for camels (about 1,487 Roman miles).</p>
           <h4 style="margin-top:12px">📍 Where it landed</h4>
           <p>Caravans reached Shabwa, Marib, Petra and Gaza, with Alexandria as a maritime outlet.</p>
         </div>
@@ -1720,7 +1833,7 @@
       </div>
       <div class="info" style="margin-top:18px">
         <h4>🌍 Global supply realities</h4>
-        <p>Somalia, Ethiopia, and Oman dominate global supply. Somaliland exports lower grades of <em>B. sacra</em> (“beyo”) to Djibouti, Ethiopia and the Middle East, while higher grades (“meydi”, <em>B. frereana</em>) move to Saudi Arabia, the UAE and Yemen. Production remains labour-intensive and is threatened by overharvesting; several <em>Boswellia</em> species have been upgraded to Endangered on the IUCN Red List.</p>
+        <p>Somalia, Ethiopia, and Oman dominate global supply. Somaliland exports lower grades of <em>B. sacra</em> (“beyo”) to Djibouti, Ethiopia and the Middle East, while higher grades (“meydi”, <em>B. frereana</em>) move to Saudi Arabia, the UAE and Yemen. Production remains labour-intensive and some populations face pressure from over-harvesting. On the IUCN Red List, <em>B. sacra</em> is Near Threatened (1998 assessment); draft assessments rate <em>B. papyrifera</em> and <em>B. frereana</em> Vulnerable. Trade-name details (“beyo”, “meydi”) are retained from the earlier draft <span class="nv">needs source</span>.</p>
       </div>
     </div>
   </div>
@@ -1741,43 +1854,40 @@
     <div class="modal-body">
       <div class="fivew">
         <div class="w"><div class="wk">Who</div><div class="wv">Human &amp; Veterinary Clinicians · Traditional Healers</div></div>
-        <div class="w"><div class="wk">What</div><div class="wv">Boswellic acids (AKBA, KBA) · essential oils</div></div>
+        <div class="w"><div class="wk">What</div><div class="wv">Boswellic acids (AKBA, KBA) · essential oils · extracts</div></div>
         <div class="w"><div class="wk">Where</div><div class="wv">Global Veterinary Clinics · Human Hospitals · Arabia</div></div>
         <div class="w"><div class="wk">When</div><div class="wv">Antiquity → Modern Veterinary &amp; Human Medicine</div></div>
-        <div class="w"><div class="wk">Why</div><div class="wv">5-LOX inhibition, anti-arthritic, wound healing, &amp; anti-parasitic</div></div>
+        <div class="w"><div class="wk">Why</div><div class="wv">Traditional uses and proposed mechanisms (e.g., 5-LOX inhibition)</div></div>
       </div>
 
       <p style="color:var(--muted);font-size:.9rem;margin-bottom:20px;line-height:1.7">
-        Each card below connects traditional uses to contemporary human and veterinary scientific findings. Evidence levels range from strong (systematic reviews, veterinary clinical trials) to preliminary in-vitro studies.
+        Each card pairs a traditional use with what research shows. <strong>Most clinical studies use <em>Boswellia serrata</em> (Indian frankincense) extracts, not <em>B. sacra</em> resin or incense smoke</strong>, so results should not be assumed to transfer. Evidence ratings are the atlas author’s summary of study design and quality, not clinical guidance.
       </p>
 
       <div class="health-grid">
 
-        <!-- VETERINARY & ANIMAL HEALTH CARD -->
         <div class="health-card" style="--hc:#a855f7">
           <div class="health-header">
             <div class="health-icon">🐾</div>
             <div>
               <h4>Veterinary &amp; Animal Health</h4>
-              <div class="sub">Canine Osteoarthritis · Livestock Wounds · Camel Respiratory Health</div>
+              <div class="sub">Canine joint disease · Livestock wounds · Camel care</div>
             </div>
           </div>
           <div class="health-body">
             <div class="health-row">
-              <div class="health-label trad">🏺 Traditional Pastoralist Use</div>
-              <p>Bedouin and Dhofari pastoralists applied crushed frankincense resin salve directly to <strong>camel and livestock wounds</strong> to prevent maggot infestation and speed healing. Water infused with resin was administered to camels with coughing and respiratory distress.</p>
+              <div class="health-label trad">🏺 Traditional use</div>
+              <p>Pastoralist communities are reported to have used resin on animal wounds and in remedies for camels <span class="nv">needs ethnographic source</span>.</p>
             </div>
             <div class="health-row">
-              <div class="health-label mod">🔬 Contemporary Veterinary Medicine</div>
-              <p><strong>Canine Joint Care:</strong> Open veterinary clinical trials on dogs suffering from chronic osteoarthritis demonstrated that <em>Boswellia serrata</em> extract significantly reduced pain, lameness, and stiffness after 6 weeks of dietary supplementation.<br>
-              <strong>Equine &amp; Livestock Application:</strong> Standardized boswellic acid extracts are increasingly incorporated into veterinary anti-inflammatory supplements for horses and cattle to treat joint inflammation without NSAID-induced gastric ulcers.</p>
+              <div class="health-label mod">🔬 What research shows</div>
+              <p><strong>Dogs:</strong> an open-label (uncontrolled) clinical study of <em>B. serrata</em> resin in dogs with joint and spinal disease reported improvement in clinical signs. Controlled evidence is limited. <strong>Horses &amp; livestock:</strong> Boswellia supplements are marketed for these animals, but controlled efficacy data are limited <span class="nv">needs source</span>.</p>
             </div>
-            <div class="health-src">Sources: Reichling et al. (2004) - <em>Schweizer Archiv für Tierheilkunde</em>; Al-Harrasi et al. (2019)</div>
-            <span class="evidence-badge strong">Evidence: Strong (Veterinary Clinical Trials)</span>
+            <div class="health-src">Species studied: <em>B. serrata</em>. Source: Reichling et al. (2004), <em>Schweiz. Arch. Tierheilkd.</em> <span class="nv">re-check details</span></div>
+            <span class="evidence-badge preliminary">Evidence: Preliminary (open-label study)</span>
           </div>
         </div>
 
-        <!-- RESPIRATORY -->
         <div class="health-card" style="--hc:#2ecc71">
           <div class="health-header">
             <div class="health-icon">🫁</div>
@@ -1789,70 +1899,67 @@
           <div class="health-body">
             <div class="health-row">
               <div class="health-label trad">🏺 Traditional use</div>
-              <p>Frankincense resin burned or inhaled for <strong>bronchial asthma</strong>, cough, and bronchial congestion. Used in Unani and Ayurvedic practice as a lung tonic.</p>
+              <p>Frankincense resin burned or inhaled for <strong>cough, bronchial congestion and asthma</strong>. Used in Unani and Ayurvedic practice as a lung tonic.</p>
             </div>
             <div class="health-row">
-              <div class="health-label mod">🔬 Contemporary outlook</div>
-              <p>Boswellic acids inhibit <strong>5-lipoxygenase (5-LOX)</strong>, a key enzyme in leukotriene-mediated airway inflammation. Clinical trials of <em>B. serrata</em> extract in asthma show reduced symptom frequency and improved lung function scores; a systematic review confirms anti-inflammatory benefit across respiratory conditions.</p>
+              <div class="health-label mod">🔬 What research shows</div>
+              <p>Boswellic acids inhibit <strong>5-lipoxygenase (5-LOX)</strong> in laboratory studies, an enzyme in leukotriene pathways relevant to airway inflammation. Small clinical studies of <em>B. serrata</em> extract in asthma have been reported, but they are limited in size and quality, and the effect on lung function remains unconfirmed.</p>
             </div>
-            <div class="health-src">Sources: Moussaieff &amp; Mechoulam (2009); Al-Harrasi et al. (2019); Safayhi et al. (1992)</div>
-            <span class="evidence-badge moderate">Evidence: Moderate</span>
+            <div class="health-src">Species studied: <em>B. serrata</em>. Sources: Safayhi et al. (1992) (5-LOX mechanism); Moussaieff &amp; Mechoulam (2009) (review).</div>
+            <span class="evidence-badge preliminary">Evidence: Preliminary (mechanistic + small trials)</span>
           </div>
         </div>
 
-        <!-- ORAL -->
         <div class="health-card" style="--hc:#3498db">
           <div class="health-header">
             <div class="health-icon">🦷</div>
             <div>
               <h4>Oral &amp; Dental Health</h4>
-              <div class="sub">Gingivitis · dental infection · oral hygiene</div>
+              <div class="sub">Gingivitis · oral hygiene</div>
             </div>
           </div>
           <div class="health-body">
             <div class="health-row">
               <div class="health-label trad">🏺 Traditional use</div>
-              <p>Resin chewed or rinsed as a <strong>mouthwash</strong> for gingivitis, dental infections, and oral inflammation. Chewing gum of mastic-like resins has been used across the Arabian Peninsula for centuries.</p>
+              <p>Resin is traditionally chewed or steeped in water for oral hygiene and gum complaints.</p>
             </div>
             <div class="health-row">
-              <div class="health-label mod">🔬 Contemporary outlook</div>
-              <p>Randomized controlled trials of <em>B. serrata</em> mouthwash show significant reduction in <strong>gingival index and plaque scores</strong> versus placebo, comparable to chlorhexidine in some studies. Essential oil shows <strong>antibacterial activity</strong> against <em>S. mutans</em> and <em>P. gingivalis</em>.</p>
+              <div class="health-label mod">🔬 What research shows</div>
+              <p>A 2022 three-arm clinical study (60 adults with plaque-induced gingivitis, all given scaling and polishing) compared topical <em>B. serrata</em> <strong>gel</strong>, chlorhexidine gel and placebo gel over 21 days. Plaque, gingival and bleeding indices improved with both active gels versus placebo, with no significant difference between <em>B. serrata</em> and chlorhexidine. It was a small study of a <strong>gel, not a mouthwash</strong>, and the abstract does not describe randomization or blinding.</p>
             </div>
-            <div class="health-src">Sources: Al-Harrasi et al. (2019); Moussaieff &amp; Mechoulam (2009)</div>
-            <span class="evidence-badge strong">Evidence: Strong (RCTs)</span>
+            <div class="health-src">Species studied: <em>B. serrata</em>. Source: Sonkusle et al. (2022), <em>World J Dent</em> 13(6):641–646, doi:10.5005/jp-journals-10015-2113 <span class="vf">verified</span></div>
+            <span class="evidence-badge emerging">Evidence: Emerging (single small clinical study)</span>
           </div>
         </div>
 
-        <!-- INFLAMMATORY / ARTHRITIS -->
         <div class="health-card" style="--hc:#f39c12">
           <div class="health-header">
             <div class="health-icon">🦴</div>
             <div>
               <h4>Inflammatory &amp; Joint Conditions</h4>
-              <div class="sub">Arthritis · IBD · chronic inflammation</div>
+              <div class="sub">Osteoarthritis · joint stiffness</div>
             </div>
           </div>
           <div class="health-body">
             <div class="health-row">
               <div class="health-label trad">🏺 Traditional use</div>
-              <p>Used for <strong>degenerative and inflammatory arthritis</strong>, rheumatic pain, and inflammatory bowel conditions. Mentioned in classical Unani and Ayurvedic texts for joint stiffness.</p>
+              <p>Used for <strong>joint pain, rheumatic complaints and inflammatory conditions</strong>. Mentioned in classical Unani and Ayurvedic texts for joint stiffness.</p>
             </div>
             <div class="health-row">
-              <div class="health-label mod">🔬 Contemporary outlook</div>
-              <p><em>Boswellia serrata</em> extract (<strong>5-Loxin®</strong>, <strong>Aflapin®</strong>) is clinically validated in multiple RCTs for osteoarthritis — significant reduction in <strong>WOMAC pain scores</strong> after 90 days. AKBA is the primary active agent.</p>
+              <div class="health-label mod">🔬 What research shows</div>
+              <p>A 2020 systematic review and meta-analysis of <strong>7 randomized trials (545 participants)</strong> of Boswellia / <em>B. serrata</em> extracts in osteoarthritis found larger reductions in pain (VAS and WOMAC) and better function than control. The authors rated trial quality as generally medium to low, noted high heterogeneity, and advised caution. Proprietary <em>B. serrata</em> extracts such as 5-Loxin® and Aflapin® appear in the literature. AKBA is one of the suspected active constituents.</p>
             </div>
-            <div class="health-src">Sources: Moussaieff &amp; Mechoulam (2009); Al-Harrasi et al. (2019)</div>
-            <span class="evidence-badge strong">Evidence: Strong (RCTs)</span>
+            <div class="health-src">Species studied: mostly <em>B. serrata</em>. Source: Yu et al. (2020), <em>BMC Complement Med Ther</em> 20:225, doi:10.1186/s12906-020-02985-6 <span class="vf">verified</span></div>
+            <span class="evidence-badge moderate">Evidence: Moderate (RCTs; low–medium quality)</span>
           </div>
         </div>
 
-        <!-- ONCOLOGY -->
         <div class="health-card" style="--hc:#9b59b6">
           <div class="health-header">
             <div class="health-icon">🎗️</div>
             <div>
               <h4>Oncology &amp; Cytotoxic Activity</h4>
-              <div class="sub">Gliomas · carcinomas · bladder · brain tumors</div>
+              <div class="sub">Laboratory research only</div>
             </div>
           </div>
           <div class="health-body">
@@ -1861,15 +1968,14 @@
               <p>Incense smoke used in some traditional contexts as a protective and purifying agent; associated with spiritual healing.</p>
             </div>
             <div class="health-row">
-              <div class="health-label mod">🔬 Contemporary outlook</div>
-              <p>AKBA induces <strong>apoptosis in glioblastoma, colon, and bladder cancer cell lines</strong> via caspase activation and NF-κB pathway inhibition. Clinical trials show positive anti-edematous effects in brain tumor radiation therapy.</p>
+              <div class="health-label mod">🔬 What research shows</div>
+              <p>In cell-culture studies, AKBA and related boswellic acids induced apoptosis in several cancer cell lines (including glioblastoma, colon and bladder models) and affected NF-κB signalling. These are <strong>laboratory findings only</strong>. A few small clinical studies have examined brain-tumour oedema during radiotherapy, with inconclusive results. Boswellia is not an established cancer treatment.</p>
             </div>
-            <div class="health-src">Sources: Moussaieff &amp; Mechoulam (2009); Al-Harrasi et al. (2019)</div>
-            <span class="evidence-badge emerging">Evidence: Emerging (Case Reports + In-Vitro)</span>
+            <div class="health-src">Species: <em>B. serrata</em> and <em>B. sacra</em> extracts (varies by study). Source: Moussaieff &amp; Mechoulam (2009) (review).</div>
+            <span class="evidence-badge preliminary">Evidence: Preliminary (laboratory studies)</span>
           </div>
         </div>
 
-        <!-- ANTIMICROBIAL -->
         <div class="health-card" style="--hc:#e74c3c">
           <div class="health-header">
             <div class="health-icon">🧬</div>
@@ -1881,21 +1987,21 @@
           <div class="health-body">
             <div class="health-row">
               <div class="health-label trad">🏺 Traditional use</div>
-              <p>Resin applied to <strong>wounds, cuts, and skin infections</strong>; burned to purify air in sickrooms; used as an <strong>antiseptic gargle</strong>.</p>
+              <p>Resin applied to <strong>wounds, cuts and skin infections</strong>; burned to purify air in sickrooms; used as a gargle.</p>
             </div>
             <div class="health-row">
-              <div class="health-label mod">🔬 Contemporary outlook</div>
-              <p>Essential oil shows pronounced <strong>antibacterial activity</strong> against <em>Staphylococcus aureus</em> and <em>E. coli</em>. Resin extracts accelerate wound healing in animal models via fibroblast stimulation.</p>
+              <div class="health-label mod">🔬 What research shows</div>
+              <p>Laboratory studies report antibacterial activity of frankincense oils and extracts, with results varying by species, oil composition and method. A study of <strong><em>B. sacra</em></strong> oil and smoke tested activity against pathogenic and airborne microbes (PubMed 37761150). Some animal studies report improved wound healing; human evidence is lacking.</p>
             </div>
-            <div class="health-src">Sources: Al-Harrasi et al. (2019); Groom (1981)</div>
-            <span class="evidence-badge moderate">Evidence: Moderate (In-Vitro + Animal)</span>
+            <div class="health-src">Species: <em>B. sacra</em> (oil and smoke study) and others. Sources: PubMed 37761150; Moussaieff &amp; Mechoulam (2009).</div>
+            <span class="evidence-badge preliminary">Evidence: Preliminary (in-vitro + animal)</span>
           </div>
         </div>
 
       </div>
 
       <div class="caution">
-        <strong>⚠️ Caution — clinical limitations:</strong> Frankincense extracts are supportive phytotherapeutics and do not replace primary veterinary or human emergency medicine. Always consult certified medical or veterinary specialists.
+        <strong>⚠️ Not medical or veterinary advice.</strong> Frankincense products can cause side effects and may not suit everyone, including people who are pregnant or taking other medicines. They do not replace diagnosis or treatment. Consult a qualified clinician or veterinarian before use.
       </div>
     </div>
   </div>
@@ -1924,7 +2030,7 @@
 
       <div class="info" style="margin-bottom:20px; --pop-color:#2ecc71;">
         <h4>🌳 Boswellia Sacra Morphology &amp; Resin Resinology</h4>
-        <p><em>Boswellia sacra</em> Flueck. is a small, resin-bearing tree native to the Dhofar region of Oman. Below is an interactive 3D matrix illustrating its arboreal growth, papery bark, resin exudation process, and commercial grade classification.</p>
+        <p><em>Boswellia sacra</em> Flueck. is a small, resin-bearing tree native to the Dhofar region of Oman. Below, tilt-enabled image cards illustrate its tree form, papery bark, resin exudation and trade grades. Images are secondary reproductions; confirm permissions and original sources before reuse.</p>
       </div>
 
       <!-- 4 BALANCED 3D CARDS USING LOCAL PNG IMAGES (5, 6, 7/7.1, 8) -->
@@ -1942,7 +2048,7 @@
               <p>A mature <em>Boswellia sacra</em> tree standing at Wadi Dowkah Natural Park in Dhofar, Oman. The species exhibits a thick trunk and a dense, sprawling canopy adapted to hyper-arid desert conditions.</p>
             </div>
             <div class="actions">
-              <a href="https://www.gardendesign.com/holiday/frankincense.html" target="_blank" rel="noopener">Garden Design Source</a>
+              <a href="https://www.gardendesign.com/holiday/frankincense.html" target="_blank" rel="noopener">Image source (secondary)</a>
             </div>
           </div>
         </div>
@@ -1959,7 +2065,7 @@
               <p>Close-up view of the smooth, papery, peeling bark of <em>Boswellia sacra</em>. Traditional incisions reveal the underlying cambium where resin ducts release protective oleo-gum-resin upon wounding.</p>
             </div>
             <div class="actions">
-              <a href="https://www.gardendesign.com/holiday/frankincense.html" target="_blank" rel="noopener">Garden Design Source</a>
+              <a href="https://www.gardendesign.com/holiday/frankincense.html" target="_blank" rel="noopener">Image source (secondary)</a>
             </div>
           </div>
         </div>
@@ -1979,7 +2085,7 @@
               <p>Close-up depiction of milky resin weeping from fresh tree incisions, followed by the hardening phase where droplets form translucent, aromatic frankincense "tears" along the bark.</p>
             </div>
             <div class="actions">
-              <a href="https://www.researchgate.net/figure/Harvest-and-grading-of-B-sacra-gum-resins-a-Frankincense-tree-incision-and-tears-b_fig1_270529855" target="_blank" rel="noopener">ResearchGate Figure 1a</a>
+              <a href="https://www.researchgate.net/figure/Harvest-and-grading-of-B-sacra-gum-resins-a-Frankincense-tree-incision-and-tears-b_fig1_270529855" target="_blank" rel="noopener">Image source (ResearchGate)</a>
             </div>
           </div>
         </div>
@@ -1993,10 +2099,10 @@
           <div class="info-body">
             <div>
               <h5>💎 8. Harvest Grades of B. sacra</h5>
-              <p><strong>(b) Hougari Royal (Najdi):</strong> Desert northern harvest. <strong>(c) Hougari Superior:</strong> Clear green tinge for therapeutic water infusion. <strong>(d) Hougari Regular:</strong> Common incense resin. <strong>(e) Hougari Sha'bi:</strong> Coastal monsoon harvest.</p>
+              <p>Two classification schemes appear in the literature. This atlas uses the four regional trade categories (<strong>Hojari, Najdi, Shathari, Shaabi</strong>). The source figure labels its panels (b)–(e) with a different set of names (“Hougari Royal”, “Superior”, “Regular”, “Sha’bi”), where “Hougari” is a spelling of Hojari. Treat the panels as illustrating grades of resin, <strong>not</strong> as a one-to-one match with this atlas’s four categories <span class="nv">check original caption</span>.</p>
             </div>
             <div class="actions">
-              <a href="https://www.researchgate.net/figure/Harvest-and-grading-of-B-sacra-gum-resins-a-Frankincense-tree-incision-and-tears-b_fig1_270529855" target="_blank" rel="noopener">ResearchGate Study</a>
+              <a href="https://www.researchgate.net/figure/Harvest-and-grading-of-B-sacra-gum-resins-a-Frankincense-tree-incision-and-tears-b_fig1_270529855" target="_blank" rel="noopener">Image source (ResearchGate)</a>
             </div>
           </div>
         </div>
@@ -2021,9 +2127,9 @@
     <div class="modal-body">
       <div class="fivew">
         <div class="w"><div class="wk">Who</div><div class="wv">Botanical geneticists · Bioinformatics teams</div></div>
-        <div class="w"><div class="wk">What</div><div class="wv">De novo genome · Resin pathway genes · Population SNPs</div></div>
+        <div class="w"><div class="wk">What</div><div class="wv">De novo genome assembly · gene-family analysis</div></div>
         <div class="w"><div class="wk">Where</div><div class="wv">Arabian Peninsula · Horn of Africa · Global labs</div></div>
-        <div class="w"><div class="wk">When</div><div class="wv">2 Mya retroelement expansion → 2024 sequencing</div></div>
+        <div class="w"><div class="wk">When</div><div class="wv">Genome published 2022 (<em>iScience</em>)</div></div>
         <div class="w"><div class="wk">Why</div><div class="wv">Decode drought resilience &amp; resin biosynthesis</div></div>
       </div>
 
@@ -2034,12 +2140,12 @@
             Simple Summary
           </span>
         </h4>
-        <p>The <em>Boswellia sacra</em> genome assembly spans <strong>667.8 Mb</strong> with 18,564 protein-coding genes. A major discovery is the expansion of <strong>Gypsy retroelements</strong> over the past 2 million years — mobile DNA elements that reshaped stress-response pathways, enabling survival in hyper-arid Dhofar. Gene families for terpene synthases (TPS) and cytochrome P450 enzymes are heavily duplicated, driving the complex resin chemistry.</p>
+        <p>The <em>Boswellia sacra</em> genome assembly spans <strong>667.8 Mb</strong> with <strong>18,564</strong> high-confidence protein-coding genes (Khan et al., 2022, <em>iScience</em> 25:104574) <span class="vf">verified</span>. The authors report a major expansion of <strong>Gypsy retroelements</strong> in roughly the last 2 million years; mobile DNA elements of this kind can reshape gene regulation. Claims that terpene-synthase and cytochrome P450 gene families are heavily duplicated, and that this drives resin chemistry, are retained from the earlier draft <span class="nv">check against paper</span>.</p>
       </div>
 
       <div class="gal-card" style="margin-bottom:20px;">
         <div class="frame" style="aspect-ratio:16/8; background:#05070a; position:relative; overflow:hidden;">
-          <span class="badge-i">Plate VII · Genome Architecture &amp; Gene Family Expansion</span>
+          <span class="badge-i">Plate VII · Genome concept diagram · Illustrative (not a real chromosome map)</span>
           <svg class="data-svg" viewBox="0 0 1000 400" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
             <defs>
               <linearGradient id="dnaGrad" x1="0%" y1="0%" x2="100%" y2="0%">
@@ -2056,7 +2162,7 @@
               <line x1="700" y1="40" x2="700" y2="360"/>
               <line x1="900" y1="40" x2="900" y2="360"/>
             </g>
-            <text x="500" y="25" fill="#a855f7" font-size="14" text-anchor="middle" letter-spacing="2" font-weight="700">BOSWELLIA SACRA · 667.8 Mb GENOME MAP</text>
+            <text x="500" y="25" fill="#a855f7" font-size="14" text-anchor="middle" letter-spacing="2" font-weight="700">BOSWELLIA SACRA · 667.8 Mb · SCHEMATIC</text>
             <path d="M100 200 Q200 120 300 200 T500 200 T700 200 T900 200" fill="none" stroke="url(#dnaGrad)" stroke-width="4" filter="url(#neonGlowGreen)"/>
             <path d="M100 200 Q200 280 300 200 T500 200 T700 200 T900 200" fill="none" stroke="url(#dnaGrad)" stroke-width="4" opacity="0.6"/>
             <circle cx="300" cy="200" r="8" fill="#a855f7" class="node"/>
@@ -2065,11 +2171,11 @@
             <text x="500" y="170" fill="#2ecc71" font-size="11" text-anchor="middle" font-weight="700">P450 Cytochromes</text>
             <circle cx="700" cy="200" r="8" fill="#3498db" class="node"/>
             <text x="700" y="170" fill="#3498db" font-size="11" text-anchor="middle" font-weight="700">Gypsy Retroelements</text>
-            <text x="100" y="340" fill="#8b98ab" font-size="10">Chr 1</text>
-            <text x="300" y="340" fill="#8b98ab" font-size="10">Chr 2</text>
-            <text x="500" y="340" fill="#8b98ab" font-size="10">Chr 3</text>
-            <text x="700" y="340" fill="#8b98ab" font-size="10">Chr 4</text>
-            <text x="900" y="340" fill="#8b98ab" font-size="10">Chr 5</text>
+            <text x="100" y="340" fill="#8b98ab" font-size="10">Region 1</text>
+            <text x="300" y="340" fill="#8b98ab" font-size="10">Region 2</text>
+            <text x="500" y="340" fill="#8b98ab" font-size="10">Region 3</text>
+            <text x="700" y="340" fill="#8b98ab" font-size="10">Region 4</text>
+            <text x="900" y="340" fill="#8b98ab" font-size="10">Region 5</text>
           </svg>
         </div>
       </div>
@@ -2077,15 +2183,15 @@
       <div class="grid-3">
         <div class="info" style="--pop-color:#a855f7">
           <h4>🧪 Terpene Synthase (TPS) Family</h4>
-          <p>Expanded TPS gene clusters produce the monoterpenes (α-pinene, myrcene, limonene) responsible for each grade's unique aroma.</p>
+          <p>Terpene synthases (TPS) build the terpene molecules (such as α-pinene, myrcene and limonene) that contribute to resin aroma. Which TPS genes are expanded in <em>B. sacra</em> should be taken from the genome paper <span class="nv">needs source</span>.</p>
         </div>
         <div class="info" style="--pop-color:#2ecc71">
           <h4>🌡️ Drought-Responsive Genes</h4>
-          <p>DREB and NAC transcription factors show positive selection, enabling stomatal control under extreme water deficit.</p>
+          <p>Drought tolerance is a theme of the genome analysis, but which gene families show signatures of selection should be taken from the paper itself <span class="nv">earlier DREB/NAC claim unverified</span>.</p>
         </div>
         <div class="info" style="--pop-color:#3498db">
           <h4>🔄 Gypsy Retroelement Legacy</h4>
-          <p>Mobile elements reshaped regulatory networks — a genomic "memory" of 2 million years of arid adaptation.</p>
+          <p>Gypsy elements make up about 119.1 Mb of the assembly, and most intact copies were inserted within roughly the last 1.5 million years (Khan et al., 2022). Any link to arid adaptation is the authors’ interpretation <span class="vf">verified</span>.</p>
         </div>
       </div>
     </div>
@@ -2100,7 +2206,7 @@
     <div class="modal-head" style="--pop-color:#2ecc71">
       <div class="modal-head-left">
         <span class="me">🦠</span>
-        <div><h3>Rhizosphere Microbiome Matrix</h3><div class="kick">Wild vs Cultivated · Actinobacteria · IAA Producers</div></div>
+        <div><h3>Rhizosphere Microbiome Matrix</h3><div class="kick">Wild vs cultivated trees · fungal &amp; bacterial communities</div></div>
       </div>
       <button class="modal-close" data-close>✕</button>
     </div>
@@ -2108,9 +2214,9 @@
       <div class="fivew">
         <div class="w"><div class="wk">Who</div><div class="wv">Soil microbiologists · Plant ecologists</div></div>
         <div class="w"><div class="wk">What</div><div class="wv">Bacterial &amp; fungal communities in root zone</div></div>
-        <div class="w"><div class="wk">Where</div><div class="wv">Wadi Dawkah · Jebel Samhan · cultivated nurseries</div></div>
-        <div class="w"><div class="wk">When</div><div class="wv">2019–2024 metagenomic surveys</div></div>
-        <div class="w"><div class="wk">Why</div><div class="wv">Microbes boost drought survival &amp; resin yield</div></div>
+        <div class="w"><div class="wk">Where</div><div class="wv">Wild and cultivated populations in Oman</div></div>
+        <div class="w"><div class="wk">When</div><div class="wv">Study published 2017 (<em>PLOS ONE</em>)</div></div>
+        <div class="w"><div class="wk">Why</div><div class="wv">Compare root-zone communities of wild and cultivated trees</div></div>
       </div>
 
       <div class="info" style="margin-bottom:20px; --pop-color:#2ecc71;">
@@ -2120,12 +2226,12 @@
             Simple Summary
           </span>
         </h4>
-        <p>Wild <em>B. sacra</em> roots are dominated by <strong>Ascomycota (60.3%)</strong> fungi and <strong>Actinobacteria</strong> bacteria, while cultivated trees shift toward <strong>Basidiomycota (52%)</strong> and <strong>Proteobacteria</strong>. Wild-associated microbes produce higher <strong>glucosidase and cellulase</strong> enzyme activity and <strong>indole-3-acetic acid (IAA)</strong> — a plant growth hormone that likely helps the tree survive extreme aridity.</p>
+        <p>Khan et al. (2017, <em>PLOS ONE</em>) found that the root zone of <strong>wild</strong> <em>B. sacra</em> is dominated by <strong>Ascomycota</strong> fungi (about 60%) and has higher <strong>Actinobacteria</strong> (about 27%), while <strong>cultivated</strong> trees shift toward <strong>Basidiomycota</strong> (about 52% in one population) with abundant <strong>Proteobacteria</strong> and <strong>Acidobacteria</strong>. The study measured <strong>higher glucosidase, cellulase and indole-3-acetic acid (IAA)</strong> in the rhizospheres of <strong>cultivated</strong> trees. What these differences mean for tree health is not established <span class="vf">verified</span>.</p>
       </div>
 
       <div class="gal-card" style="margin-bottom:20px;">
         <div class="frame" style="aspect-ratio:16/8; background:#05070a; position:relative; overflow:hidden;">
-          <span class="badge-i">Plate VIII · Rhizosphere Microbial Composition</span>
+          <span class="badge-i">Plate VIII · Rhizosphere composition · Illustrative wedges</span>
           <svg class="data-svg" viewBox="0 0 1000 400" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
             <rect width="1000" height="400" fill="#0a0c10"/>
             <text x="250" y="40" fill="#2ecc71" font-size="16" text-anchor="middle" font-weight="700">WILD TREES</text>
@@ -2144,23 +2250,23 @@
               <path d="M0,0 L-103.9,60 A120,120 0 0,1 0,-120 Z" fill="#2ecc71" opacity="0.7"/>
               <text x="0" y="0" fill="#fff" font-size="14" text-anchor="middle" font-weight="700">Basidiomycota 52%</text>
             </g>
-            <text x="500" y="380" fill="#8b98ab" font-size="11" text-anchor="middle">Wild trees harbour IAA-producing Actinobacteria · Cultivated trees shift to Proteobacteria dominance</text>
+            <text x="500" y="380" fill="#8b98ab" font-size="11" text-anchor="middle">Wild: Ascomycota ~60%, more Actinobacteria · Cultivated: Basidiomycota ~52%, Proteobacteria &amp; Acidobacteria abundant · wedge sizes are schematic</text>
           </svg>
         </div>
       </div>
 
       <div class="grid-3">
         <div class="info" style="--pop-color:#2ecc71">
-          <h4>🌱 IAA Producers</h4>
-          <p>Wild-associated bacteria secrete indole-3-acetic acid, promoting root elongation under drought stress.</p>
+          <h4>🌱 IAA levels</h4>
+          <p>IAA, a plant growth hormone also made by microbes, was higher in the rhizospheres of <strong>cultivated</strong> trees than wild ones (Khan et al., 2017).</p>
         </div>
         <div class="info" style="--pop-color:#f39c12">
           <h4>🔬 Enzyme Activity</h4>
-          <p>Higher glucosidase &amp; cellulase activity in wild rhizospheres accelerates nutrient cycling in poor desert soils.</p>
+          <p>Glucosidase and cellulase activities, which relate to the breakdown of plant material in soil, were also higher in <strong>cultivated</strong> rhizospheres (Khan et al., 2017).</p>
         </div>
         <div class="info" style="--pop-color:#3498db">
-          <h4>🌍 Conservation Impact</h4>
-          <p>Microbiome transplants may boost survival rates of nursery-raised seedlings reintroduced to wild habitats.</p>
+          <h4>🌍 Possible applications</h4>
+          <p>Whether adding wild-type microbes could help nursery seedlings is a hypothesis; it has not been tested in the sources cited here.</p>
         </div>
       </div>
     </div>
@@ -2175,32 +2281,32 @@
     <div class="modal-head" style="--pop-color:#3498db">
       <div class="modal-head-left">
         <span class="me">🛰️</span>
-        <div><h3>AI Satellite Monitoring &amp; Deep Learning</h3><div class="kick">WorldView-3 · 93.7% Accuracy · Kappa 0.87</div></div>
+        <div><h3>Satellite Mapping of Frankincense Trees</h3><div class="kick">WorldView-3 · spectral classification &amp; deep-learning detection</div></div>
       </div>
       <button class="modal-close" data-close>✕</button>
     </div>
     <div class="modal-body">
       <div class="fivew">
-        <div class="w"><div class="wk">Who</div><div class="wv">Remote sensing scientists · Conservation NGOs</div></div>
-        <div class="w"><div class="wk">What</div><div class="wv">Individual tree crown detection via deep learning</div></div>
-        <div class="w"><div class="wk">Where</div><div class="wv">Wadi Dawkah UNESCO site · Dhofar mountains</div></div>
-        <div class="w"><div class="wk">When</div><div class="wv">2020–2024 model training &amp; validation</div></div>
-        <div class="w"><div class="wk">Why</div><div class="wv">Scalable population health monitoring</div></div>
+        <div class="w"><div class="wk">Who</div><div class="wv">Y. Al-Mulla (remote sensing, Oman)</div></div>
+        <div class="w"><div class="wk">What</div><div class="wv">Spectral signature mapping + deep-learning tree detection</div></div>
+        <div class="w"><div class="wk">Where</div><div class="wv">Wadi Dawkah, Dhofar</div></div>
+        <div class="w"><div class="wk">When</div><div class="wv">Published 2026 (<em>PLOS ONE</em>)</div></div>
+        <div class="w"><div class="wk">Why</div><div class="wv">Test whether satellite data can map and count the species</div></div>
       </div>
 
       <div class="info" style="margin-bottom:20px; --pop-color:#3498db;">
-        <h4>🛰️ Deep Learning Tree Crown Detection
+        <h4>🛰️ What the study did
           <span class="layman-badge" onclick="openLayman('satellite')">
             <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 2L14.5 9H22L16 13.5L18.5 21L12 16.5L5.5 21L8 13.5L2 9H9.5L12 2Z" fill="#a855f7" stroke="#d8b4fe" stroke-width="0.8"/></svg>
             Simple Summary
           </span>
         </h4>
-        <p>High-resolution <strong>WorldView-3</strong> satellite imagery combined with convolutional neural networks (CNNs) can identify individual <em>B. sacra</em> tree crowns with <strong>93.7% overall accuracy</strong> and a Cohen's Kappa of <strong>0.87</strong>. This enables automated population counts, health classification (healthy/stressed/dead), and land-cover change detection across the entire Dhofar range — a task impossible with manual surveys.</p>
+        <p>Al-Mulla (2026) measured the spectral signature of <em>B. sacra</em> in the field (350–2,500 nm), resampled it to <strong>WorldView-3</strong> bands, and classified imagery of Wadi Dawkah with the Spectral Angle Mapper (SAM), reaching <strong>93.7% overall accuracy (Kappa 0.87)</strong>. SAM clearly outperformed NDVI thresholding. Three deep-learning detectors were also tested for finding individual trees; the best (SSD) reached <strong>precision 0.83 and recall 0.93</strong> and matched 701 trees in validation, a count of validated detections and not a census. <strong>The 93.7% figure belongs to the SAM classification, not to deep learning.</strong> <span class="vf">verified</span></p>
       </div>
 
       <div class="gal-card" style="margin-bottom:20px;">
         <div class="frame" style="aspect-ratio:16/8; background:#05070a; position:relative; overflow:hidden;">
-          <span class="badge-i">Plate IX · AI Tree Crown Detection Overlay</span>
+          <span class="badge-i">Plate IX · Detection overlay concept · Illustrative</span>
           <svg class="data-svg" viewBox="0 0 1000 400" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
             <rect width="1000" height="400" fill="#0a0c10"/>
             <g stroke="rgba(52,152,219,0.15)" stroke-width="1">
@@ -2231,23 +2337,23 @@
               <circle cx="600" cy="320" r="30" fill="none" stroke="#2ecc71" stroke-width="2"/>
               <circle cx="600" cy="320" r="3" fill="#2ecc71"/>
             </g>
-            <text x="500" y="30" fill="#3498db" font-size="14" text-anchor="middle" font-weight="700">CNN DETECTION · 93.7% ACCURACY · KAPPA 0.87</text>
+            <text x="500" y="30" fill="#3498db" font-size="14" text-anchor="middle" font-weight="700">ILLUSTRATIVE OVERLAY · NOT STUDY OUTPUT</text>
           </svg>
         </div>
       </div>
 
       <div class="grid-3">
         <div class="info" style="--pop-color:#2ecc71">
-          <h4>🎯 93.7% Accuracy</h4>
-          <p>Model precision/recall validated against ground-truth field surveys across 12 transects.</p>
+          <h4>🎯 What 93.7% means</h4>
+          <p>Overall accuracy of the SAM classification (user’s accuracy 88.0%, producer’s accuracy 99.2%, Kappa 0.87). It is not the accuracy of the deep-learning detector.</p>
         </div>
         <div class="info" style="--pop-color:#3498db">
           <h4>📡 WorldView-3 Resolution</h4>
-          <p>31 cm panchromatic resolution reveals individual canopy geometry, enabling species-level classification.</p>
+          <p>WorldView-3 panchromatic imagery is about 31 cm per pixel (sensor specification), fine enough to see crowns of larger trees. Species discrimination in the study relied on the spectral signature.</p>
         </div>
         <div class="info" style="--pop-color:#f39c12">
-          <h4>⏱️ Temporal Monitoring</h4>
-          <p>Repeat passes every 2 weeks track seasonal dieback, tapping stress, and regeneration hotspots.</p>
+          <h4>🔭 Possible uses</h4>
+          <p>The author concludes that field spectroscopy, high-resolution imagery and deep learning together could support monitoring in arid areas. Tree-health classes and repeat-pass change detection are possible future uses, not results reported here.</p>
         </div>
       </div>
     </div>
@@ -2270,9 +2376,9 @@
       <div class="fivew">
         <div class="w"><div class="wk">Who</div><div class="wv">Plant physiologists · Ecophysiologists</div></div>
         <div class="w"><div class="wk">What</div><div class="wv">Total non-structural carbohydrates (TNC) dynamics</div></div>
-        <div class="w"><div class="wk">Where</div><div class="wv">Dhofar wild stands · experimental tapping plots</div></div>
-        <div class="w"><div class="wk">When</div><div class="wv">2018–2024 physiological monitoring</div></div>
-        <div class="w"><div class="wk">Why</div><div class="wv">Determine sustainable tapping limits</div></div>
+        <div class="w"><div class="wk">Where</div><div class="wv">General plant physiology (B. sacra data to be cited)</div></div>
+        <div class="w"><div class="wk">When</div><div class="wv">Concept summary</div></div>
+        <div class="w"><div class="wk">Why</div><div class="wv">Explain why tapping intensity and timing matter</div></div>
       </div>
 
       <div class="info" style="margin-bottom:20px; --pop-color:#e67e22;">
@@ -2282,12 +2388,12 @@
             Simple Summary
           </span>
         </h4>
-        <p>Every resin cut drains <strong>total non-structural carbohydrates (TNC)</strong> — the tree's stored energy reserves. Studies show carbon gain is limited more by <strong>atmospheric drought</strong> (high VPD) than by soil water deficit. Trees with smaller leaf areas face carbon starvation sooner, especially during the dry season when tapping coincides with peak evaporative demand. Over-tapping leads to reduced seed viability and, eventually, canopy dieback.</p>
+        <p>Making resin and healing wounds costs the tree resources, and its stored carbohydrate reserves (<strong>total non-structural carbohydrates, TNC</strong>) can be drawn down. In hot, dry air, stomata close and photosynthesis slows, so recovery may be slower. These are general plant-physiology ideas. Measured TNC data for tapped and untapped <em>B. sacra</em> are <strong>not cited here</strong>, and the chart below is a concept sketch <span class="nv">B. sacra TNC data needed</span>. For a related species, intensive tapping reduced seed quality (Rijkers et al., 2006, <em>B. papyrifera</em>) <span class="vf">verified</span>.</p>
       </div>
 
       <div class="gal-card" style="margin-bottom:20px;">
         <div class="frame" style="aspect-ratio:16/8; background:#05070a; position:relative; overflow:hidden;">
-          <span class="badge-i">Plate X · TNC Depletion Under Tapping Stress</span>
+          <span class="badge-i">Plate X · Reserve-depletion concept · Illustrative</span>
           <svg class="data-svg" viewBox="0 0 1000 400" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
             <rect width="1000" height="400" fill="#0a0c10"/>
             <g stroke="rgba(230,126,34,0.15)" stroke-width="1">
@@ -2296,8 +2402,8 @@
               <line x1="80" y1="250" x2="950" y2="250" stroke-dasharray="5 5"/>
               <line x1="80" y1="150" x2="950" y2="150" stroke-dasharray="5 5"/>
             </g>
-            <text x="500" y="30" fill="#e67e22" font-size="14" text-anchor="middle" font-weight="700">TNC RESERVES · UNTAPPED vs TAPPED TREES</text>
-            <text x="40" y="200" fill="#8b98ab" font-size="12" text-anchor="middle" transform="rotate(-90 40 200)">TNC (mg/g)</text>
+            <text x="500" y="30" fill="#e67e22" font-size="14" text-anchor="middle" font-weight="700">ILLUSTRATIVE CONCEPT · NOT MEASURED DATA</text>
+            <text x="40" y="200" fill="#8b98ab" font-size="12" text-anchor="middle" transform="rotate(-90 40 200)">TNC (relative)</text>
             <path d="M100 200 L200 195 L300 190 L400 188 L500 185 L600 183 L700 180 L800 178 L900 175" fill="none" stroke="#2ecc71" stroke-width="3" filter="url(#neonGlowGreen)"/>
             <text x="920" y="170" fill="#2ecc71" font-size="11">Untapped</text>
             <path d="M100 200 L200 220 L300 240 L400 255 L500 270 L600 285 L700 300 L800 310 L900 320" fill="none" stroke="#e74c3c" stroke-width="3" filter="url(#neonGlowCyan)"/>
@@ -2317,12 +2423,12 @@
           <p>High vapor pressure deficit (VPD) forces stomatal closure, limiting photosynthesis regardless of soil moisture.</p>
         </div>
         <div class="info" style="--pop-color:#f39c12">
-          <h4>🍂 Carbon Starvation Risk</h4>
-          <p>Repeated tapping during the dry season depletes TNC reserves faster than they can be replenished.</p>
+          <h4>🍂 Carbon-starvation hypothesis</h4>
+          <p>Repeated tapping in hot, dry periods could deplete reserves faster than they are replenished. This is a hypothesis and has not been tested for <em>B. sacra</em> in the sources cited here.</p>
         </div>
         <div class="info" style="--pop-color:#2ecc71">
-          <h4>✅ Sustainable Threshold</h4>
-          <p>Research suggests 2–3 year rest periods are needed for full TNC recovery between tapping cycles.</p>
+          <h4>⏳ Rest periods</h4>
+          <p>How long <em>B. sacra</em> needs to recover between tapping cycles is not established in the sources cited here. For <em>B. papyrifera</em>, seed quality fell as tapping intensity rose (Rijkers et al., 2006).</p>
         </div>
       </div>
     </div>
@@ -2337,7 +2443,7 @@
     <div class="modal-head" style="--pop-color:#d4af37">
       <div class="modal-head-left">
         <span class="me">🔍</span>
-        <div><h3>Chemical Provenance &amp; Authentication AI</h3><div class="kick">Isoincensole Acetate · Species Fingerprinting · Origin Tracing</div></div>
+        <div><h3>Chemical Provenance &amp; Authentication</h3><div class="kick">Isoincensole Acetate · Species Fingerprinting · Origin Tracing</div></div>
       </div>
       <button class="modal-close" data-close>✕</button>
     </div>
@@ -2346,7 +2452,7 @@
         <div class="w"><div class="wk">Who</div><div class="wv">Analytical chemists · Customs authorities · Perfumers</div></div>
         <div class="w"><div class="wk">What</div><div class="wv">Terpenic fingerprinting for origin &amp; species ID</div></div>
         <div class="w"><div class="wk">Where</div><div class="wv">Global trade networks · Archaeological samples</div></div>
-        <div class="w"><div class="wk">When</div><div class="wv">2012–2026 method development</div></div>
+        <div class="w"><div class="wk">When</div><div class="wv">Methods under development</div></div>
         <div class="w"><div class="wk">Why</div><div class="wv">Combat adulteration &amp; verify sacred provenance</div></div>
       </div>
 
@@ -2357,15 +2463,15 @@
             Simple Summary
           </span>
         </h4>
-        <p>Each <em>Boswellia</em> species has a unique terpenic "fingerprint." <strong>Isoincensole acetate</strong> is the shared biomarker for <em>B. sacra</em> and <em>B. carteri</em>, while <strong>incensole</strong> dominates in <em>B. papyrifera</em>. Machine learning models trained on GC-MS spectra can identify species and geographic origin with high confidence — even in mixed archaeological samples or commercial blends.</p>
+        <p>Each <em>Boswellia</em> species has a characteristic terpenoid profile. <strong>Isoincensole acetate</strong> is reported as a marker shared by <em>B. sacra</em> and <em>B. carteri</em> (a name often treated as a synonym of <em>B. sacra</em>), while <strong>incensole</strong> and incensole acetate are especially abundant in <em>B. papyrifera</em> <span class="nv">cite</span>. Chemometric and machine-learning methods applied to GC-MS data are being explored for species and origin identification; accuracy depends on reference libraries and sample type.</p>
       </div>
 
       <div class="gal-card" style="margin-bottom:20px;">
         <div class="frame" style="aspect-ratio:16/8; background:#05070a; position:relative; overflow:hidden;">
-          <span class="badge-i">Plate XI · Chemical Fingerprint Matrix</span>
+          <span class="badge-i">Plate XI · Fingerprint concept diagram · Illustrative</span>
           <svg class="data-svg" viewBox="0 0 1000 400" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
             <rect width="1000" height="400" fill="#0a0c10"/>
-            <text x="500" y="30" fill="#d4af37" font-size="14" text-anchor="middle" font-weight="700">SPECIES DISCRIMINATION BY BIOMARKER RATIOS</text>
+            <text x="500" y="30" fill="#d4af37" font-size="14" text-anchor="middle" font-weight="700">ILLUSTRATIVE CONCEPT DIAGRAM</text>
             <g transform="translate(250,220)">
               <circle r="100" fill="none" stroke="#d4af37" stroke-width="2" opacity="0.4"/>
               <text x="0" y="-115" fill="#d4af37" font-size="12" text-anchor="middle" font-weight="700">B. sacra</text>
@@ -2387,15 +2493,15 @@
       <div class="grid-3">
         <div class="info" style="--pop-color:#d4af37">
           <h4>🧪 Isoincensole Acetate</h4>
-          <p>Shared biomarker for <em>B. sacra</em> &amp; <em>B. carteri</em> — identifies Dhofari origin.</p>
+          <p>Reported shared marker for <em>B. sacra</em> and <em>B. carteri</em>. A marker for the species, not by itself proof of Dhofari origin.</p>
         </div>
         <div class="info" style="--pop-color:#9b59b6">
           <h4>🧬 Incensole Marker</h4>
-          <p>Dominant in <em>B. papyrifera</em> — distinguishes Ethiopian resin from Arabian.</p>
+          <p>Abundant in <em>B. papyrifera</em>, which helps separate it from Arabian resins in many analyses; mixed or adulterated samples need more than one marker.</p>
         </div>
         <div class="info" style="--pop-color:#3498db">
           <h4>🤖 AI Classification</h4>
-          <p>Deep learning on GC-MS spectra achieves &gt;95% species-level accuracy in mixed samples.</p>
+          <p>Machine-learning classifiers on GC-MS data are an active research area. No accuracy figure is cited here <span class="nv">needs source</span>.</p>
         </div>
       </div>
     </div>
@@ -2419,7 +2525,7 @@
         <div class="w"><div class="wk">Who</div><div class="wv">Synthetic biologists · Conservation geneticists</div></div>
         <div class="w"><div class="wk">What</div><div class="wv">CRISPR-edited drought tolerance · Yeast-based resin production</div></div>
         <div class="w"><div class="wk">Where</div><div class="wv">Oman · global biotech labs</div></div>
-        <div class="w"><div class="wk">When</div><div class="wv">2025–2035 projected roadmap</div></div>
+        <div class="w"><div class="wk">When</div><div class="wv">Speculative outlook, not a published roadmap</div></div>
         <div class="w"><div class="wk">Why</div><div class="wv">Protect wild populations while meeting demand</div></div>
       </div>
 
@@ -2455,7 +2561,7 @@
 
       <div class="gal-card">
         <div class="frame" style="aspect-ratio:16/8; background:#05070a; position:relative; overflow:hidden;">
-          <span class="badge-i">Plate XII · 2025–2035 Research Roadmap</span>
+          <span class="badge-i">Plate XII · Speculative research outlook · Illustrative</span>
           <svg class="data-svg" viewBox="0 0 1000 400" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
             <rect width="1000" height="400" fill="#0a0c10"/>
             <line x1="50" y1="200" x2="950" y2="200" stroke="#a855f7" stroke-width="3" opacity="0.4"/>
@@ -2491,7 +2597,7 @@
     <div class="modal-head" style="--pop-color:#8b98ab">
       <div class="modal-head-left">
         <span class="me">📚</span>
-        <div><h3>APA 7th Sources &amp; Archaeological Citations</h3><div class="kick">Verified Primary References</div></div>
+        <div><h3>APA 7th Sources &amp; Archaeological Citations</h3><div class="kick">Sources &amp; evidence notes</div></div>
       </div>
       <button class="modal-close" data-close>✕</button>
     </div>
@@ -2501,21 +2607,48 @@
         <div class="w"><div class="wk">What</div><div class="wv">Comprehensive Reference Index</div></div>
         <div class="w"><div class="wk">Where</div><div class="wv">Global academic &amp; heritage institutions</div></div>
         <div class="w"><div class="wk">When</div><div class="wv">1981 – 2026</div></div>
-        <div class="w"><div class="wk">Why</div><div class="wv">Verify every factual claim on the atlas</div></div>
+        <div class="w"><div class="wk">Why</div><div class="wv">Let readers check each claim; unverified items are flagged</div></div>
       </div>
+      <p class="srcline" style="margin-bottom:14px">Legend: <span class="vf">verified</span> checked against the original record while preparing this version · <span class="ill">illustrative</span> conceptual graphic · <span class="nv">needs source</span> retained but not yet traced to a primary source.</p>
+
+      <h4 class="ref-h">Peer-reviewed &amp; official sources</h4>
       <ol class="refs">
-        <li id="ref-1"><em>The Holy Bible</em> (New International Version). (2011). Zondervan. (Exodus 30:34–38; Leviticus 2:1–2; 1 Kings 10:1–10; Matthew 2:11.)</li>
-        <li id="ref-2">Ibn al-Qayyim al-Jawziyya. (1998). <em>Healing with the Medicine of the Prophet (Tibb al-Nabawi)</em> (A. A. al-Razi, Trans.). Dar al-Ghad al-Arabi.</li>
-        <li id="ref-3">Groom, N. (1981). <em>Frankincense and Myrrh: A Study of the Arabian Incense Trade</em>. Longman.</li>
-        <li id="ref-4">Al-Harrasi, A., Al-Rawahi, A., &amp; Khan, A. L. (2019). <em>Biology of Genus Boswellia</em>. Springer Nature.</li>
-        <li id="ref-5">UNESCO World Heritage Centre. (2000). <em>Land of Frankincense (Wadi Dawkah, Shisr, Khor Rori, Al-Baleed)</em>. UNESCO Cultural Heritage List No. 1010.</li>
-        <li id="ref-6">Moussaieff, A., &amp; Mechoulam, R. (2009). Boswellia resin: From religious ceremonies to medical uses; a review of in-vitro and in-vivo studies. <em>Journal of Pharmacy and Pharmacology, 61</em>(10), 1281–1293.</li>
-        <li id="ref-7">Oman Observer. (2026, April 27). <em>Oman’s frankincense exports reach RO 471,400 in 2025</em>. https://www.omanobserver.om/article/1188620/</li>
-        <li id="ref-8">Journal of Arid Environments. (2025). Demographic assessment and population collapse dynamics in Boswellia sacra stands. <em>ScienceDirect, Article S0140196325000527</em>. https://www.sciencedirect.com/science/article/pii/S0140196325000527</li>
-        <li id="ref-9">Nabataea.net. (n.d.). <em>Al Balid Mosque Architectural &amp; Excavation Report</em>. https://nabataea.net/explore/cities_and_sites/al-balid-mosque/</li>
-        <li id="ref-10">Acaia 61 Studio Architecture. (n.d.). <em>Conservation &amp; Preservation Project for Baleed Fortress (Husn)</em>. https://www.a61s.it/en/lavori/projects/baleed-fortress-husn/sym_589</li>
-        <li id="ref-11">TripAdvisor. (n.d.). <em>Museum of the Frankincense Land Reviews &amp; Maritime Exhibits</em>. https://www.tripadvisor.com/Attraction_Review-g298419-d4131236-Reviews-Museum_of_the_Frankincense_Land-Salalah_Dhofar_Governorate.html</li>
-        <li id="ref-12">Oman Pocket Guide. (n.d.). <em>The Land of Frankincense Museum &amp; Al-Baleed Park Overview</em>. https://www.facebook.com/OmanPocketGuide/posts/salalah-land-of-frankincense-museumthe-land-of-frankincense-museum-which-is-loca/941623885908556/</li>
+        <li>Johnson, S., Bait Said, A., Vahalík, P., Karas, L., Sarrouf Willson, M., &amp; Bongers, F. (2025). Rapid conservation assessment of <em>Boswellia sacra</em> in Oman reveals complex threat and population patterns. <em>Journal of Arid Environments, 229</em>, 105368. <a href="https://doi.org/10.1016/j.jaridenv.2025.105368" target="_blank" rel="noopener">https://doi.org/10.1016/j.jaridenv.2025.105368</a> <span class="vf">verified</span></li>
+        <li>Khan, A. L., Al-Harrasi, A., Wang, J.-P., et al. (2022). Genome structure and evolutionary history of frankincense producing <em>Boswellia sacra</em>. <em>iScience, 25</em>(7), 104574. <a href="https://doi.org/10.1016/j.isci.2022.104574" target="_blank" rel="noopener">https://doi.org/10.1016/j.isci.2022.104574</a> <span class="vf">verified</span></li>
+        <li>Khan, A. L., Asaf, S., Al-Rawahi, A., Lee, I.-J., &amp; Al-Harrasi, A. (2017). Rhizospheric microbial communities associated with wild and cultivated frankincense producing <em>Boswellia sacra</em> tree. <em>PLOS ONE, 12</em>(10), e0186939. <a href="https://doi.org/10.1371/journal.pone.0186939" target="_blank" rel="noopener">https://doi.org/10.1371/journal.pone.0186939</a> <span class="vf">verified</span></li>
+        <li>Al-Mulla, Y. (2026). Spectral signature mapping and deep learning detection of Frankincense (<em>Boswellia sacra</em>) using WorldView-3 imagery. <em>PLOS ONE, 21</em>(8). <a href="https://doi.org/10.1371/journal.pone.0356056" target="_blank" rel="noopener">https://doi.org/10.1371/journal.pone.0356056</a> <span class="vf">verified</span></li>
+        <li>Rijkers, T., Ogbazghi, W., Wessel, M., &amp; Bongers, F. (2006). The effect of tapping for frankincense on sexual reproduction in <em>Boswellia papyrifera</em>. <em>Journal of Applied Ecology, 43</em>, 1188–1195. <span class="vf">verified</span></li>
+        <li>Yu, G., Xiang, W., Zhang, T., et al. (2020). Effectiveness of Boswellia and Boswellia extract for osteoarthritis patients: a systematic review and meta-analysis. <em>BMC Complementary Medicine and Therapies, 20</em>, 225. <a href="https://doi.org/10.1186/s12906-020-02985-6" target="_blank" rel="noopener">https://doi.org/10.1186/s12906-020-02985-6</a> <span class="vf">verified</span></li>
+        <li>Sonkusle, S., Pattanashetti, J. I., Kalburgi, N. B., Patil, K. A., &amp; Singh, V. (2022). Comparative evaluation of topical application of <em>Boswellia serrata</em> gel with chlorhexidine gel in management of gingivitis: A clinical study. <em>World Journal of Dentistry, 13</em>(6), 641–646. <a href="https://doi.org/10.5005/jp-journals-10015-2113" target="_blank" rel="noopener">https://doi.org/10.5005/jp-journals-10015-2113</a> <span class="vf">verified</span></li>
+        <li>Royal Botanic Garden Edinburgh. (n.d.). <em>Boswellia conservation status</em> (PADME project). <a href="https://padme.rbge.org.uk/boswellia/files/04%20Boswellia%20CONSERVATION%20STATUS.pdf" target="_blank" rel="noopener">padme.rbge.org.uk</a> <span class="vf">verified</span></li>
+        <li>Oman Observer. (2026). <em>Satellite method identifies Dhofar frankincense with 93.7% accuracy</em>. <a href="https://www.omanobserver.om/article/1195355/oman/satellite-method-identifies-dhofar-frankincense-with-937-accuracy" target="_blank" rel="noopener">omanobserver.om</a> <span class="vf">verified</span></li>
+        <li>Oman Observer. (2026, April 27). <em>Oman’s frankincense exports reach RO 471,400 in 2025</em>. <a href="https://www.omanobserver.om/article/1188620/" target="_blank" rel="noopener">https://www.omanobserver.om/article/1188620/</a></li>
+        <li>UNESCO World Heritage Centre. (2000). <em>Land of Frankincense</em> (World Heritage List No. 1010). <a href="https://whc.unesco.org/en/list/1010/" target="_blank" rel="noopener">https://whc.unesco.org/en/list/1010/</a></li>
+        <li>Al-Harrasi, A., Al-Rawahi, A., &amp; Khan, A. L. (2019). <em>Biology of Genus Boswellia</em>. Springer Nature.</li>
+        <li>Moussaieff, A., &amp; Mechoulam, R. (2009). Boswellia resin: From religious ceremonies to medical uses; a review of in-vitro and in-vivo studies. <em>Journal of Pharmacy and Pharmacology, 61</em>(10), 1281–1293.</li>
+        <li>Safayhi, H., Mack, T., Sabieraj, J., Anazodo, M. I., Subramanian, L. R., &amp; Ammon, H. P. T. (1992). Boswellic acids: Novel, specific, nonredox inhibitors of 5-lipoxygenase. <em>Journal of Pharmacology and Experimental Therapeutics, 261</em>(3), 1143–1146.</li>
+        <li>Reichling, J., et al. (2004). Dietary support with Boswellia resin in canine inflammatory joint and spinal disease. <em>Schweizer Archiv für Tierheilkunde, 146</em>, 71–79. <span class="nv">re-check details</span></li>
+        <li>Arie, E., Rosen, B., &amp; Namdar, D. (2020). Cannabis and frankincense at the Judahite shrine of Arad. <em>Tel Aviv, 47</em>(1), 5–28. <span class="nv">re-check details</span></li>
+        <li><em>Antimicrobial activity of frankincense (Boswellia sacra) oil and smoke against pathogenic and airborne microbes.</em> PubMed ID 37761150. <a href="https://pubmed.ncbi.nlm.nih.gov/37761150/" target="_blank" rel="noopener">pubmed.ncbi.nlm.nih.gov/37761150</a></li>
+      </ol>
+
+      <h4 class="ref-h">Classical, scriptural &amp; historical works</h4>
+      <ol class="refs" start="19">
+        <li>Pliny the Elder. <em>Natural History</em>, Book XII (chs. 32, 65, 83). English translation as hosted at <a href="https://www.attalus.org/pliny/hn12b.html" target="_blank" rel="noopener">attalus.org</a> <span class="vf">verified</span></li>
+        <li>Herodotus. <em>Histories</em>, Book III (on Arabian frankincense and the winged serpents).</li>
+        <li>Casson, L. (1989). <em>The Periplus Maris Erythraei</em>. Princeton University Press.</li>
+        <li id="ref-bible"><em>The Holy Bible</em> (New International Version). (2011). Zondervan. (Exodus 30:34–38; Leviticus 2:1–2; 1 Kings 10:1–10; Matthew 2:11.) Online: <a href="https://www.biblegateway.com/" target="_blank" rel="noopener">BibleGateway</a>.</li>
+        <li id="ref-ibn">Ibn al-Qayyim al-Jawziyya. (1998). <em>Healing with the Medicine of the Prophet (Tibb al-Nabawi)</em> (A. A. al-Razi, Trans.). Dar al-Ghad al-Arabi. <span class="nv">cite exact passage on frankincense</span></li>
+        <li>Groom, N. (1981). <em>Frankincense and Myrrh: A Study of the Arabian Incense Trade</em>. Longman.</li>
+        <li>Miller, A. G., &amp; Morris, M. (1988). <em>Plants of Dhofar: The Southern Region of Oman</em>. Office of the Adviser for Conservation of the Environment, Diwan of Royal Court, Oman.</li>
+      </ol>
+
+      <h4 class="ref-h">Secondary &amp; context sources (images and background only)</h4>
+      <ol class="refs" start="26">
+        <li>Nabataea.net. (n.d.). <em>Al Balid Mosque</em>. <a href="https://nabataea.net/explore/cities_and_sites/al-balid-mosque/" target="_blank" rel="noopener">nabataea.net</a></li>
+        <li>Acaia 61 Studio. (n.d.). <em>Baleed Fortress (Husn) conservation project</em>. <a href="https://www.a61s.it/en/lavori/projects/baleed-fortress-husn/sym_589" target="_blank" rel="noopener">a61s.it</a></li>
+        <li>Garden Design. (n.d.). <em>Frankincense</em>. <a href="https://www.gardendesign.com/holiday/frankincense.html" target="_blank" rel="noopener">gardendesign.com</a> (source of tree and bark images; confirm permissions).</li>
+        <li>Figure “Harvest and grading of <em>B. sacra</em> gum resins”. <a href="https://www.researchgate.net/figure/Harvest-and-grading-of-B-sacra-gum-resins-a-Frankincense-tree-incision-and-tears-b_fig1_270529855" target="_blank" rel="noopener">ResearchGate</a> <span class="nv">identify original publication</span></li>
       </ol>
     </div>
   </div>
@@ -2559,6 +2692,9 @@
 </div>
 
 <script>
+const REDUCED_MOTION = !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
+const FINE_POINTER = !!(window.matchMedia && window.matchMedia('(pointer:fine)').matches);
+
 /* ============================================================
    0 · LAYMAN SIMPLE SUMMARY SYSTEM (PURPLE STAR)
    ============================================================ */
@@ -2566,24 +2702,24 @@ const LAYMAN_DATA = {
   origin: {
     title: "🔍 Origin & Discovery — Plain English",
     body: `
-      <p><strong>What's the big deal?</strong> People have been collecting and trading frankincense for a <em>really</em> long time — like 8,000 years. The first evidence comes from ancient pottery and incense burners found in Oman and Yemen, showing that nomads were harvesting this resin around <strong>6000–5000 BCE</strong>.</p>
-      <p><strong>Why does it matter?</strong> This resin wasn't just a nice smell — it was a sacred substance used in temples, in mummification, and as a luxury good. It was so valuable that ancient Egyptians sent a whole expedition to collect living frankincense trees and bring them back to Egypt. Queen Hatshepsut's temple walls show pictures of these trees being carried in baskets!</p>
-      <p><strong>Who wrote about it?</strong> Ancient writers like Herodotus and Pliny the Elder wrote about frankincense, describing the dangerous desert trade routes and how it was worth more than gold by weight. The Roman Emperor Nero even burned a whole year's harvest at a funeral.</p>
-      <p><em>In short:</em> Frankincense is one of the oldest and most valuable luxury goods in human history, and it all comes from the Dhofar region of Oman.</p>
+      <p><strong>What's the big deal?</strong> People in southern Arabia have used frankincense for a very long time. Exactly <em>when</em> it began is not firmly known; a date around 6000 BCE is often quoted, but it is an estimate.</p>
+      <p><strong>What do we know for sure?</strong> Ancient Egyptians sent an expedition to a land called <strong>Punt</strong> (its location is debated) and carved pictures of incense trees being carried in baskets on Queen Hatshepsut's temple. Later, ports such as Sumhuram (Khor Rori) and Al-Baleed in Dhofar exported frankincense across the Indian Ocean.</p>
+      <p><strong>Who wrote about it?</strong> The Roman writer Pliny the Elder described a camel route of <strong>65 stages</strong> from Thomna to Gaza and listed frankincense prices of 3–6 denarii per pound. "Worth more than gold" is a popular saying; Pliny himself does not compare the two.</p>
+      <p><em>In short:</em> Frankincense is one of the oldest and most prized aromatics in history, and Dhofar in Oman is one of its famous sources.</p>
     `
   },
   resin: {
-    title: "🌳 One Tree, Four Grades — Plain English",
+    title: "🌳 One Species, Four Grades — Plain English",
     body: `
-      <p><strong>The surprising truth:</strong> All four types of frankincense resin — Hojari, Najdi, Shathari, and Shaabi — come from the <em>exact same species of tree</em> (<em>Boswellia sacra</em>). The trees are genetically identical. So why do the resins look and smell different?</p>
-      <p><strong>It's all about location, location, location.</strong> The microclimate where each tree grows changes the chemistry of its resin. Think of it like wine — the same grape varietal grown in different regions makes different-tasting wines. Here, it's called "terroir."</p>
+      <p><strong>The surprising part:</strong> The four trade grades — Hojari, Najdi, Shathari and Shaabi — are all described as coming from the <em>same species</em> (<em>Boswellia sacra</em>). So why do they look and smell different?</p>
+      <p><strong>Place, timing and handling all matter.</strong> The microclimate where a tree grows changes its resin chemistry, much as growing region changes wine. Harvest timing, how the tree is tapped, and how the resin is sorted also shape the grade. Whether genetic differences between populations play a part is still an open question.</p>
       <ul>
-        <li><strong>Hojari (green):</strong> Grows high in the mountains where it's super dry and stressful for the tree. The stress produces a translucent green resin with a clean, minty-incense aroma.</li>
-        <li><strong>Najdi (amber):</strong> Grows on a hot desert plateau. The heat produces more fruity, citrusy compounds.</li>
-        <li><strong>Shathari (golden):</strong> Grows in dry wadis (valleys) with moderate rainfall. The resin is golden and has bright citrus notes.</li>
-        <li><strong>Shaabi (dark):</strong> Grows near the coast where it gets lots of monsoon fog. The tree produces more resin but it's darker and woodier.</li>
+        <li><strong>Hojari (green):</strong> Associated with high, dry mountain sites. Pale, translucent, green-tinted tears.</li>
+        <li><strong>Najdi (amber):</strong> From the hot desert plateau; described as more citrusy.</li>
+        <li><strong>Shathari (golden):</strong> From dry valleys in the north-west; golden with bright citrus notes.</li>
+        <li><strong>Shaabi (dark):</strong> From the misty coastal escarpment; darker and woodier.</li>
       </ul>
-      <p><em>So the next time you see a fancy frankincense label, remember: it's the same tree, just a different neighborhood.</em></p>
+      <p><em>Zone details are indicative summaries, not exact boundaries.</em></p>
     `
   },
   archaeology: {
@@ -2604,28 +2740,26 @@ const LAYMAN_DATA = {
   biomarkers: {
     title: "🔬 Biomarkers — Plain English",
     body: `
-      <p><strong>What are biomarkers?</strong> Think of them as chemical "fingerprints." Scientists use advanced machines (like a GC-MS) to detect specific molecules that prove whether a sample is real frankincense or something fake.</p>
-      <p><strong>Which molecules matter?</strong> Two key ones are <strong>incensole</strong> and <strong>incensole acetate</strong>. These are found only in certain <em>Boswellia</em> species. Another important one is <strong>AKBA</strong> (a type of boswellic acid) — this is the compound that gives frankincense its anti-inflammatory properties and it can survive in archaeological samples for thousands of years.</p>
-      <p><strong>Why is this useful?</strong> Because it lets archaeologists prove that a residue found in an ancient pot or altar really <em>is</em> frankincense — not just some random tree sap. It's like finding DNA at a crime scene, but for ancient trade goods.</p>
-      <p><em>In short: biomarkers are the CSI tools of archaeology, letting us identify ancient frankincense with certainty.</em></p>
+      <p><strong>What are biomarkers?</strong> Chemical "fingerprints". Machines such as GC-MS can detect particular molecules that help show whether a sample is frankincense.</p>
+      <p><strong>Which molecules?</strong> <strong>Incensole</strong> and <strong>incensole acetate</strong> are typical of some <em>Boswellia</em> species (especially <em>B. papyrifera</em>). <strong>AKBA</strong> is a boswellic acid studied for its biological activity. Which markers are present depends on the species and the sample.</p>
+      <p><strong>Why is this useful?</strong> It can help archaeologists and traders check what a residue or product really contains.</p>
+      <p><em>In short: chemical markers are clues, and are strongest when several point the same way.</em></p>
     `
   },
   paleoclimate: {
     title: "🌪️ Paleoclimate Proxies — Plain English",
     body: `
-      <p><strong>What's a paleoclimate proxy?</strong> It's a natural "thermometer" or "rain gauge" that records past climate conditions. In this case, scientists look at the chemical composition of fossilized resin and tree rings.</p>
-      <p><strong>How does it work?</strong> Trees absorb different types of carbon and oxygen atoms depending on how stressed they are by drought. When a tree is water-stressed, it locks in a different ratio of <strong>carbon isotopes (δ¹³C)</strong> and <strong>oxygen isotopes (δ¹⁸O)</strong>. These ratios stay frozen in the resin and wood for thousands of years.</p>
-      <p><strong>What have we learned?</strong> By analyzing these isotopes in ancient frankincense samples, scientists can reconstruct when there were severe droughts, when the monsoon was weak, and how the climate shifted over the past 6,000 years. This helps us understand how ancient trade routes were affected by climate — and what might happen in the future.</p>
-      <p><em>Think of it as reading the tree's "diary" of hard times, written in atoms.</em></p>
+      <p><strong>What's a proxy?</strong> A natural "rain gauge" or "thermometer" that records past conditions.</p>
+      <p><strong>How could it work?</strong> Plants take up slightly different forms of carbon and oxygen depending on how dry the air and soil are. Those ratios (δ¹³C and δ¹⁸O) are widely used in other plants to reconstruct past droughts.</p>
+      <p><strong>What's the catch?</strong> A published, dated climate record from frankincense resin or wood is not cited in this atlas, so the chart is only a concept sketch.</p>
     `
   },
   thermal: {
     title: "🔥 Thermal Oxidation Products — Plain English",
     body: `
-      <p><strong>What happens when you burn resin?</strong> When frankincense is burned in a ritual or ceremony, the heat changes its chemistry. Some molecules get "oxidized" — they combine with oxygen to form new compounds.</p>
-      <p><strong>Why does this matter?</strong> One specific compound called <strong>incensole oxide</strong> is formed only when frankincense is burned. So if archaeologists find incensole oxide in an ancient incense burner, they know for sure that someone actually burned incense there — not just stored it or spilled it.</p>
-      <p><strong>It's like finding a toast crumb instead of bread.</strong> The burnt toast (incensole oxide) proves the bread (frankincense) was actually used for its intended purpose.</p>
-      <p><em>This gives us direct physical evidence of ancient religious rituals!</em></p>
+      <p><strong>What happens when you burn resin?</strong> Heat changes some molecules, creating new compounds such as <strong>incensole oxide</strong>.</p>
+      <p><strong>Why does it matter?</strong> Finding heat-altered compounds in an ancient incense burner can support the idea that incense was burned there, rather than only stored.</p>
+      <p><em>It is supporting evidence, not absolute proof.</em></p>
     `
   },
   genome: {
@@ -2651,41 +2785,37 @@ const LAYMAN_DATA = {
   microbiome: {
     title: "🦠 Microbiome — Plain English",
     body: `
-      <p><strong>What's a microbiome?</strong> It's the community of tiny organisms — bacteria and fungi — that live around and inside a tree's roots. Think of them as the tree's "invisible helpers."</p>
-      <p><strong>What's the difference between wild and farmed trees?</strong> Wild frankincense trees have a different mix of microbes than cultivated ones. Wild trees are dominated by a fungus group called <strong>Ascomycota</strong> (60%) and bacteria called <strong>Actinobacteria</strong>. Cultivated trees shift to <strong>Basidiomycota</strong> (52%) and <strong>Proteobacteria</strong>.</p>
-      <p><strong>Why does this matter?</strong> The wild microbes produce enzymes that help break down nutrients in poor desert soil, and they make a plant hormone called <strong>IAA</strong> that helps roots grow deeper. These microbial allies are probably why wild trees survive harsh conditions so well.</p>
-      <p><strong>Future application:</strong> Scientists could transplant beneficial microbes into nursery seedlings before planting them in the wild — giving them a "probiotic boost" for survival.</p>
-      <p><em>In short: it's not just the tree — it's the tree plus its invisible microbial partners.</em></p>
+      <p><strong>What's a microbiome?</strong> The community of tiny organisms — bacteria and fungi — living around a tree's roots.</p>
+      <p><strong>What did the study find?</strong> A 2017 study compared wild and cultivated frankincense trees in Oman. Wild trees had more of a fungus group called <strong>Ascomycota</strong> (about 60%) and more <strong>Actinobacteria</strong>. Cultivated trees had more <strong>Basidiomycota</strong> (about 52% in one population) and more <strong>Proteobacteria</strong> and <strong>Acidobacteria</strong>.</p>
+      <p><strong>What about enzymes and hormones?</strong> The study measured <em>higher</em> activity of two soil enzymes and higher levels of the plant hormone IAA in the <strong>cultivated</strong> trees' root zones.</p>
+      <p><em>In short: wild and farmed trees keep different microbial company. What that means for the trees is still unclear.</em></p>
     `
   },
   satellite: {
-    title: "🛰️ AI Satellite — Plain English",
+    title: "🛰️ Satellite Mapping — Plain English",
     body: `
-      <p><strong>What's the challenge?</strong> Counting and monitoring thousands of frankincense trees across the vast Dhofar mountains is impossible on foot. But satellites can see them from space!</p>
-      <p><strong>How does it work?</strong> Very high-resolution satellite images (from WorldView-3) are fed into a <strong>deep learning AI model</strong> — the same kind of AI that recognizes faces in photos. Instead of faces, this AI is trained to recognize individual tree crowns.</p>
-      <p><strong>How accurate is it?</strong> The model achieves <strong>93.7% accuracy</strong> (a Kappa score of 0.87) — meaning it correctly identifies trees almost every time. That's better than most human surveyors could do across such a huge area!</p>
-      <p><strong>What can it detect?</strong> Healthy trees, stressed trees, and dead trees. By comparing images over time, scientists can track seasonal dieback, tapping stress, and where new seedlings are regenerating.</p>
-      <p><em>In short: AI + satellites = the ultimate tree census from space.</em></p>
+      <p><strong>What's the challenge?</strong> Counting frankincense trees across rugged Dhofar on foot is slow.</p>
+      <p><strong>What did the 2026 study do?</strong> It measured how frankincense leaves reflect light and used that "spectral signature" with very high-resolution WorldView-3 satellite images of Wadi Dawkah. A standard method (Spectral Angle Mapper) separated frankincense from other plants with <strong>93.7% overall accuracy</strong>.</p>
+      <p><strong>And the AI?</strong> Separately, deep-learning models were tested to spot individual trees. The best one found trees with 83% precision and 93% recall.</p>
+      <p><em>In short: satellites plus field measurements could make tree surveys faster. The 93.7% figure comes from the spectral method, not the AI.</em></p>
     `
   },
   carbon: {
     title: "💨 Carbon Balance — Plain English",
     body: `
-      <p><strong>What's the carbon cost of resin?</strong> Every time a tree is tapped for resin, it loses stored energy — called <strong>total non-structural carbohydrates (TNC)</strong>. Think of TNC as the tree's "savings account."</p>
-      <p><strong>What happens when you tap too much?</strong> The tree spends its savings faster than it can earn more from photosynthesis. During the dry season, this is especially dangerous because high heat and dry air force the tree to close its pores (stomata) — reducing its ability to make new energy.</p>
-      <p><strong>What does research show?</strong> Trees with smaller leaf areas lose carbon faster and are more vulnerable to "carbon starvation." Over-tapped trees produce fewer viable seeds and eventually lose branches.</p>
-      <p><strong>What's the solution?</strong> The research suggests that trees need <strong>2–3 year rest periods</strong> between tapping cycles to fully recover their energy reserves.</p>
-      <p><em>In short: tapping is like borrowing money from the tree — and you can't overdraw the account forever.</em></p>
+      <p><strong>The idea:</strong> Making resin and healing cuts costs a tree energy. Trees store energy as carbohydrates, a bit like a savings account.</p>
+      <p><strong>The worry:</strong> If tapping is heavy and the weather hot and dry, the tree may not be able to rebuild its reserves quickly. This is a general principle; measured data for <em>B. sacra</em> are not cited here.</p>
+      <p><strong>What is known:</strong> In a related species (<em>B. papyrifera</em>), heavy tapping produced seeds that germinated much less often.</p>
+      <p><em>How long B. sacra needs to rest between tappings is not established in the sources used here.</em></p>
     `
   },
   provenance: {
-    title: "🔍 Provenance AI — Plain English",
+    title: "🔍 Provenance — Plain English",
     body: `
-      <p><strong>What's provenance?</strong> It means "where something came from." For frankincense, this matters a lot — buyers want to know if their resin is genuine Dhofari Hojari or something cheaper from another region.</p>
-      <p><strong>How do scientists trace it?</strong> Each <em>Boswellia</em> species produces a unique blend of chemicals — a "fingerprint." By analyzing the terpenes and other compounds with machines like GC-MS, scientists can tell exactly which species and even which region the resin came from.</p>
-      <p><strong>What are the key markers?</strong> <strong>Isoincensole acetate</strong> is the fingerprint for <em>B. sacra</em> and <em>B. carteri</em> (Arabian/Somali origin). <strong>Incensole</strong> dominates in <em>B. papyrifera</em> (Ethiopian origin).</p>
-      <p><strong>What about AI?</strong> Machine learning models trained on thousands of chemical spectra can identify species and origin with over 95% accuracy — even in mixed samples.</p>
-      <p><em>In short: chemical fingerprints + AI = the "CSI" of the frankincense trade.</em></p>
+      <p><strong>What's provenance?</strong> Where something came from. Buyers often want to know whether resin is genuine and from where.</p>
+      <p><strong>How do scientists check?</strong> Different <em>Boswellia</em> species have different mixtures of chemicals. Instruments like GC-MS can measure them.</p>
+      <p><strong>What about AI?</strong> Machine-learning tools are being explored to read these chemical patterns. No accuracy figure is cited in this atlas.</p>
+      <p><em>In short: chemical fingerprints help, but they are clues, not certificates.</em></p>
     `
   },
   crispr: {
@@ -2750,13 +2880,11 @@ let mapMarkers = {};
 
 (function initMap(){
   const el = document.getElementById('map');
-  if(!el) return;
+  if(!el || typeof L === 'undefined'){ if(el) el.innerHTML = '<p style="padding:24px;color:#8b98ab">The satellite map could not load (check your internet connection).</p>'; return; }
 
   map = L.map(el, { 
     scrollWheelZoom: true, 
     zoomControl: true,
-    pitch: 55,
-    maxPitch: 85,
     zoomSnap: 0.5,
     zoomDelta: 0.5
   }).setView([20, 48], 4);
@@ -2843,13 +2971,10 @@ let mapMarkers = {};
       div.innerHTML = '<a href="#" title="Toggle 3D tilt view" style="font-size:18px; display:grid; place-items:center; width:34px; height:34px; background:rgba(8,9,11,.9); color:#d4af37; border:1px solid #d4af37; border-radius:4px; text-decoration:none;">⛰️</a>';
       div.onclick = (e) => {
         e.preventDefault();
-        if (map.options.pitch === 55) {
-          map.setPitch(0);
-          map.setBearing(0);
-        } else {
-          map.setPitch(60);
-          map.setBearing(45);
-        }
+        e.stopPropagation();
+        const stage = document.getElementById('mapStage');
+        stage.classList.toggle('tilted');
+        setTimeout(() => map.invalidateSize(), 900);
       };
       return div;
     }
@@ -2869,7 +2994,7 @@ function initTerroirMap() {
     return;
   }
   const el = document.getElementById('terroirMap');
-  if(!el) return;
+  if(!el || typeof L === 'undefined') return;
 
   terroirMap = L.map(el, {
     scrollWheelZoom: false,
@@ -2996,7 +3121,7 @@ const LANDMARK_DETAILS = {
     emoji: '🧱',
     color: '#3498db',
     text: `<b>Historical Significance:</b> Enclosed the landward borders of ancient Zafar to defend against hostile desert raids.<br><br>
-    <b>Architectural Features:</b> Built with reinforced limestone blocks, 4 semi-circular watchtowers, and a flooded moat connected to the Khor lagoon.<br><br>
+    <b>Architectural Features:</b> Built with reinforced limestone blocks, watchtowers, and a flooded moat connected to the Khor lagoon.<br><br>
     <b>Source Reference:</b> UNESCO Land of Frankincense Archives No. 1010.`
   },
   4: {
@@ -3005,7 +3130,7 @@ const LANDMARK_DETAILS = {
     color: '#2ecc71',
     text: `<b>Historical Significance:</b> Served as the natural sheltered deep-water harbor connecting Southern Arabia to India, China, and Africa.<br><br>
     <b>Maritime Fleet (Including 4.1 Sambuk / Dhow):</b> Accommodated traditional Omani vessels such as the <strong>Ghanja</strong>, <strong>Baghla</strong>, and the <strong>4.1 Sambuk Dhow</strong> which transported sacks of frankincense across the Indian Ocean.<br><br>
-    <b>Source Reference:</b> <a href="https://www.tripadvisor.com/Attraction_Review-g298419-d4131236-Reviews-Museum_of_the_Frankincense_Land-Salalah_Dhofar_Governorate.html" target="_blank" style="color:var(--gold);">Museum of the Frankincense Land</a> &amp; <a href="https://www.facebook.com/OmanPocketGuide/posts/salalah-land-of-frankincense-museumthe-land-of-frankincense-museum-which-is-loca/941623885908556/" target="_blank" style="color:var(--gold);">Oman Pocket Guide</a>.`
+    <b>Source Reference:</b> <a href="https://whc.unesco.org/en/list/1010/" target="_blank" style="color:var(--gold);">UNESCO World Heritage Centre — Land of Frankincense</a>.`
   }
 };
 
@@ -3060,7 +3185,7 @@ function tryBuildResin(){
   const controls = new THREE.OrbitControls(camera, renderer.domElement);
   controls.enableDamping = true;
   controls.dampingFactor = 0.1;
-  controls.autoRotate = true;
+  controls.autoRotate = !REDUCED_MOTION;
   controls.autoRotateSpeed = 1.4;
   controls.minDistance = 3;
   controls.maxDistance = 9;
@@ -3160,6 +3285,7 @@ MODAL_TRIGGER.resin = () => {
     requestAnimationFrame(() => {
       tryBuildResin();
       initTerroirMap();
+      buildTerroir3D();
       if(resinScene) setTimeout(() => resinScene.resize(), 150);
     });
   });
@@ -3173,35 +3299,35 @@ MODAL_TRIGGER.resin = () => {
    4 · TIMELINE — with interactive 3D map & symbolism
    ============================================================ */
 const EVENTS = [
-  { emoji:'🌿', when:'c. 6000 BCE', short:'Routes begin', color:'#8b98ab',
-    who:'Neolithic pastoral nomads of southern Arabia',
-    what:'Long-distance routes established; frankincense begins moving north.',
+  { emoji:'🌿', when:'Earliest use (debated)', short:'Prehistory', color:'#8b98ab',
+    who:'Prehistoric communities of southern Arabia',
+    what:'Frankincense use begins in prehistory. The often-quoted c. 6000 BCE is an estimate, not an established date.',
     where:'Dhofar → southern Arabia',
-    why:'Ritual and elite demand along pastoral paths.', cite:'UNESCO, n.d.',
+    why:'Ritual, medicinal and elite demand.', cite:'Date estimates vary; see Sources',
     mapCenter:[17.0,54.1], mapZoom:7,
-    symbolism:'🌿🌍', symbolLabel:'Neolithic trade beginnings',
-    mapLabel:'Neolithic Trade Beginnings · c. 6000 BCE',
+    symbolism:'🌿🌍', symbolLabel:'Prehistoric use',
+    mapLabel:'Earliest use · date debated',
     mapLabelColor:'#8b98ab' },
-  { emoji:'✍️', when:'c. 3200 BCE', short:'Writing & scale', color:'#7f8c8d',
-    who:'Dhofari harvesters; southern Mesopotamian consumers',
-    what:'Writing appears; trade volume rises sharply.',
-    where:'Dhofar → southern Mesopotamia',
-    why:'Temple ritual; frankincense equated with gold.', cite:'UNESCO, n.d.',
+  { emoji:'✍️', when:'c. 3200 BCE', short:'Writing appears', color:'#7f8c8d',
+    who:'Early Mesopotamian scribes and traders',
+    what:'Writing appears in Mesopotamia. How large any contemporary incense trade from Arabia was is uncertain.',
+    where:'Southern Mesopotamia',
+    why:'Context: later written sources document incense use.', cite:'Interpretive context; source needed',
     mapCenter:[25.0,50.0], mapZoom:5,
-    symbolism:'✍️🏛️', symbolLabel:'Writing & trade expansion',
-    mapLabel:'Writing & Trade Expansion · c. 3200 BCE',
+    symbolism:'✍️🏛️', symbolLabel:'Early writing',
+    mapLabel:'Early writing · c. 3200 BCE',
     mapLabelColor:'#7f8c8d' },
-  { emoji:'🕎', when:'c. 1440 BCE', short:'Ketoret', color:'#9b59b6',
-    who:'Prophet Musa (Moses); the Israelites',
+  { emoji:'🕎', when:'c. 1440 BCE (traditional)', short:'Ketoret', color:'#9b59b6',
+    who:'Moses (Musa); the Israelites',
     what:'A sacred incense containing pure frankincense is commanded for the Tabernacle.',
     where:'Sinai · Tabernacle',
-    why:'Worship reserved to God alone; frankincense set apart as holy.', cite:'Exodus 30:34–38',
+    why:'Worship reserved to God alone; frankincense set apart as holy.', cite:'Exodus 30:34–38 (traditional dating)',
     mapCenter:[28.5,34.0], mapZoom:7,
     symbolism:'🕎✨', symbolLabel:'Sacred Ketoret incense',
     mapLabel:'Sacred Ketoret Incense · c. 1440 BCE',
     mapLabelColor:'#9b59b6' },
-  { emoji:'👑', when:'c. 950 BCE', short:'Sheba', color:'#8e44ad',
-    who:'Queen of Sheba (Bilqis); Prophet Sulaiman',
+  { emoji:'👑', when:'c. 950 BCE (traditional)', short:'Sheba', color:'#8e44ad',
+    who:'Queen of Sheba; King Solomon (Sulaiman)',
     what:'Royal gifts of frankincense and spices travel from Southern Arabia to Jerusalem.',
     where:'Southern Arabia → Jerusalem',
     why:'Diplomacy and prestige.', cite:'1 Kings 10:1–10',
@@ -3211,15 +3337,15 @@ const EVENTS = [
     mapLabelColor:'#8e44ad' },
   { emoji:'⚓', when:'c. 300 BCE–2nd c. CE', short:'Ports flourish', color:'#d4af37',
     who:'Hadrami state of Shabwa; Sumhuram traders',
-    what:'Khor Rori and Al-Baleed flourish; caravans reach Petra and Gaza.',
-    where:'Khor Rori · Al-Baleed · Shabwa · Petra · Gaza',
-    why:'Mediterranean temple and funerary demand.', cite:'UNESCO, n.d.',
+    what:'Sumhuram (Khor Rori) is founded and operates as a frankincense port; caravans reach Petra and Gaza.',
+    where:'Khor Rori · Shabwa · Petra · Gaza',
+    why:'Mediterranean temple and funerary demand.', cite:'UNESCO, 2000',
     mapCenter:[20.0,45.0], mapZoom:5,
     symbolism:'⚓🚢', symbolLabel:'Maritime incense ports',
     mapLabel:'Maritime Incense Ports · c. 300 BCE–2nd c. CE',
     mapLabelColor:'#d4af37' },
-  { emoji:'⭐', when:'c. 5 BCE', short:'Magi', color:'#e74c3c',
-    who:'Wise Men from the East; the infant ‘Isa',
+  { emoji:'⭐', when:'c. 5 BCE (traditional)', short:'Magi', color:'#e74c3c',
+    who:'Wise Men from the East; the child Jesus (‘Isa)',
     what:'Gold, frankincense and myrrh are brought to Bethlehem.',
     where:'Bethlehem, Judaea',
     why:'Kingship, divine priesthood, and sacrifice.', cite:'Matthew 2:11',
@@ -3229,36 +3355,36 @@ const EVENTS = [
     mapLabelColor:'#e74c3c' },
   { emoji:'🔥', when:'1st c. CE', short:'More than gold', color:'#c0392b',
     who:'Roman Empire; Nabataean and South Arabian traders',
-    what:'High-grade Dhofari frankincense trades weight-for-weight above gold; Nero burns a year’s harvest.',
+    what:'Frankincense is a prized luxury in Rome. Pliny lists prices of 3–6 denarii per pound and describes a 65-stage route from Thomna to Gaza.',
     where:'Rome · Arabia',
-    why:'Scarcity, guarded monopoly, 62-day caravan.', cite:'Pliny, Natural History 12.30–32',
+    why:'Scarcity, tolls along a long caravan route, and heavy ritual demand.', cite:'Pliny, Natural History 12.32, 12.65',
     mapCenter:[38.0,25.0], mapZoom:4,
-    symbolism:'🔥🏛️', symbolLabel:'Worth more than gold',
-    mapLabel:'Worth More Than Gold · 1st c. CE',
+    symbolism:'🔥🏛️', symbolLabel:'A prized luxury',
+    mapLabel:'A Prized Luxury · 1st c. CE',
     mapLabelColor:'#c0392b' },
-  { emoji:'🕌', when:'7th–13th c. CE', short:'Islamic port', color:'#2ecc71',
+  { emoji:'🕌', when:'8th–16th c. CE', short:'Al-Baleed', color:'#2ecc71',
     who:'Omani and Indian Ocean merchants',
-    what:'Al-Baleed flourishes as a frankincense port.',
+    what:'Al-Baleed (Zafar) flourishes as a frankincense port.',
     where:'Al-Baleed, Dhofar',
-    why:'Monsoon trade; Islamic ritual and perfume demand.', cite:'UNESCO, n.d.',
+    why:'Monsoon trade; Islamic ritual and perfume demand.', cite:'UNESCO, 2000',
     mapCenter:[17.0,54.1], mapZoom:9,
     symbolism:'🕌🌙', symbolLabel:'Islamic maritime trade',
-    mapLabel:'Islamic Maritime Trade · 7th–13th c. CE',
+    mapLabel:'Islamic Maritime Trade · 8th–16th c. CE',
     mapLabelColor:'#2ecc71' },
-  { emoji:'📏', when:'1930s–1970s', short:'Grading codified', color:'#3498db',
+  { emoji:'📏', when:'20th century (date needs source)', short:'Trade grades', color:'#3498db',
     who:'Dhofari harvesting families; Salalah traders',
-    what:'Four commercial grades codified.',
+    what:'Traditional trade categories (Hojari, Najdi, Shathari, Shaabi) are described in the modern literature. When they were formalised is not sourced here.',
     where:'Salalah · Samhan · Nejd',
     why:'Market price differentiation.', cite:'Al-Harrasi et al., 2019',
     mapCenter:[17.0,54.1], mapZoom:9,
     symbolism:'📏💎', symbolLabel:'Commercial grading',
-    mapLabel:'Commercial Grading Codified · 1930s–1970s',
+    mapLabel:'Trade Grades · 20th c.',
     mapLabelColor:'#3498db' },
   { emoji:'🏛️', when:'2000', short:'UNESCO listing', color:'#16a085',
     who:'UNESCO and the Sultanate of Oman',
     what:'Land of Frankincense inscribed as a World Heritage Site.',
     where:'Wadi Dawkah · Shisr · Khor Rori · Al-Baleed',
-    why:'Heritage protection; conservation.', cite:'UNESCO, n.d.',
+    why:'Heritage protection; conservation.', cite:'UNESCO, 2000',
     mapCenter:[17.5,54.0], mapZoom:8,
     symbolism:'🏛️🌍', symbolLabel:'UNESCO World Heritage',
     mapLabel:'UNESCO World Heritage Listing · 2000',
@@ -3272,14 +3398,14 @@ const EVENTS = [
     symbolism:'🔬🧪', symbolLabel:'Modern scientific validation',
     mapLabel:'Modern Scientific Validation · 2010s–2020s',
     mapLabelColor:'#2980b9' },
-  { emoji:'⚠️', when:'2020s', short:'Red List risk', color:'#e67e22',
-    who:'IUCN; harvesters in the Horn of Africa and Arabia',
-    what:'Several Boswellia species upgraded to Endangered.',
+  { emoji:'⚠️', when:'1998 · 2024 drafts · 2025', short:'Conservation', color:'#e67e22',
+    who:'IUCN; researchers in Oman',
+    what:'B. sacra is listed Near Threatened (1998). Draft assessments rate B. papyrifera and B. frereana Vulnerable. A 2025 Oman survey found regeneration and no widespread decline.',
     where:'Horn of Africa · southern Arabia',
-    why:'Overharvesting and habitat pressure.', cite:'Oman Observer, 2026',
+    why:'Over-harvesting, grazing and habitat pressure vary by place.', cite:'RBGE review; Johnson et al., 2025',
     mapCenter:[10.0,45.0], mapZoom:5,
-    symbolism:'⚠️🌡️', symbolLabel:'Conservation alert',
-    mapLabel:'Conservation Alert · 2020s',
+    symbolism:'⚠️🌡️', symbolLabel:'Conservation status',
+    mapLabel:'Conservation Status',
     mapLabelColor:'#e67e22' },
   { emoji:'🚢', when:'2025–2026', short:'RO 471,400', color:'#27ae60',
     who:'Omani exporters',
@@ -3354,6 +3480,7 @@ const EVENTS = [
           return;
         }
       }
+      if (typeof L === 'undefined') return;
       const miniMap = L.map(mapEl, {
         zoomControl: false,
         attributionControl: false,
@@ -3425,7 +3552,8 @@ function buildSmellChart(){
       responsive: true, maintainAspectRatio: false,
       plugins: {
         legend: { position:'bottom', labels:{ font:{ family:"'Plus Jakarta Sans',sans-serif", size:11 }, boxWidth:12, padding:14, color:'#e2e8f0', usePointStyle:true } },
-        tooltip: { callbacks: { label: c => c.dataset.label + ': ' + c.raw + '/10' } }
+        title: { display:true, text:'Illustrative sensory profile — not measured data', color:'#8b98ab', font:{ size:11 } },
+        tooltip: { callbacks: { label: c => c.dataset.label + ': ' + c.raw + '/10 (illustrative)' } }
       },
       scales: {
         r: {
@@ -3459,13 +3587,13 @@ function buildIsotopeChart(){
     data: {
       labels: ['6000 BCE', '4000 BCE', '2000 BCE', '0 CE', '1000 CE', '2026 CE'],
       datasets: [
-        { label: 'δ13C Stomatal Stress Proxy (‰)', data: [-26.2, -25.5, -24.1, -23.8, -24.5, -23.2], borderColor: '#3498db', tension: 0.3, fill: false },
-        { label: 'δ18O Evaporative Enrichment (‰)', data: [22.1, 23.4, 25.8, 26.2, 25.1, 27.4], borderColor: '#e74c3c', tension: 0.3, fill: false }
+        { label: 'δ13C (illustrative values)', data: [-26.2, -25.5, -24.1, -23.8, -24.5, -23.2], borderColor: '#3498db', tension: 0.3, fill: false },
+        { label: 'δ18O (illustrative values)', data: [22.1, 23.4, 25.8, 26.2, 25.1, 27.4], borderColor: '#e74c3c', tension: 0.3, fill: false }
       ]
     },
     options: {
       responsive: true, maintainAspectRatio: false,
-      plugins: { legend: { position: 'bottom', labels: { color: '#e2e8f0' } } },
+      plugins: { legend: { position: 'bottom', labels: { color: '#e2e8f0' } }, title: { display:true, text:'Concept sketch — not measured data', color:'#8b98ab', font:{ size:11 } } },
       scales: {
         x: { grid: { color: 'rgba(255,255,255,0.1)' }, ticks: { color: '#8b98ab' } },
         y: { grid: { color: 'rgba(255,255,255,0.1)' }, ticks: { color: '#8b98ab' } }
@@ -3490,8 +3618,9 @@ const GRADE_INFO = {
     emoji:'🟢', color:'#2ecc71', title:'Hojari (Hoojri) · Grade 1',
     rows: [
       { k:'Rank', v:'<strong>First grade</strong> — considered the reference quality.' },
+      { k:'Naming', v:'Also spelled <em>Hojari</em>, <em>Hougari</em> or <em>Hoojri</em>. Some sources use “Hojari” for a family of quality tiers (Royal, Superior, Regular) rather than a single regional category.' },
       { k:'Microclimate & Terroir', v:'High altitude (800m–1500m) in Jebel Samhan. Extremely dry fog-shadow desert environment with intense sun stress and cold winter nights.' },
-      { k:'Appearance', v:'Pale, translucent, green-tinted tears; large clumps. Best lots reach prices multiplied by five relative to common qualities.' },
+      { k:'Appearance', v:'Pale, translucent, green-tinted tears; large clumps.' },
       { k:'Where harvested', v:'Samhan mountains north of Dhofar, Oman.' },
       { k:'Chemistry', v:'High (+)-α-pinene → minty-turpentine lift; moderate limonene for citrus.' },
       { k:'Aroma profile', v:'Resinous / incense (dominant, clean, sacred) · minty-turpentine · moderate citrus · restrained woody-sweet.' },
@@ -3561,6 +3690,276 @@ function openGradeInfo(key){
 document.querySelectorAll('.grade-card[data-info]').forEach(c => {
   c.addEventListener('click', () => openGradeInfo(c.dataset.info));
 });
+
+/* ============================================================
+   7 · v2 ADDITIONS — themed navigation & 3D effects
+   ============================================================ */
+
+/* 7.2 Pointer-driven 3D tilt on cards (mouse / pen only) */
+(function initTilt(){
+  if(REDUCED_MOTION || !FINE_POINTER) return;
+  const SEL = '.opt-btn,.grade-card,.stat,.health-card,.info,.climate-card';
+  let cur = null, raf = 0, last = null;
+  function reset(el){ if(el){ el.style.transform = ''; el.style.transition = ''; } }
+  document.addEventListener('pointermove', e => {
+    if(e.pointerType === 'touch') return;
+    const el = e.target.closest ? e.target.closest(SEL) : null;
+    if(el !== cur){ reset(cur); cur = el; if(el) el.style.transition = 'transform .12s ease-out, box-shadow .3s, border-color .3s, background .3s'; }
+    if(!el) return;
+    last = e;
+    if(raf) return;
+    raf = requestAnimationFrame(() => {
+      raf = 0;
+      if(!cur || !last) return;
+      const r = cur.getBoundingClientRect();
+      const px = (last.clientX - r.left) / r.width - .5;
+      const py = (last.clientY - r.top) / r.height - .5;
+      const max = cur.matches('.opt-btn,.stat') ? 11 : 4.5;
+      cur.style.transform = `perspective(900px) rotateX(${(-py*max).toFixed(2)}deg) rotateY(${(px*max).toFixed(2)}deg) translateY(-3px)`;
+    });
+  }, {passive:true});
+  document.documentElement.addEventListener('mouseleave', () => { reset(cur); cur = null; });
+})();
+
+/* 7.3 Hero: drifting incense smoke (Three.js points) */
+(function initHeroSmoke(){
+  const cv = document.getElementById('heroSmoke');
+  if(!cv || REDUCED_MOTION || typeof THREE === 'undefined') return;
+  let renderer;
+  try{ renderer = new THREE.WebGLRenderer({ canvas: cv, alpha: true, antialias: false }); }catch(e){ cv.style.display = 'none'; return; }
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 1.5));
+  const scene = new THREE.Scene();
+  const cam = new THREE.PerspectiveCamera(50, 2, 0.1, 50);
+  cam.position.z = 8;
+  const c = document.createElement('canvas'); c.width = c.height = 64;
+  const g = c.getContext('2d');
+  const gr = g.createRadialGradient(32,32,0,32,32,32);
+  gr.addColorStop(0,'rgba(255,240,200,.95)'); gr.addColorStop(.4,'rgba(230,198,102,.35)'); gr.addColorStop(1,'rgba(230,198,102,0)');
+  g.fillStyle = gr; g.fillRect(0,0,64,64);
+  const tex = new THREE.CanvasTexture(c);
+  const N = window.innerWidth < 700 ? 55 : 120;
+  const pos = new Float32Array(N*3), seed = new Float32Array(N);
+  for(let i=0;i<N;i++){ pos[i*3]=(Math.random()-.5)*14; pos[i*3+1]=(Math.random()-.5)*8; pos[i*3+2]=(Math.random()-.5)*4; seed[i]=Math.random(); }
+  const geo = new THREE.BufferGeometry();
+  geo.setAttribute('position', new THREE.BufferAttribute(pos,3));
+  const mat = new THREE.PointsMaterial({ map: tex, size: 1.7, transparent: true, opacity: .26, depthWrite: false, blending: THREE.AdditiveBlending });
+  const pts = new THREE.Points(geo, mat);
+  scene.add(pts);
+  function size(){
+    const w = cv.clientWidth, h = cv.clientHeight;
+    if(!w || !h) return;
+    renderer.setSize(w, h, false);
+    cam.aspect = w / h; cam.updateProjectionMatrix();
+  }
+  size(); window.addEventListener('resize', size);
+  let vis = true;
+  if('IntersectionObserver' in window) new IntersectionObserver(es => { vis = es[0].isIntersecting; }).observe(cv);
+  let t = 0;
+  (function loop(){
+    requestAnimationFrame(loop);
+    if(!vis || document.hidden) return;
+    t += .008;
+    const p = geo.attributes.position.array;
+    for(let i=0;i<N;i++){
+      p[i*3+1] += .006 + seed[i]*.006;
+      p[i*3]   += Math.sin(t*1.3 + seed[i]*20) * .003;
+      if(p[i*3+1] > 4.2){ p[i*3+1] = -4.2; p[i*3] = (Math.random()-.5)*14; }
+    }
+    geo.attributes.position.needsUpdate = true;
+    pts.rotation.y = Math.sin(t*.3) * .15;
+    renderer.render(scene, cam);
+  })();
+})();
+
+/* 7.4 Schematic 3D terroir relief */
+let terroir3d = null;
+function buildTerroir3D(){
+  const box = document.getElementById('terroir3d');
+  if(!box || typeof THREE === 'undefined') return;
+  if(terroir3d){ terroir3d.resize(); return; }
+  if(box.clientWidth < 50){ requestAnimationFrame(buildTerroir3D); return; }
+
+  let renderer;
+  try{ renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true }); }
+  catch(e){ box.innerHTML = '<div class="resin-hint" style="position:static;transform:none;margin:20px">3D view needs WebGL, which is not available in this browser.</div>'; return; }
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+  renderer.setSize(box.clientWidth, box.clientHeight);
+  box.appendChild(renderer.domElement);
+
+  const scene = new THREE.Scene();
+  const camera = new THREE.PerspectiveCamera(42, box.clientWidth / box.clientHeight, 0.1, 100);
+  const HOME = { pos: new THREE.Vector3(0.0, 3.4, 5.6), target: new THREE.Vector3(0, 0.25, -0.2) };
+  camera.position.copy(HOME.pos);
+
+  const controls = new THREE.OrbitControls(camera, renderer.domElement);
+  controls.target.copy(HOME.target);
+  controls.enableDamping = true; controls.dampingFactor = 0.08;
+  controls.enablePan = true; controls.screenSpacePanning = false;
+  controls.minDistance = 3; controls.maxDistance = 11;
+  controls.maxPolarAngle = Math.PI * 0.47;
+  controls.update();
+
+  scene.add(new THREE.HemisphereLight(0xcfe4ff, 0x4a3b22, 0.85));
+  const sun = new THREE.DirectionalLight(0xfff0cc, 1.25); sun.position.set(-4, 6, 4); scene.add(sun);
+
+  /* geography -> scene coordinates (schematic) */
+  const LON0 = 54.05, LAT0 = 17.35, XS = 3.2 / 0.85, ZS = 1.8 / 0.5;
+  const toX = lon => (lon - LON0) * XS;
+  const toZ = lat => -((lat - LAT0) * ZS);
+  const sm = (a,b,x) => { const t = Math.min(1, Math.max(0, (x-a)/(b-a))); return t*t*(3-2*t); };
+  function height(lat, lon){
+    let h = 0.04;
+    h -= 0.15 * (1 - sm(16.85, 16.98, lat));                                   // sea floor
+    h += 0.95 * sm(17.02, 17.22, lat);                                          // escarpment
+    h -= 0.55 * sm(17.30, 17.75, lat);                                          // slope to plateau
+    h += 0.22 * sm(54.1, 54.8, lon) * sm(17.05, 17.25, lat) * (1 - sm(17.4, 17.6, lat)); // Samhan higher
+    h += 0.05 * Math.sin(lon*38) * Math.cos(lat*45) + 0.03 * Math.sin(lon*91 + lat*70);
+    return h;
+  }
+  const ZONES = [
+    { key:'hojari',   name:'Hojari',   lat:17.18, lon:54.65, color:0x2ecc71 },
+    { key:'najdi',    name:'Najdi',    lat:17.55, lon:54.05, color:0xf39c12 },
+    { key:'shathari', name:'Shathari', lat:17.40, lon:53.40, color:0xd4af37 },
+    { key:'shaabi',   name:'Shaabi',   lat:17.02, lon:54.10, color:0x9fb3c8 }
+  ];
+
+  /* terrain */
+  const W = 6.4, D = 3.6, SX = 150, SZ = 90;
+  const geo = new THREE.PlaneGeometry(W, D, SX, SZ);
+  const pos = geo.attributes.position;
+  const colors = new Float32Array(pos.count * 3);
+  const cLow = new THREE.Color(0xc9b27a), cGreen = new THREE.Color(0x6f8f4f), cRock = new THREE.Color(0x8a6f4a), cDesert = new THREE.Color(0xd8c08a), cSea = new THREE.Color(0x24607f);
+  const tmp = new THREE.Color();
+  for(let i=0;i<pos.count;i++){
+    const px = pos.getX(i), py = pos.getY(i);
+    const lon = LON0 + (px / 3.2) * 0.85;
+    const lat = LAT0 + (py / 1.8) * 0.5;
+    const h = height(lat, lon);
+    pos.setZ(i, h);
+    if(h < 0.02) tmp.copy(cSea).lerp(cLow, Math.max(0, (h + 0.12) / 0.14));
+    else if(lat < 17.28) tmp.copy(cLow).lerp(cGreen, sm(17.02, 17.14, lat)).lerp(cRock, sm(17.18, 17.28, lat) * 0.7);
+    else tmp.copy(cRock).lerp(cDesert, sm(17.3, 17.7, lat));
+    ZONES.forEach(z => {
+      const d2 = (lat - z.lat) ** 2 + (lon - z.lon) ** 2;
+      const w = Math.exp(-d2 / (2 * 0.1 * 0.1)) * 0.55;
+      if(w > 0.01) tmp.lerp(new THREE.Color(z.color), w);
+    });
+    colors[i*3] = tmp.r; colors[i*3+1] = tmp.g; colors[i*3+2] = tmp.b;
+  }
+  geo.setAttribute('color', new THREE.BufferAttribute(colors, 3));
+  geo.computeVertexNormals();
+  const terrain = new THREE.Mesh(geo, new THREE.MeshStandardMaterial({ vertexColors: true, roughness: 0.95, metalness: 0, flatShading: false }));
+  terrain.rotation.x = -Math.PI / 2;
+  scene.add(terrain);
+
+  const sea = new THREE.Mesh(new THREE.PlaneGeometry(W, D), new THREE.MeshStandardMaterial({ color: 0x1f6f95, transparent: true, opacity: 0.72, roughness: 0.25 }));
+  sea.rotation.x = -Math.PI / 2; sea.position.y = 0.0; scene.add(sea);
+
+  /* labels */
+  function label(text, color, scale){
+    const c = document.createElement('canvas'); c.width = 512; c.height = 128;
+    const g = c.getContext('2d');
+    g.font = '700 54px "Plus Jakarta Sans", sans-serif'; g.textAlign = 'center'; g.textBaseline = 'middle';
+    g.lineWidth = 10; g.strokeStyle = 'rgba(5,7,10,.9)'; g.strokeText(text, 256, 64);
+    g.fillStyle = color; g.fillText(text, 256, 64);
+    const sp = new THREE.Sprite(new THREE.SpriteMaterial({ map: new THREE.CanvasTexture(c), transparent: true, depthTest: false }));
+    sp.scale.set(scale * 2.2, scale * 0.55, 1);
+    sp.renderOrder = 10;
+    return sp;
+  }
+  const hits = [];
+  const rings = [];
+  ZONES.forEach(z => {
+    const x = toX(z.lon), zz = toZ(z.lat), h = Math.max(height(z.lat, z.lon), 0.04);
+    const ring = new THREE.Mesh(new THREE.TorusGeometry(0.26, 0.028, 12, 48), new THREE.MeshBasicMaterial({ color: z.color }));
+    ring.rotation.x = Math.PI / 2; ring.position.set(x, h + 0.03, zz);
+    ring.userData.zone = z.key; scene.add(ring); rings.push(ring); hits.push(ring);
+    const disc = new THREE.Mesh(new THREE.CircleGeometry(0.26, 40), new THREE.MeshBasicMaterial({ color: z.color, transparent: true, opacity: 0.25, depthWrite: false }));
+    disc.rotation.x = -Math.PI / 2; disc.position.set(x, h + 0.025, zz); disc.userData.zone = z.key; scene.add(disc); hits.push(disc);
+    const sp = label(z.name, '#' + z.color.toString(16).padStart(6, '0'), 0.75);
+    sp.position.set(x, h + 0.55, zz); sp.userData.zone = z.key; scene.add(sp); hits.push(sp);
+    const line = new THREE.Line(new THREE.BufferGeometry().setFromPoints([new THREE.Vector3(x, h + 0.03, zz), new THREE.Vector3(x, h + 0.42, zz)]), new THREE.LineBasicMaterial({ color: z.color }));
+    scene.add(line);
+  });
+  const seaLbl = label('Arabian Sea', '#9fd3ee', 0.8); seaLbl.position.set(-1.9, 0.18, toZ(16.9)); scene.add(seaLbl);
+  const salalah = label('Salalah', '#ffffff', 0.55); salalah.position.set(toX(54.09), 0.3, toZ(17.0)); scene.add(salalah);
+  const plateau = label('Nejd plateau → Empty Quarter', '#f3e5ab', 0.9); plateau.position.set(1.6, 0.85, toZ(17.8)); scene.add(plateau);
+
+  /* Khareef fog */
+  const fc = document.createElement('canvas'); fc.width = fc.height = 64;
+  const fg = fc.getContext('2d'); const fgr = fg.createRadialGradient(32,32,0,32,32,32);
+  fgr.addColorStop(0,'rgba(235,245,255,.9)'); fgr.addColorStop(1,'rgba(235,245,255,0)'); fg.fillStyle = fgr; fg.fillRect(0,0,64,64);
+  const FN = window.innerWidth < 700 ? 90 : 220;
+  const fpos = new Float32Array(FN * 3), fseed = new Float32Array(FN);
+  const fogZ0 = toZ(17.3), fogZ1 = toZ(16.95);
+  function seedFog(i, anywhere){
+    fpos[i*3]   = (Math.random() - .5) * W;
+    fpos[i*3+1] = 0.15 + Math.random() * 0.8;
+    fpos[i*3+2] = anywhere ? fogZ0 + Math.random() * (fogZ1 - fogZ0) : fogZ1;
+  }
+  for(let i=0;i<FN;i++){ seedFog(i, true); fseed[i] = Math.random(); }
+  const fgeo = new THREE.BufferGeometry(); fgeo.setAttribute('position', new THREE.BufferAttribute(fpos, 3));
+  const fog = new THREE.Points(fgeo, new THREE.PointsMaterial({ map: new THREE.CanvasTexture(fc), size: 0.75, transparent: true, opacity: 0.4, depthWrite: false }));
+  scene.add(fog);
+  let fogOn = true;
+  const fogBtn = document.getElementById('t3dFog');
+  if(fogBtn) fogBtn.addEventListener('click', () => {
+    fogOn = !fogOn; fog.visible = fogOn;
+    fogBtn.setAttribute('aria-pressed', String(fogOn));
+    fogBtn.textContent = '☁️ Khareef fog: ' + (fogOn ? 'on' : 'off');
+  });
+  const resetBtn = document.getElementById('t3dReset');
+  if(resetBtn) resetBtn.addEventListener('click', () => { camera.position.copy(HOME.pos); controls.target.copy(HOME.target); controls.update(); });
+
+  /* click / tap a zone */
+  const ray = new THREE.Raycaster(), mouse = new THREE.Vector2();
+  let down = null;
+  function pick(e){
+    const r = renderer.domElement.getBoundingClientRect();
+    mouse.set(((e.clientX - r.left) / r.width) * 2 - 1, -((e.clientY - r.top) / r.height) * 2 + 1);
+    ray.setFromCamera(mouse, camera);
+    const hit = ray.intersectObjects(hits, false)[0];
+    return hit ? hit.object.userData.zone : null;
+  }
+  renderer.domElement.addEventListener('pointerdown', e => { down = { x: e.clientX, y: e.clientY }; });
+  renderer.domElement.addEventListener('pointerup', e => {
+    if(!down) return;
+    const moved = Math.hypot(e.clientX - down.x, e.clientY - down.y); down = null;
+    if(moved > 6) return;
+    const z = pick(e);
+    if(z) openGradeInfo(z);
+  });
+  renderer.domElement.addEventListener('pointermove', e => { if(e.pointerType !== 'touch') renderer.domElement.style.cursor = pick(e) ? 'pointer' : ''; });
+
+  function resize(){
+    const w = box.clientWidth, h = box.clientHeight;
+    if(w < 10 || h < 10) return;
+    camera.aspect = w / h; camera.updateProjectionMatrix(); renderer.setSize(w, h);
+  }
+  if('ResizeObserver' in window) new ResizeObserver(resize).observe(box); else window.addEventListener('resize', resize);
+
+  let t = 0;
+  (function loop(){
+    requestAnimationFrame(loop);
+    if(document.hidden || !box.offsetParent) return;
+    t += 0.01;
+    if(fogOn && !REDUCED_MOTION){
+      const p = fgeo.attributes.position.array;
+      for(let i=0;i<FN;i++){
+        p[i*3+2] -= 0.0035 + fseed[i] * 0.003;
+        p[i*3]   += Math.sin(t + fseed[i] * 12) * 0.0015;
+        p[i*3+1] += 0.0006;
+        if(p[i*3+2] < fogZ0 - 0.1 || p[i*3+1] > 1.1){ seedFog(i, false); }
+      }
+      fgeo.attributes.position.needsUpdate = true;
+    }
+    rings.forEach((r, i) => { const s = 1 + 0.06 * Math.sin(t * 2 + i); r.scale.set(s, s, s); });
+    controls.update();
+    renderer.render(scene, camera);
+  })();
+
+  terroir3d = { resize };
+}
 </script>
 </body>
 </html>
