@@ -1,4 +1,4 @@
-# 🌿 Frankincense Atlas & Spatial Matrix (*Boswellia sacra*)
+# 🌿Frankincense Atlas · *Boswellia sacra*
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-gold.svg)](https://opensource.org/licenses/MIT)
 [![Technology](https://img.shields.io/badge/WebGL-Three.js-blue.svg)](https://threejs.org/)
@@ -73,12 +73,4 @@ Built on a **Zero-API, Single-File Client-Side Design Stack**:
 ## 👤 Designer & Author
 
 **Asia Khan**  
-*Behavioral UX Researcher, 3D Spatial Architect & Instructional Designer*  
-Salalah, Dhofar Governorate, Sultanate of Oman  
-🌐 GitHub: [@khan34535-sudo](https://github.com/khan34535-sudo)  
-📧 Email: [asiaaamirkhan@outlook.com](mailto:asiaaamirkhan@outlook.com)  
-🌐 Web Application: [Frankincense Atlas & Spatial Matrix](https://khan34535-sudo.github.io/Frankincense-Atlas-Spatial-Matrix/)
-
----
-*MIT License © 2026 Asia Khan. Open for design review, academic exchange, and institutional collaboration.*  
-**All rights reserved.**
+*Behavioral UX Researcher, 3D Spatial
